@@ -1,0 +1,154 @@
+﻿<%@ CodeTemplate Src="common.cs"  Inherits="Common.CommonSqlCode" Language="C#" 
+TargetLanguage="Java" Description="NetTiers main template." Debug="True" ResponseEncoding="UTF-8"%>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="Common" %>
+
+<%@ Property Name="package" Type="String" Category="2.项目"  Default=""   Description="包名，输入com.cse.sherp" %>		
+<%@ Property Name="author" Type="String" Category="1.版权信息"   Description="作者"  Optional="True" Default="ZhengChao"  %>
+<%@ Property Name="email" Type="String" Category="1.版权信息"  Description="作者的Email" Optional="True"  Default="zhengchao730@163.com" %>
+
+<%@ Property Name="SrcTable" Type="SchemaExplorer.TableSchema" Category="3.当前要做的表"  Description="当前要做的表" %>
+
+ 
+	
+package <%=package%>.ctrl;
+
+import java.util.Map;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.capuccino.tulip.bean.Paged;
+import com.capuccino.tulip.exception.MysqlDBException;
+import <%=package%>.dao.po.<%=getTableJavaFirstUpperName(SrcTable.Name)%>Bean;
+import <%=package%>.service.<%=getTableJavaFirstUpperName(SrcTable.Name)%>Service;
+import <%=package%>.util.ajax.Response;
+import <%=package%>.util.ajax.ResponseFactory;
+
+
+@Controller
+@RequestMapping("/<%=getTableJavaFirstUpperName(SrcTable.Name)%>") 
+public class <%=getTableJavaFirstUpperName(SrcTable.Name)%>Ctrl {
+
+	@Autowired
+	private <%=getTableJavaFirstUpperName(SrcTable.Name)%>Service <%=getTableJavaFirstLowerName(SrcTable.Name)%>Service;
+	
+	@RequestMapping(value ="/queryPage<%=getTableJavaFirstUpperName(SrcTable.Name)%>")
+	@ResponseBody
+	public Response<List<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO>> queryPage<%=getTableJavaFirstUpperName(SrcTable.Name)%>(Integer page,Integer limit,HttpServletRequest request){
+		Response<List<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO>> response = ResponseFactory.getDefaultSuccessResponse();
+		Paged<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> <%=getTableJavaFirstLowerName(SrcTable.Name)%>s = null;
+		
+		<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO condition=new <%=getTableJavaFirstUpperName(SrcTable.Name)%>PO();
+		<%foreach(ColumnSchema t1 in SrcTable.Columns){%>  
+        String <%=getPropertiesName(t1.Name)%> = request.getParameter("<%=getTableJavaFirstLowerName(SrcTable.Name)%>_<%=getPropertiesName(t1.Name)%>");
+		if(!ObjectUtil.isEmpty(<%=getPropertiesName(t1.Name)%>)) condition.<%=getPropertiesXXXname(t1.Name,"set")%>(<%=getPropertiesJavaType(t1)%>.valueOf(<%=getPropertiesName(t1.Name)%>));
+    <%}%>
+	
+		try {
+			<%=getTableJavaFirstLowerName(SrcTable.Name)%>s = <%=getTableJavaFirstLowerName(SrcTable.Name)%>Service.queryPage<%=getTableJavaFirstUpperName(SrcTable.Name)%>(page,limit,condition);
+		} catch (MysqlDBException e) {
+			e.printStackTrace();
+			response.setError("网络连接失败，请检查网络");
+		}
+		response.setData(<%=getTableJavaFirstLowerName(SrcTable.Name)%>s.getListData());
+		response.setCount(<%=getTableJavaFirstLowerName(SrcTable.Name)%>Service.findAll().size());
+		response.setResult(Response.RESULT_SUCCESS);
+		return response;
+		
+	}
+	
+	@RequestMapping(value="/del<%=getTableJavaFirstUpperName(SrcTable.Name)%>")
+	@ResponseBody
+	public Response<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> del<%=getTableJavaFirstUpperName(SrcTable.Name)%>(String id){
+		Response<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> response = ResponseFactory.getDefaultSuccessResponse();
+
+		if (ObjectUtil.isEmpty(id)) {
+			response.setError("id不能为空");
+			return response;
+		}
+		
+		try {
+			<%=getTableJavaFirstLowerName(SrcTable.Name)%>Service.delete<%=getTableJavaFirstUpperName(SrcTable.Name)%>ById(id);
+		} catch (MysqlDBException e) {
+			response.setError("网络连接失败，请检查网络");
+			return response;
+		}
+		response.setResult(Response.RESULT_SUCCESS);
+		return response;
+	}
+	
+	@RequestMapping(value="/find<%=getTableJavaFirstUpperName(SrcTable.Name)%>ById")
+	@ResponseBody
+	public Response<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> find<%=getTableJavaFirstUpperName(SrcTable.Name)%>ById(String id){
+		Response<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> response =ResponseFactory.getDefaultSuccessResponse();
+		if (ObjectUtil.isEmpty(id)) {
+			response.setError("id不能为空");
+			return response;
+		}
+		try {
+			response.setData(<%=getTableJavaFirstLowerName(SrcTable.Name)%>Service.get<%=getTableJavaFirstUpperName(SrcTable.Name)%>ById(id));
+		} catch (MysqlDBException e) {
+			response.setError("网络连接失败，请检查网络");
+			return response;
+		}
+		response.setResult(Response.RESULT_SUCCESS);
+		return response;
+	}
+	
+	@RequestMapping(value="/update<%=getTableJavaFirstUpperName(SrcTable.Name)%>ById")
+	@ResponseBody
+	public Response<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> update<%=getTableJavaFirstUpperName(SrcTable.Name)%>ById(HttpServletRequest request){
+		Response<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> response =ResponseFactory.getDefaultSuccessResponse();
+		<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO condition=new <%=getTableJavaFirstUpperName(SrcTable.Name)%>PO();
+		<%foreach(ColumnSchema t1 in SrcTable.Columns){%>  
+        String <%=getPropertiesName(t1.Name)%> = request.getParameter("<%=getTableJavaFirstLowerName(SrcTable.Name)%>_<%=getPropertiesName(t1.Name)%>");
+		if(!ObjectUtil.isEmpty(<%=getPropertiesName(t1.Name)%>)) condition.<%=getPropertiesXXXname(t1.Name,"set")%>(<%=getPropertiesJavaType(t1)%>.valueOf(<%=getPropertiesName(t1.Name)%>));
+    <%}%>
+		
+		if (ObjectUtil.isEmpty(condition.getId())) {
+			response.setError("id不能为空");
+			return response;
+		}
+
+		try {
+			<%=getTableJavaFirstLowerName(SrcTable.Name)%>Service.update<%=getTableJavaFirstUpperName(SrcTable.Name)%>(condition);
+		} catch (MysqlDBException e) {
+			response.setError("网络连接失败，请检查网络");
+			return response;
+		}
+		response.setResult(Response.RESULT_SUCCESS);
+		return response;
+	}
+	
+	@RequestMapping(value="/add<%=getTableJavaFirstUpperName(SrcTable.Name)%>")
+	@ResponseBody
+	public Response<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> add<%=getTableJavaFirstUpperName(SrcTable.Name)%>(HttpServletRequest request){
+		Response<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> response =ResponseFactory.getDefaultSuccessResponse();
+		
+		<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO po=new <%=getTableJavaFirstUpperName(SrcTable.Name)%>PO();
+		po.setId(UUIDUtil.getUUID());
+		<%foreach(ColumnSchema t1 in SrcTable.Columns){%>  
+        String <%=getPropertiesName(t1.Name)%> = request.getParameter("<%=getTableJavaFirstLowerName(SrcTable.Name)%>_<%=getPropertiesName(t1.Name)%>");
+		if(!ObjectUtil.isEmpty(<%=getPropertiesName(t1.Name)%>)) po.<%=getPropertiesXXXname(t1.Name,"set")%>(<%=getPropertiesJavaType(t1)%>.valueOf(<%=getPropertiesName(t1.Name)%>));
+    <%}%>
+		
+		try {
+			<%=getTableJavaFirstLowerName(SrcTable.Name)%>Service.add<%=getTableJavaFirstUpperName(SrcTable.Name)%>(po);
+		} catch (MysqlDBException e) {
+			response.setError("网络连接失败，请检查网络");
+			return response;
+		}
+		response.setResult(Response.RESULT_SUCCESS);
+		return response;
+	}
+}

@@ -1,0 +1,95 @@
+﻿<%@ CodeTemplate Src="common.cs"  Inherits="Common.CommonSqlCode" Language="C#" 
+TargetLanguage="Java" Description="NetTiers main template." Debug="True" ResponseEncoding="UTF-8"%>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="Common" %>
+ 
+<%@ Property Name="package" Type="String" Category="2.项目"  Default=""   Description="包名，输入com.cse.sherp" %>		
+<%@ Property Name="author" Type="String" Category="1.版权信息"   Description="作者"  Optional="True" Default="ZhengChao"  %>
+<%@ Property Name="email" Type="String" Category="1.版权信息"  Description="作者的Email" Optional="True"  Default="zhengchao730@163.com" %>
+
+<%@ Property Name="SrcTable" Type="SchemaExplorer.TableSchema" Category="3.当前要做的表"  Description="当前要做的表" %>
+package <%=package%>.dao.po; 
+
+
+import com.capuccino.tulip.util.ObjectUtil;
+import org.apache.log4j.Logger;
+import com.capuccino.tulip.annotation.Column;
+import com.capuccino.tulip.annotation.PrimaryKey;
+import com.capuccino.tulip.annotation.Table;
+
+
+
+/**
+ * <%=getTableJavaFirstUpperName(SrcTable.Name)%>PO
+ * Description:<%=SrcTable.Description%>
+ * @author:<%=author%>
+ * @email:<%=email%>
+ */  
+@Table("<%=SrcTable.Name.ToUpper()%>")
+public class <%=getTableJavaFirstUpperName(SrcTable.Name)%>PO implements java.io.Serializable {
+	
+    Logger log = Logger.getLogger(this.getClass());
+    
+	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+	
+	/** <%=t1.Description %> -- <%=t1.Name %> */
+    <%if(t1.IsPrimaryKeyMember) {%>
+    @PrimaryKey("<%=t1.Name.ToUpper()%>")
+    <%}else{%>
+    @Column("<%=t1.Name.ToUpper()%>")    
+    <%}%>
+	private <%=getPropertiesJavaType(t1)+" "+  getPropertiesName(t1.Name)%>;
+	<% if(IsDataColumn(t1)){%>	
+	// <%=t1.Description%>(查询条件 - 开始) 
+	private <%=getPropertiesJavaType(t1)+" "+  getPropertiesName(t1.Name)%>Begin;
+    // <%=t1.Description%>(查询条件 - 结束)  
+    private <%=getPropertiesJavaType(t1)+" "+  getPropertiesName(t1.Name)%>End;
+    
+	<%}%>
+	<%}%>
+    
+    
+    <%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+
+    public <%=getPropertiesJavaType(t1)%> <%=getPropertiesXXXname(t1.Name,"get")%>() {
+		return <%=getPropertiesName(t1.Name)%>;
+	}
+
+	public void <%=getPropertiesXXXname(t1.Name,"set")%>(<%=getPropertiesJavaType(t1)%> <%=getPropertiesName(t1.Name)%>) {
+		this.<%=getPropertiesName(t1.Name)%> = <%=getPropertiesName(t1.Name)%>;
+	}
+    <% if(IsDataColumn(t1)){%>	
+	public <%=getPropertiesJavaType(t1)%> <%=getPropertiesXXXname(t1.Name,"get")%>Begin() {
+		return <%=getPropertiesName(t1.Name)%>Begin;
+	}
+	public void <%=getPropertiesXXXname(t1.Name,"set")%>Begin(<%=getPropertiesJavaType(t1)%> <%=getPropertiesName(t1.Name)%>Begin) {
+		this.<%=getPropertiesName(t1.Name)%>Begin = <%=getPropertiesName(t1.Name)%>Begin;
+	}
+    public <%=getPropertiesJavaType(t1)%> <%=getPropertiesXXXname(t1.Name,"get")%>End() {
+		return <%=getPropertiesName(t1.Name)%>End;
+	}
+	public void <%=getPropertiesXXXname(t1.Name,"set")%>End(<%=getPropertiesJavaType(t1)%> <%=getPropertiesName(t1.Name)%>End) {
+		this.<%=getPropertiesName(t1.Name)%>End = <%=getPropertiesName(t1.Name)%>End;
+	}
+    
+	<%}%>
+    
+	<%}%>
+    
+    
+    @Override
+	public String toString() {
+		 StringBuffer sb = new StringBuffer();
+         <%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+         if(!ObjectUtil.isEmpty(this.<%=getPropertiesXXXname(t1.Name,"get")%>()))sb.append("<%=getPropertiesName(t1.Name)%>="+this.<%=getPropertiesName(t1.Name)%>+ " | ");
+         <%}%>
+		 log.debug(sb.toString());
+		 return sb.toString();
+	}
+	
+    
+    
+}

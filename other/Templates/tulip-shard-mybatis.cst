@@ -1,0 +1,61 @@
+﻿<%@ CodeTemplate Src="common.cs"  Inherits="Common.CommonSqlCode" Language="C#" 
+TargetLanguage="Java" Description="NetTiers main template." Debug="True" ResponseEncoding="UTF-8"%>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="Common" %>
+
+<%@ Property Name="package" Type="String" Category="2.项目"  Default=""   Description="包名，输入com.cse.sherp" %>		
+<%@ Property Name="author" Type="String" Category="1.版权信息"   Description="作者"  Optional="True" Default="ZhengChao"  %>
+<%@ Property Name="email" Type="String" Category="1.版权信息"  Description="作者的Email" Optional="True"  Default="zhengchao730@163.com" %>
+
+<%@ Property Name="SrcTable" Type="SchemaExplorer.TableSchema" Category="3.当前要做的表"  Description="当前要做的表" %>
+
+  
+ <!-- mybatis sql -->
+	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+    <result property="<%=getPropertiesName(t1.Name)%>" column="<%=t1.Name%>" />  
+	<%}%>
+	
+ <!--  this.setAbc(obj.getAbc) -->
+    	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+    this.<%=getPropertiesXXXname(t1.Name,"set")%>(obj.<%=getPropertiesXXXname(t1.Name,"get")%>());
+	<%}%>
+    
+    <!--  this.setAbc(abc) -->
+    	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+    obj.<%=getPropertiesXXXname(t1.Name,"set")%>(<%=getPropertiesName(t1.Name)%>);
+	<%}%>
+    
+     <!--  this.setAbc(obj.getAbc()) -->
+    	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+    obj.<%=getPropertiesXXXname(t1.Name,"set")%>(obj.<%=getPropertiesXXXname(t1.Name,"get")%>());
+	<%}%>
+	
+	
+      <!--  mybatis  cdata-->
+    <%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+    <if test="<%=getPropertiesName(t1.Name)%> != null and <%=getPropertiesName(t1.Name)%> != '' "><![CDATA[and <%=t1.Name%> = #{<%=getPropertiesName(t1.Name)%>}  ]]></if>
+	<%}%>
+	    
+         <!--  mybatis  #{}-->
+    <%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+    <%=t1.Name%>= #{<%=getPropertiesName(t1.Name)%>},
+	<%}%>
+    
+    <!--- java 参数 -->
+    <%foreach(ColumnSchema t1 in SrcTable.Columns){%> 
+        <%=getPropertiesJavaType(t1)%> <%=getPropertiesName(t1.Name)%>,
+    <%}%>
+    
+    
+    <%foreach(ColumnSchema t1 in SrcTable.Columns){%> 
+       <%=t1.Name%>,
+    <%}%>
+
+
+     <%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+    #{<%=getPropertiesName(t1.Name)%>},
+	<%}%>
+}
