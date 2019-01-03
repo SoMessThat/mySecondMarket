@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjw.project.code.dao.CommodityDAO">
+	<resultMap type="CommodityPO" id="CommodityResultMap">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="category" column="category" />
+		<result property="info" column="info" />
+		<result property="pop" column="pop" />
+		<result property="pictureId" column="picture_id" />
+		<result property="price" column="price" />
+		<result property="secprice" column="secprice" />
+		<result property="conditions" column="conditions" />
+		<result property="messageId" column="message_id" />
+		<result property="num" column="num" />
+		<result property="sellerId" column="seller_id" />
+		<result property="buyerId" column="buyer_id" />
+		<result property="creartTime" column="creart_time" />
+		<result property="closingTime" column="closing_time" />
+		<result property="state" column="state" />
+	</resultMap>
+	<!-- <if test="id != null and id != '' "><![CDATA[and id = #{id} ]]></if> 
+		<if test="name != null and name != '' "><![CDATA[and name = #{name} ]]></if> 
+		<if test="category != null and category != '' "><![CDATA[and category = #{category} 
+		]]></if> <if test="info != null and info != '' "><![CDATA[and info = #{info} 
+		]]></if> <if test="pop != null and pop != '' "><![CDATA[and pop = #{pop} 
+		]]></if> <if test="pictureId != null and pictureId != '' "><![CDATA[and picture_id 
+		= #{pictureId} ]]></if> <if test="price != null and price != '' "><![CDATA[and 
+		price = #{price} ]]></if> <if test="secprice != null and secprice != '' "><![CDATA[and 
+		secprice = #{secprice} ]]></if> <if test="conditions != null and conditions 
+		!= '' "><![CDATA[and conditions = #{conditions} ]]></if> <if test="messageId 
+		!= null and messageId != '' "><![CDATA[and message_id = #{messageId} ]]></if> 
+		<if test="num != null and num != '' "><![CDATA[and num = #{num} ]]></if> 
+		<if test="sellerId != null and sellerId != '' "><![CDATA[and seller_id = 
+		#{sellerId} ]]></if> <if test="buyerId != null and buyerId != '' "><![CDATA[and 
+		buyer_id = #{buyerId} ]]></if> <if test="creartTime != null and creartTime 
+		!= '' "><![CDATA[and creart_time = #{creartTime} ]]></if> <if test="closingTime 
+		!= null and closingTime != '' "><![CDATA[and closing_time = #{closingTime} 
+		]]></if> <if test="state != null and state != '' "><![CDATA[and state = #{state} 
+		]]></if> -->
+
+
+</mapper>  

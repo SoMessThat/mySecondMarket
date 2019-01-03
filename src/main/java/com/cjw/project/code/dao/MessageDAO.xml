@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjw.project.code.dao.MessageDAO">
+	<resultMap type="MessagePo" id="MessageResultMap">
+		<result property="id" column="id" />
+		<result property="ownerId" column="owner_id" />
+		<result property="ownerName" column="owner_name" />
+		<result property="passersbyId" column="passersby_id" />
+		<result property="answerId" column="answer_id" />
+		<result property="commodityId" column="commodity_id" />
+		<result property="content" column="content" />
+		<result property="time" column="time" />
+		<result property="passersbyName" column="passersby_name" />
+	</resultMap>
+
+	<!-- <if test="id != null and id != '' "><![CDATA[and id = #{id} ]]></if> 
+		<if test="ownerId != null and ownerId != '' "><![CDATA[and owner_id = #{ownerId} 
+		]]></if> <if test="ownerName != null and ownerName != '' "><![CDATA[and owner_name 
+		= #{ownerName} ]]></if> <if test="passersbyId != null and passersbyId != 
+		'' "><![CDATA[and passersby_id = #{passersbyId} ]]></if> <if test="answerId 
+		!= null and answerId != '' "><![CDATA[and answer_id = #{answerId} ]]></if> 
+		<if test="commodityId != null and commodityId != '' "><![CDATA[and commodity_id 
+		= #{commodityId} ]]></if> <if test="content != null and content != '' "><![CDATA[and 
+		content = #{content} ]]></if> <if test="time != null and time != '' "><![CDATA[and 
+		time = #{time} ]]></if> <if test="passersbyName != null and passersbyName 
+		!= '' "><![CDATA[and passersby_name = #{passersbyName} ]]></if> -->
+</mapper>  

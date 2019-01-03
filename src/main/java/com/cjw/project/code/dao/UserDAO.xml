@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjw.project.code.dao.UserDAO">
+	<resultMap type="UserPO" id="UserResultMap">
+		<result property="id" column="id" />
+		<result property="account" column="account" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="userEmail" column="user_email" />
+		<result property="avatar" column="avatar" />
+		<result property="tel" column="tel" />
+		<result property="sex" column="sex" />
+		<result property="school" column="school" />
+		<result property="address" column="address" />
+		<result property="creatTime" column="creat_time" />
+		<result property="lastTime" column="last_time" />
+		<result property="loginIp" column="login_ip" />
+		<result property="isAdmin" column="is_admin" />
+		<result property="state" column="state" />
+		<result property="lng" column="lng" />
+		<result property="lat" column="lat" />
+		<result property="qq" column="qq" />
+		<result property="wechat" column="wechat" />
+		<result property="alipay" column="alipay" />
+	</resultMap>
+	<!-- <if test="id != null and id != '' "><![CDATA[and id = #{id} ]]></if> 
+		<if test="account != null and account != '' "><![CDATA[and account = #{account} 
+		]]></if> <if test="username != null and username != '' "><![CDATA[and username 
+		= #{username} ]]></if> <if test="password != null and password != '' "><![CDATA[and 
+		password = #{password} ]]></if> <if test="userEmail != null and userEmail 
+		!= '' "><![CDATA[and user_email = #{userEmail} ]]></if> <if test="avatar 
+		!= null and avatar != '' "><![CDATA[and avatar = #{avatar} ]]></if> <if test="tel 
+		!= null and tel != '' "><![CDATA[and tel = #{tel} ]]></if> <if test="sex 
+		!= null and sex != '' "><![CDATA[and sex = #{sex} ]]></if> <if test="school 
+		!= null and school != '' "><![CDATA[and school = #{school} ]]></if> <if test="address 
+		!= null and address != '' "><![CDATA[and address = #{address} ]]></if> <if 
+		test="creatTime != null and creatTime != '' "><![CDATA[and creat_time = #{creatTime} 
+		]]></if> <if test="lastTime != null and lastTime != '' "><![CDATA[and last_time 
+		= #{lastTime} ]]></if> <if test="loginIp != null and loginIp != '' "><![CDATA[and 
+		login_ip = #{loginIp} ]]></if> <if test="isAdmin != null and isAdmin != '' 
+		"><![CDATA[and is_admin = #{isAdmin} ]]></if> <if test="state != null and 
+		state != '' "><![CDATA[and state = #{state} ]]></if> <if test="lng != null 
+		and lng != '' "><![CDATA[and lng = #{lng} ]]></if> <if test="lat != null 
+		and lat != '' "><![CDATA[and lat = #{lat} ]]></if> <if test="qq != null and 
+		qq != '' "><![CDATA[and qq = #{qq} ]]></if> <if test="wechat != null and 
+		wechat != '' "><![CDATA[and wechat = #{wechat} ]]></if> <if test="alipay 
+		!= null and alipay != '' "><![CDATA[and alipay = #{alipay} ]]></if> -->
+
+</mapper>  

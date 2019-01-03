@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjw.project.code.dao.AnnouncementDAO">
+	<resultMap type="AnnouncementPo" id="AnnouncementResultMap">
+		<result property="id" column="id" />
+		<result property="titlle" column="titlle" />
+		<result property="content" column="content" />
+		<result property="pictureId" column="picture_id" />
+		<result property="creatTime" column="creat_time" />
+		<result property="state" column="state" />
+	</resultMap>
+	<!-- <if test="id != null and id != '' "><![CDATA[and id = #{id} ]]></if> 
+		<if test="titlle != null and titlle != '' "><![CDATA[and titlle = #{titlle} 
+		]]></if> <if test="content != null and content != '' "><![CDATA[and content 
+		= #{content} ]]></if> <if test="pictureId != null and pictureId != '' "><![CDATA[and 
+		picture_id = #{pictureId} ]]></if> <if test="creatTime != null and creatTime 
+		!= '' "><![CDATA[and creat_time = #{creatTime} ]]></if> <if test="state != 
+		null and state != '' "><![CDATA[and state = #{state} ]]></if> -->
+</mapper>  

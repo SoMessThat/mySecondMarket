@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjw.project.code.dao.testDAO">
+	<resultMap type="testPO" id="testResultMap">
+		<result property="callerno" column="callerno" />
+		<result property="waitbegin" column="waitbegin" />
+		<result property="devicetype" column="devicetype" />
+	</resultMap>
+	<select id="queryInfo" resultMap="testResultMap" resultType="testPO">
+		<!-- SELECT aa.callerno, aa.waitbegin, aa.devicetype FROM TBILLLOG072 aa 
+			WHERE aa.calleeno = '12345' AND aa.callerno NOT IN ( SELECT callerno FROM 
+			smart_queue_exclude_callerno ) ORDER BY aa.callerno DESC, aa.waitbegin ASC -->
+		SELECT
+		aa.callid callerno,
+		aa.waitbegin,
+		aa.devicetype
+		FROM
+		TBILLLOG072 aa
+		WHERE
+		aa.calleeno = '12345'
+		AND aa.callerno NOT IN (
+		SELECT
+		callerno
+		FROM
+		smart_queue_exclude_callerno
+		)
+		ORDER BY
+		aa.callerno DESC,
+		aa.callid desc,
+		aa.waitbegin ASC
+	</select>
+</mapper>  
