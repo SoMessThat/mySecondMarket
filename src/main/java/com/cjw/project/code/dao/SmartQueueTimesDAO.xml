@@ -6,7 +6,7 @@
 
 	<update id="modify">
 		UPDATE smart_queue aa
-		SET aa.queue_times = #{times}
+		SET aa.queue_time = #{times}
 		WHERE
 		aa.call_id = #{callid}
 	</update>

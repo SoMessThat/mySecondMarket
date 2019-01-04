@@ -1,4 +1,7 @@
 package com.cjw.project.code.ctrl;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,32 +108,60 @@ public class BackCtrl{
 	@RequestMapping(value = "/test")
 	public ModelAndView test() {
 		ModelAndView mv = new ModelAndView();
-		List<testPO> a = testdao.queryInfo();
+		List<testPO> a = testdao.queryinhtime();
 		if (a.size()>10) {
 			mv.setViewName("index");
 		}
 		else
 			mv.setViewName("login");
-		String oldtel="test";int i=1;
-		a.add(new testPO());
+		Format f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String oldtel="1532132132-929722";
+		int i=0;
+		Date oldate=new Date();
+//		a.add(new testPO());
 		for (testPO testPO : a) {
-			//多一条数据
+			//			//多一条数据
 			if (testPO.getCallerno().equals(oldtel)) {
-				if (testPO.getDevicetype()==2) {
-					i=1;
-				}
-				if (testPO.getDevicetype()==3) {
-					i++;
-				}
+				i+=testPO.getTimes();
+//				if (testPO.getDevicetype()==2) {
+//					i=0;	
+//				}
+//				if (testPO.getDevicetype()==1) {
+//					i+=testPO.getTimes();
+//				}
+//					i=0;
+//					if (testPO.getCallidnum()!=-1) {
+//						flag=true;
+//					}
+//				}
+//				if (testPO.getDevicetype()==3) {
+//					if (testPO.getCallidnum()==-1) {
+//						//如果找到id相等并且有type有2得的就跳过；否则加1
+//						if (flag) {
+//							i=0;
+//							flag=false;
+//						}
+//						else {
+//							i++;
+//						}
+//					}
+//					else
+//						i++;
+//				}
 			}
 			else {
-				smart.modify(oldtel, i);
+				smart.modify(oldtel, i,f.format(oldate));
+//				flag=false;
+//				SmartQueueTimesPO po =new SmartQueueTimesPO();
+//				po.setCallerno(oldtel);
+//				po.setQueueTimes(i);
+//				smart.insert(po);
+//				
 				oldtel=testPO.getCallerno();
-				i=1;
+				i=testPO.getTimes();
+				oldate=testPO.getWaitbegin();
 			}
-			oldtel=testPO.getCallerno();
 		}
-		
 		return mv;
 	}
 	

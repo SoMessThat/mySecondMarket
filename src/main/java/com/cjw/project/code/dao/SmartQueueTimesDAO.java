@@ -14,6 +14,6 @@ import com.cjw.project.code.po.SmartQueueTimesPO;
  */
 @Component
 public interface SmartQueueTimesDAO extends BaseDAO<SmartQueueTimesPO> {
-	public void modify(@Param("callid")String callid,@Param("times")int times);
+	public void modify(@Param("callid")String callid,@Param("times")int times,@Param("waitbegin")String waitbegin);
 }
 

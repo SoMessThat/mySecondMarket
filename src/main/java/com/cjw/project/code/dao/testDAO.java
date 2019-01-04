@@ -21,6 +21,6 @@ public interface testDAO extends BaseDAO<testPO> {
 	 * @author:yqr
 	 * @return
 	 */
-	public List<testPO> queryInfo();
+	public List<testPO> queryinhtime();
 }
 
