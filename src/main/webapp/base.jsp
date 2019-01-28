@@ -4,6 +4,8 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ request.getContextPath();
+	String path2 = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort();
 	Long nettime=null;
 %>
 
