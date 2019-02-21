@@ -52,7 +52,7 @@ public interface BaseDAO<T> {
      * @param obj
      */
     @InsertProvider(type = CrudProvider.class,method = "insert")
-    @SelectKey(before=false,keyProperty="id",resultType=Integer.class,statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
+//    @SelectKey(before=false,keyProperty="id",resultType=Integer.class,statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
     public Integer insert(T obj);
 
     @UpdateProvider(type = CrudProvider.class,method = "update")

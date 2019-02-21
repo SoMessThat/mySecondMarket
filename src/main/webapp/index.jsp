@@ -27,6 +27,7 @@
 </head>
 
 <body data-spm="1000261">
+	<script type="text/javascript" src="<%=basePath%>/index.js"></script>
 	<script id="tb-beacon-aplus"
 		src="//g.alicdn.com/alilog/mlog/aplus_v2.js"
 		exparams="category=&amp;userid=&amp;aplus&amp;yunid=&amp;f99ee776ee40e&amp;trid=&amp;asid=AQAAAABWeSRcyDX1DgAAAADzYEOWYn1/BQ=="></script>
@@ -371,7 +372,7 @@
 				</div>
 			</div>
 			<div data-v-0bf36d39="" class="line"></div>
-			<div data-v-0bf36d39="" class="slodbar-item">
+			<div data-v-0bf36d39="" class="slodbar-item"  onclick="addcommodity()">
 				<img data-v-0bf36d39=""
 					src="//img.alicdn.com/tfs/TB1g54xnMHqK1RjSZFPXXcwapXa-112-112.png"
 					class="icon">

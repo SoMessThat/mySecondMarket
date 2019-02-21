@@ -101,22 +101,22 @@
 	//------$:$
 	//---列如
 	//------adapt("roomFloor","#roomfloor",form,$);
-	var adapt = function(type,name,form,$){
-		$.ajax({
-			url: BASE_PATH+'/dict/querySelect.php',
-			type: "GET",
-			data:{
-				dictType:type
-			},
-			dataType: "json",
-			success: function(data){
-				for(var i=0;i<data.data.length;i++){
-					$(name).append("<option value=\""+data.data[i].dictCode+"\">"+data.data[i].dictValue+"</option>"); 
-				}
-				form.render();
-			}
-		});
-	}
+// 	var adapt = function(type,name,form,$){
+// 		$.ajax({
+// 			url: BASE_PATH+'/dict/querySelect.php',
+// 			type: "GET",
+// 			data:{
+// 				dictType:type
+// 			},
+// 			dataType: "json",
+// 			success: function(data){
+// 				for(var i=0;i<data.data.length;i++){
+// 					$(name).append("<option value=\""+data.data[i].dictCode+"\">"+data.data[i].dictValue+"</option>"); 
+// 				}
+// 				form.render();
+// 			}
+// 		});
+// 	}
 	
 	//---验证手机号的格式是否正确
 	//---参数

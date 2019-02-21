@@ -64,6 +64,14 @@
 		<property name="viewClass" value="com.cjw.project.tool.web.WebView" />
 	</bean>
 
+	<!-- 	多文件上传               -->
+	<bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8" />
+        <!-- 指定所上传文件的总大小,单位字节。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+        <property name="maxUploadSize" value="10485760" />
+    </bean>
+
 	<mvc:resources mapping="/images/**" location="images/"
 		cache-period="1" />
 	<mvc:resources mapping="/js/**" location="js/"

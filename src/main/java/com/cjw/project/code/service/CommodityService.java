@@ -3,12 +3,16 @@ package com.cjw.project.code.service;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cjw.project.code.dao.CommodityPictureRefDAO;
 import com.cjw.project.code.po.CommodityPO;
+import com.cjw.project.code.po.CommodityPictureRefPO;
 import com.cjw.project.tool.bean.Paged;
 import com.cjw.project.tool.bean.Query;
 import com.cjw.project.tool.util.ObjectUtil;
+import com.cjw.project.tool.util.UUIDUtil;
 import com.cjw.project.tool.web.MysqlDBException;
 
 
@@ -17,6 +21,8 @@ public class CommodityService extends BaseService<CommodityPO>{
 	
 	Logger log = Logger.getLogger(this.getClass());
 	
+	@Autowired
+	CommodityPictureRefDAO commodityPictureRefDAO;
 	/**
 	 * 新增对象
 	 * @param obj
@@ -27,6 +33,15 @@ public class CommodityService extends BaseService<CommodityPO>{
 			MysqlDBException e = new MysqlDBException("新增对象为空");
 			log.error("新增对象为空",e);
 			throw e;
+		}
+		String str = obj.getPictureId();
+		String a []  = str.split(";");
+		for(int i=0;i<a.length;i++){
+			CommodityPictureRefPO po = new CommodityPictureRefPO();
+			po.setId(UUIDUtil.getSortUUID());
+			po.setCommodityId(obj.getId());
+			po.setPictureAdress(a[i]);
+			commodityPictureRefDAO.insert(po);
 		}
 		this.insert(obj);
 	}
