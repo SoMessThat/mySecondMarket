@@ -28,14 +28,13 @@ public class CommodityService extends BaseService<CommodityPO>{
 	 * @param obj
 	 * @throws MysqlDBException
 	 */
-	public void addTCommodity(CommodityPO obj) throws MysqlDBException{
+	public void addTCommodity(CommodityPO obj, String address) throws MysqlDBException{
 		if(ObjectUtil.isEmpty(obj)){
 			MysqlDBException e = new MysqlDBException("新增对象为空");
 			log.error("新增对象为空",e);
 			throw e;
 		}
-		String str = obj.getPictureId();
-		String a []  = str.split(";");
+		String a []  = address.split(";");
 		for(int i=0;i<a.length;i++){
 			CommodityPictureRefPO po = new CommodityPictureRefPO();
 			po.setId(UUIDUtil.getSortUUID());

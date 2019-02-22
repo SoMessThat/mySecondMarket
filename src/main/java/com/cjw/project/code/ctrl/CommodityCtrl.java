@@ -187,19 +187,14 @@ public class CommodityCtrl {
 		
 		CommodityPO po=new CommodityPO();
 		po.setId(UUIDUtil.getUUID());
-        String id = request.getParameter("id");
-		if(!ObjectUtil.isEmpty(id)) po.setId(String.valueOf(id));
-		po.setId(UUIDUtil.getUUID());
         String name = request.getParameter("name");
 		if(!ObjectUtil.isEmpty(name)) po.setName(String.valueOf(name));
         String category = request.getParameter("category");
 		if(!ObjectUtil.isEmpty(category)) po.setCategory(String.valueOf(category));
         String info = request.getParameter("info");
 		if(!ObjectUtil.isEmpty(info)) po.setInfo(String.valueOf(info));
-        String pop = request.getParameter("pop");
-		if(!ObjectUtil.isEmpty(pop)) po.setPop(Integer.valueOf(pop));
-        String pictureId = request.getParameter("pictureId");
-		if(!ObjectUtil.isEmpty(pictureId)) po.setPictureId(String.valueOf(pictureId));
+        po.setPop(0);
+        po.setPictureId(UUIDUtil.getUUID());
         String price = request.getParameter("price");
 		if(!ObjectUtil.isEmpty(price)) po.setPrice(Double.valueOf(price));
         String secprice = request.getParameter("secprice");
@@ -220,9 +215,9 @@ public class CommodityCtrl {
 		if(!ObjectUtil.isEmpty(closingTime)) po.setClosingTime(Long.valueOf(closingTime));
         String state = request.getParameter("state");
 		if(!ObjectUtil.isEmpty(state)) po.setState(String.valueOf(state));
-		
+		String address = request.getParameter("address");
 		try {
-			tCommodityService.addTCommodity(po);
+			tCommodityService.addTCommodity(po,address);
 		} catch (MysqlDBException e) {
 			response.setError("网络连接失败，请检查网络");
 			return response;
@@ -251,7 +246,6 @@ public class CommodityCtrl {
 	 * @param request
 	 * @return
 	 */
-	@SuppressWarnings("deprecation")
 	@RequestMapping("/upload")
 	@ResponseBody
 	public Response<CommodityPO> uplpad(@RequestParam MultipartFile file, HttpServletRequest request) {
@@ -269,14 +263,13 @@ public class CommodityCtrl {
 			String uuid = UUIDUtil.getUUID();
 			String newName = uuid + extName;
 			// 4.获取要保存的路径文件夹
-			String realPath = request.getRealPath("resources/imgs/");
+			String realPath = "E:\\images";
 			// 5.保存图片
-			realPath="E:";
 			desFilePath = realPath + "\\" + newName;
 			File desFile = new File(desFilePath);
 			file.transferTo(desFile);
 			System.out.println(desFilePath);
-			po.setName(desFilePath);
+			po.setName("\\" + newName);
 			// 6.返回保存结果信息
 			dataMap = new HashMap<>();
 			dataMap.put("src", "resources/imgs/" + newName);

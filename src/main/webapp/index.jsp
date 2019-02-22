@@ -27,6 +27,7 @@
 </head>
 
 <body data-spm="1000261">
+	<input type="hidden" name="user" id="user" value="${user.id}">
 	<script type="text/javascript" src="<%=basePath%>/index.js"></script>
 	<script id="tb-beacon-aplus"
 		src="//g.alicdn.com/alilog/mlog/aplus_v2.js"
@@ -361,25 +362,25 @@
 			</div>
 		</div>
 		<div data-v-0bf36d39="" class="slodbar-wrap">
-			<div data-v-0bf36d39="" class="slodbar-item">
+			<div data-v-0bf36d39="" class="slodbar-item" onclick="wantcommodity()">
 				<img data-v-0bf36d39=""
 					src="//img.alicdn.com/tfs/TB1SkxunMDqK1RjSZSyXXaxEVXa-112-112.png"
 					class="icon">
 				<div data-v-0bf36d39="" class="desc">
-					<p data-v-0bf36d39="" class="name">闲钱网一键转卖</p>
-					<p data-v-0bf36d39="" class="cont">淘宝买过的宝贝能换钱；他们都在用傻逼杰文的软件，1个月平均多赚1600+</p>
-					<p data-v-0bf36d39="" class="cont" style="color: red;">不服吊我啊，你敢吗，垃圾</p>
+					<p data-v-0bf36d39="" class="name">发布需求</p>
+					<p data-v-0bf36d39="" class="cont">你的需要就是我的需求，我的百倍用心，愿你十分满意</p>
+					<p data-v-0bf36d39="" class="cont" style="color: red;">不怕找不到，就怕想不到。不卖也要嫁给我！</p>
 				</div>
 			</div>
 			<div data-v-0bf36d39="" class="line"></div>
-			<div data-v-0bf36d39="" class="slodbar-item"  onclick="addcommodity()">
+			<div data-v-0bf36d39="" class="slodbar-item" onclick="addcommodity()">
 				<img data-v-0bf36d39=""
 					src="//img.alicdn.com/tfs/TB1g54xnMHqK1RjSZFPXXcwapXa-112-112.png"
 					class="icon">
 				<div data-v-0bf36d39="" class="desc">
 					<p data-v-0bf36d39="" class="name">发布闲置</p>
-					<p data-v-0bf36d39="" class="cont">闲置还钱 快速出手</p>
-					<p data-v-0bf36d39="" class="cont" style="color: red;">该出手时就出手</p>
+					<p data-v-0bf36d39="" class="cont">更换新主人，寻找新归宿</p>
+					<p data-v-0bf36d39="" class="cont" style="color: red;">你不想要的，或许真是我所需，不买也要来娶我！</p>
 				</div>
 			</div>
 		</div>

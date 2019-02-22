@@ -8,10 +8,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
-import org.apache.ibatis.mapping.StatementType;
 
 import com.cjw.project.tool.bean.Query;
 import com.cjw.project.tool.provider.CrudProvider;
