@@ -13,7 +13,6 @@ import com.cjw.project.code.po.CommodityPictureRefPO;
  */
 @Component
 public interface CommodityPictureRefDAO extends BaseDAO<CommodityPictureRefPO> {
-	
 
 }
 

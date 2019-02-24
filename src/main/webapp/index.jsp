@@ -434,13 +434,13 @@
 			 		        //假设你的列表返回在data集合中
 			 		        layui.each(res.data, function(index, item){
 			 		          lis.push('<a data-v-4c853d07="" href="//2.taobao.com/item.htm?id=584816873266" target="_blank" class="item-wrap">');
-			 		          lis.push('<div data-v-4c853d07="" class="item-img" style="background-image: url('+item.pictureId+');"></div>');
+			 		          lis.push('<div data-v-4c853d07="" class="item-img" style="background-image: url('+item.pictureAdress+');"></div>');
 			 		          lis.push('<div data-v-4c853d07="" class="item-info">');
 			 		          lis.push('<p data-v-4c853d07="" class="item-title">'+item.name+'</p>');
 			 		          lis.push('<div data-v-4c853d07="" class="price-line">');
 			 		          lis.push('<div data-v-4c853d07="" class="price">');
 			 		      	  lis.push('<p data-v-4c853d07="" class="price-unit">￥</p>');
-			 		     	  lis.push('<p data-v-4c853d07="" class="price-value">'+item.secprice+'</p>');
+			 		     	  lis.push('<p data-v-4c853d07="" class="price-value">'+item.price+'</p>');
 			 		 	      lis.push('</div>');
 			 		   		  lis.push('<p data-v-4c853d07="" class="want-num">'+item.pop+'人想要</p>');
  		   		    		  lis.push('</div>');

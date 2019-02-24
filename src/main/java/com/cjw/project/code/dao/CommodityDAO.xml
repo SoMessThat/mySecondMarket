@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.cjw.project.code.dao.CommodityDAO">
-	<resultMap type="CommodityPO" id="CommodityResultMap">
-		<result property="id" column="id" />
+	<resultMap autoMapping="true" type="com.cjw.project.code.vo.CommiditionVO" id="CommodityResultMap">
+	    <id property="id" column="id"/>
 		<result property="name" column="name" />
 		<result property="category" column="category" />
 		<result property="info" column="info" />
@@ -19,7 +19,9 @@
 		<result property="creartTime" column="creart_time" />
 		<result property="closingTime" column="closing_time" />
 		<result property="state" column="state" />
+		<result property="pictureAdress" column="picture_adress" />
 	</resultMap>
+	
 	<!-- <if test="id != null and id != '' "><![CDATA[and id = #{id} ]]></if> 
 		<if test="name != null and name != '' "><![CDATA[and name = #{name} ]]></if> 
 		<if test="category != null and category != '' "><![CDATA[and category = #{category} 
@@ -39,6 +41,26 @@
 		!= null and closingTime != '' "><![CDATA[and closing_time = #{closingTime} 
 		]]></if> <if test="state != null and state != '' "><![CDATA[and state = #{state} 
 		]]></if> -->
-
+	<select id="findPagedByQuery"  resultMap="CommodityResultMap">
+		SELECT
+			bb.*, aa.*
+		FROM
+			T_COMMODITY bb
+		LEFT JOIN commodity_picture_ref aa ON aa.commodity_id = bb.id
+		WHERE
+			NOT EXISTS (
+				SELECT
+					1
+				FROM
+					commodity_picture_ref
+				WHERE
+					commodity_id = aa.commodity_id
+				AND picture_adress &lt; aa.picture_adress
+			)
+		AND bb.buyer_id IS NULL
+		ORDER BY
+			bb.creart_time
+		LIMIT ${pageNo},${pageSize};
+	</select>
 
 </mapper>  

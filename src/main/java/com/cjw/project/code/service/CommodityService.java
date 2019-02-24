@@ -6,10 +6,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cjw.project.code.dao.CommodityDAO;
 import com.cjw.project.code.dao.CommodityPictureRefDAO;
 import com.cjw.project.code.po.CommodityPO;
 import com.cjw.project.code.po.CommodityPictureRefPO;
-import com.cjw.project.tool.bean.Paged;
 import com.cjw.project.tool.bean.Query;
 import com.cjw.project.tool.util.ObjectUtil;
 import com.cjw.project.tool.util.UUIDUtil;
@@ -23,6 +23,8 @@ public class CommodityService extends BaseService<CommodityPO>{
 	
 	@Autowired
 	CommodityPictureRefDAO commodityPictureRefDAO;
+	@Autowired
+	CommodityDAO commodityDAO;
 	/**
 	 * 新增对象
 	 * @param obj
@@ -96,7 +98,7 @@ public class CommodityService extends BaseService<CommodityPO>{
 	 * @throws MysqlDBException
 	 */
 	@SuppressWarnings("unchecked")
-	public Paged<CommodityPO> queryPageTCommodity(Integer pageNo,Integer pageSize,
+	public List<CommodityPO> queryPageTCommodity(Integer pageNo,Integer pageSize,
 			CommodityPO obj) throws MysqlDBException{
 		if(ObjectUtil.isEmpty(obj)){
 			MysqlDBException e = new MysqlDBException("查询条件对象为空 - 异常");
@@ -119,24 +121,10 @@ public class CommodityService extends BaseService<CommodityPO>{
         if(!ObjectUtil.isEmpty(obj.getNum()))q.addEq("num", obj.getNum()); 
         if(!ObjectUtil.isEmpty(obj.getSellerId()))q.addEq("sellerId", obj.getSellerId()); 
         if(!ObjectUtil.isEmpty(obj.getBuyerId()))q.addEq("buyerId", obj.getBuyerId()); 
-//        if(!ObjectUtil.isEmpty(obj.getCreartTimeBegin()) && !ObjectUtil.isEmpty(obj.getCreartTimeEnd())) {
-//			q.addBetween("creartTime", obj.getCreartTimeBegin(), obj.getCreartTimeEnd());
-//		}else{
-//			if(!ObjectUtil.isEmpty(obj.getCreartTimeBegin())) q.addGt("creartTime", obj.getCreartTimeBegin());
-//			if(!ObjectUtil.isEmpty(obj.getCreartTimeEnd()))   q.addLt("creartTime", obj.getCreartTimeEnd());
-//		}
-//        
-//        if(!ObjectUtil.isEmpty(obj.getClosingTimeBegin()) && !ObjectUtil.isEmpty(obj.getClosingTimeEnd())) {
-//			q.addBetween("closingTime", obj.getClosingTimeBegin(), obj.getClosingTimeEnd());
-//		}else{
-//			if(!ObjectUtil.isEmpty(obj.getClosingTimeBegin())) q.addGt("closingTime", obj.getClosingTimeBegin());
-//			if(!ObjectUtil.isEmpty(obj.getClosingTimeEnd()))   q.addLt("closingTime", obj.getClosingTimeEnd());
-//		}
-        
         if(!ObjectUtil.isEmpty(obj.getState()))q.addEq("state", obj.getState()); 
         
 		//q.addOrder("createtime", DBOrder.DESC);
-		Paged<CommodityPO> page = this.findPagedByQuery(q);
+        List<CommodityPO> page = commodityDAO.findPagedByQuery((pageNo-1)*pageSize,pageSize);
 		return page;
 	}
 	

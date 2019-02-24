@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cjw.project.code.po.CommodityPO;
 import com.cjw.project.code.service.CommodityService;
-import com.cjw.project.tool.bean.Paged;
 import com.cjw.project.tool.util.ObjectUtil;
 import com.cjw.project.tool.util.UUIDUtil;
 import com.cjw.project.tool.util.ajax.Response;
@@ -40,7 +39,7 @@ public class CommodityCtrl {
 	@ResponseBody
 	public Response<List<CommodityPO>> queryPageTCommodity(Integer page,Integer limit,HttpServletRequest request){
 		Response<List<CommodityPO>> response = ResponseFactory.getDefaultSuccessResponse();
-		Paged<CommodityPO> tCommoditys = null;
+		List<CommodityPO> tCommoditys = null;
 		
 		CommodityPO condition=new CommodityPO();
         String id = request.getParameter("id");
@@ -82,7 +81,7 @@ public class CommodityCtrl {
 			e.printStackTrace();
 			response.setError("网络连接失败，请检查网络");
 		}
-		response.setData(tCommoditys.getListData());
+		response.setData(tCommoditys);
 		response.setCount(tCommodityService.findAll().size());
 		response.setResult(Response.RESULT_SUCCESS);
 		return response;
@@ -263,13 +262,13 @@ public class CommodityCtrl {
 			String uuid = UUIDUtil.getUUID();
 			String newName = uuid + extName;
 			// 4.获取要保存的路径文件夹
-			String realPath = "E:\\images";
+			String realPath = "E:/images";
 			// 5.保存图片
-			desFilePath = realPath + "\\" + newName;
+			desFilePath = realPath + "/" + newName;
 			File desFile = new File(desFilePath);
 			file.transferTo(desFile);
 			System.out.println(desFilePath);
-			po.setName("\\" + newName);
+			po.setName("/" + newName);
 			// 6.返回保存结果信息
 			dataMap = new HashMap<>();
 			dataMap.put("src", "resources/imgs/" + newName);
