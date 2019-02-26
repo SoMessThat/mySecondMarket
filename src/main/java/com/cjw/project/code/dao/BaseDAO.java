@@ -8,10 +8,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
-import org.apache.ibatis.mapping.StatementType;
 
 import com.cjw.project.tool.bean.Query;
 import com.cjw.project.tool.provider.CrudProvider;
@@ -52,7 +50,7 @@ public interface BaseDAO<T> {
      * @param obj
      */
     @InsertProvider(type = CrudProvider.class,method = "insert")
-    @SelectKey(before=false,keyProperty="id",resultType=Integer.class,statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
+//    @SelectKey(before=false,keyProperty="id",resultType=Integer.class,statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
     public Integer insert(T obj);
 
     @UpdateProvider(type = CrudProvider.class,method = "update")
