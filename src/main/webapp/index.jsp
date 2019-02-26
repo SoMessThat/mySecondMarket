@@ -8,7 +8,7 @@
 	content="0d4ec208337c4c03706dbb76fccd784e" />
 <meta name="sogou_site_verification" content="dMhEpiNZxp" />
 <meta name="baidu-site-verification" content="CrHL5lkDw2" />
-<title>傻逼陈杰文的二手系统</title>
+<title>闲钱网</title>
 <meta name="spm-id" content="2007.1000261" />
 <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,6 +27,8 @@
 </head>
 
 <body data-spm="1000261">
+	<input type="hidden" name="user" id="user" value="${user.id}">
+	<script type="text/javascript" src="<%=basePath%>/index.js"></script>
 	<script id="tb-beacon-aplus"
 		src="//g.alicdn.com/alilog/mlog/aplus_v2.js"
 		exparams="category=&amp;userid=&amp;aplus&amp;yunid=&amp;f99ee776ee40e&amp;trid=&amp;asid=AQAAAABWeSRcyDX1DgAAAADzYEOWYn1/BQ=="></script>
@@ -55,8 +57,8 @@
 					data-name="login" data-spm="754894437"><div
 						class="site-nav-menu-hd">
 						<div class="site-nav-sign">
-							<a href="#" target="_top" class="h">亲，请登录</a> <a href="#"
-								target="_top">免费注册</a>
+							<a href="#" target="_top" class="h"><!-- 亲，请登录 -->欢迎您，${user.username}</a> <a href="#"
+								target="_top"><!-- 免费注册 -->退出</a>
 						</div>
 						<div class="site-nav-user">
 							<a href="#" target="_top" class="site-nav-login-info-nick ">undefined</a>
@@ -101,7 +103,7 @@
 				<li class="site-nav-menu site-nav-mobile" id="J_SiteNavMobile"
 					data-name="mobile" data-spm="1997563273">
 					<div class="site-nav-menu-hd">
-						<a href="#" target="_top"> <span>手机逛淘宝</span>
+						<a href="#" target="_top"> <span>手机逛闲钱网</span>
 						</a>
 
 					</div>
@@ -129,7 +131,7 @@
 					class="site-nav-menu site-nav-mytaobao site-nav-multi-menu J_MultiMenu"
 					id="J_SiteNavMytaobao" data-name="mytaobao" data-spm="1997525045">
 					<div class="site-nav-menu-hd">
-						<a href="#" target="_top"> <span>我的淘宝</span>
+						<a href="#" target="_top"> <span>我的闲钱网</span>
 						</a> <span class="site-nav-arrow"><span class="site-nav-icon"></span></span>
 
 					</div>
@@ -307,36 +309,78 @@
 						</div>
 					</div>
 				</div>
-				<div data-v-60ebec27="" data-v-3fb25ee8="" class="usercard-wrap">
+				<%-- <div data-v-60ebec27="" data-v-3fb25ee8="" class="usercard-wrap">
 					<div data-v-60ebec27="" class="unlogin">
-						<img data-v-60ebec27=""
-							src="//img.alicdn.com/tfs/TB1AApbnxnaK1RjSZFBXXcW7VXa-140-140.png"
-							class="icon"> <a data-v-60ebec27="" href="#" class="btn">请登录</a>
-						<a data-v-60ebec27="" href="#" class="tip">免费注册</a>
+						<img data-v-60ebec27="" src="${user.avatar}" class="icon">
+						<a data-v-60ebec27="" href="#" class="tip">${user.username}</a>
+						<a data-v-60ebec27="" href="#" class="btn">退出</a>
+					</div>
+				</div> --%>
+				<div data-v-60ebec27="" data-v-3fb25ee8="" class="usercard-wrap">
+					<div data-v-60ebec27="" class="logined">
+						<div data-v-60ebec27="" class="user-info">
+							<div data-v-60ebec27="" class="head">
+								<img data-v-60ebec27="" src="${user.avatar}" class="head-img">
+							</div>
+							<div data-v-60ebec27="" class="user-des">
+								<p data-v-60ebec27="" class="nick">${user.username}</p>
+								<p data-v-60ebec27="" class="sum">虽然没挣到钱，但在闲钱网开心就好</p>
+							</div>
+						</div>
+						<div data-v-60ebec27="" class="my-list">
+							<div data-v-60ebec27="" class="my-item">
+								<img data-v-60ebec27=""
+									src="//img.alicdn.com/tfs/TB1W0t9nVzqK1RjSZSgXXcpAVXa-52-52.png"
+									class="item-icon">
+								<p data-v-60ebec27="" class="item-name">出售中</p>
+								<p data-v-60ebec27="" class="item-num">0</p>
+							</div>
+							<div data-v-60ebec27="" class="my-item">
+								<img data-v-60ebec27=""
+									src="//img.alicdn.com/tfs/TB1xwqvn4jaK1RjSZKzXXXVwXXa-52-52.png"
+									class="item-icon">
+								<p data-v-60ebec27="" class="item-name">已卖出</p>
+								<p data-v-60ebec27="" class="item-num">0</p>
+							</div>
+							<div data-v-60ebec27="" class="my-item">
+								<img data-v-60ebec27=""
+									src="//img.alicdn.com/tfs/TB1k8c.nSzqK1RjSZFjXXblCFXa-52-52.png"
+									class="item-icon">
+								<p data-v-60ebec27="" class="item-name">我的关注</p>
+								<p data-v-60ebec27="" class="item-num">0</p>
+							</div>
+							<div data-v-60ebec27="" class="my-item">
+								<img data-v-60ebec27=""
+									src="//img.alicdn.com/tfs/TB1wahwn4naK1RjSZFtXXbC2VXa-52-52.png"
+									class="item-icon">
+								<p data-v-60ebec27="" class="item-name">我的收藏</p>
+								<p data-v-60ebec27="" class="item-num">0</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div data-v-0bf36d39="" class="slodbar-wrap">
-			<div data-v-0bf36d39="" class="slodbar-item">
+			<div data-v-0bf36d39="" class="slodbar-item" onclick="wantcommodity()">
 				<img data-v-0bf36d39=""
 					src="//img.alicdn.com/tfs/TB1SkxunMDqK1RjSZSyXXaxEVXa-112-112.png"
 					class="icon">
 				<div data-v-0bf36d39="" class="desc">
-					<p data-v-0bf36d39="" class="name">淘宝一键转卖</p>
-					<p data-v-0bf36d39="" class="cont">淘宝买过的宝贝能换钱；他们都在用傻逼杰文的软件，1个月平均多赚1600+</p>
-					<p data-v-0bf36d39="" class="cont" style="color: red;">不服吊我啊，你敢吗，垃圾</p>
+					<p data-v-0bf36d39="" class="name">发布需求</p>
+					<p data-v-0bf36d39="" class="cont">你的需要就是我的需求，我的百倍用心，愿你十分满意</p>
+					<p data-v-0bf36d39="" class="cont" style="color: red;">不怕找不到，就怕想不到。不卖也要嫁给我！</p>
 				</div>
 			</div>
 			<div data-v-0bf36d39="" class="line"></div>
-			<div data-v-0bf36d39="" class="slodbar-item">
+			<div data-v-0bf36d39="" class="slodbar-item" onclick="addcommodity()">
 				<img data-v-0bf36d39=""
 					src="//img.alicdn.com/tfs/TB1g54xnMHqK1RjSZFPXXcwapXa-112-112.png"
 					class="icon">
 				<div data-v-0bf36d39="" class="desc">
 					<p data-v-0bf36d39="" class="name">发布闲置</p>
-					<p data-v-0bf36d39="" class="cont">闲置还钱 快速出手</p>
-					<p data-v-0bf36d39="" class="cont" style="color: red;">该出手时就出手</p>
+					<p data-v-0bf36d39="" class="cont">更换新主人，寻找新归宿</p>
+					<p data-v-0bf36d39="" class="cont" style="color: red;">你不想要的，或许真是我所需，不买也要来娶我！</p>
 				</div>
 			</div>
 		</div>
@@ -358,37 +402,22 @@
 				<!---->
 			</div>
 			<div data-v-03fbd53c="" class="item">
-				<p data-v-03fbd53c="" class="name">数码</p>
-				<!---->
-			</div>
-			<div data-v-03fbd53c="" class="item">
 				<p data-v-03fbd53c="" class="name">租房</p>
 				<!---->
 			</div>
 			<div data-v-03fbd53c="" class="item">
-				<p data-v-03fbd53c="" class="name">服装</p>
+				<p data-v-03fbd53c="" class="name">书籍</p>
 				<!---->
 			</div>
 			<div data-v-03fbd53c="" class="item">
-				<p data-v-03fbd53c="" class="name">居家</p>
-				<!---->
+				<p data-v-03fbd53c="" class="name">收购</p>
+				<!---->	
 			</div>
-			<div data-v-03fbd53c="" class="item">
-				<p data-v-03fbd53c="" class="name">美妆</p>
-				<!---->
-			</div>
-			<div data-v-03fbd53c="" class="item">
-				<p data-v-03fbd53c="" class="name">运动</p>
-				<!---->
-			</div>
-			<div data-v-03fbd53c="" class="item">
-				<p data-v-03fbd53c="" class="name">家电</p>
-				<!---->
-			</div>
-			<div data-v-03fbd53c="" class="item">
-				<p data-v-03fbd53c="" class="name">玩具乐器</p>
-				<!---->
-			</div>
+<div class="layui-input-block" style="float: left; position: relative;">
+    <label class="layui-form-label">名称</label>
+  <input style="width: auto;" type="text" id="select_orderId" name="select_orderId" lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
+</div>
+  <button class="layui-btn" lay-submit="" id="searchBtn" data-type="getInfo" style="float: left;">搜索</button>
 		</div>
 		<div class="item-list">
 			<div class="item-list-wrap" id="demo"></div>
@@ -405,15 +434,15 @@
 			 		        //假设你的列表返回在data集合中
 			 		        layui.each(res.data, function(index, item){
 			 		          lis.push('<a data-v-4c853d07="" href="//2.taobao.com/item.htm?id=584816873266" target="_blank" class="item-wrap">');
-			 		          lis.push('<div data-v-4c853d07="" class="item-img" style="background-image: url(images/qqq.jpg);"></div>');
+			 		          lis.push('<div data-v-4c853d07="" class="item-img" style="background-image: url('+item.pictureAdress+');"></div>');
 			 		          lis.push('<div data-v-4c853d07="" class="item-info">');
 			 		          lis.push('<p data-v-4c853d07="" class="item-title">'+item.name+'</p>');
 			 		          lis.push('<div data-v-4c853d07="" class="price-line">');
 			 		          lis.push('<div data-v-4c853d07="" class="price">');
 			 		      	  lis.push('<p data-v-4c853d07="" class="price-unit">￥</p>');
-			 		     	  lis.push('<p data-v-4c853d07="" class="price-value">'+item.secprice+'</p>');
+			 		     	  lis.push('<p data-v-4c853d07="" class="price-value">'+item.price+'</p>');
 			 		 	      lis.push('</div>');
-			 		   		  lis.push('<p data-v-4c853d07="" class="want-num">1人想要</p>');
+			 		   		  lis.push('<p data-v-4c853d07="" class="want-num">'+item.pop+'人想要</p>');
  		   		    		  lis.push('</div>');
 			 			   	  lis.push('</div>');
 		 			    	  lis.push('<div data-v-4c853d07="" class="user-line">');
