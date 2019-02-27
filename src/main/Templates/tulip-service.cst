@@ -1,0 +1,235 @@
+﻿<%@ CodeTemplate Src="common.cs"  Inherits="Common.CommonSqlCode" Language="C#" 
+TargetLanguage="Java" Description="NetTiers main template." Debug="True" ResponseEncoding="UTF-8"%>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="Common" %>
+
+<%@ Property Name="package" Type="String" Category="2.项目"  Default=""   Description="包名，输入com.cse.sherp" %>		
+<%@ Property Name="author" Type="String" Category="1.版权信息"   Description="作者"  Optional="True" Default="ZhengChao"  %>
+<%@ Property Name="email" Type="String" Category="1.版权信息"  Description="作者的Email" Optional="True"  Default="zhengchao730@163.com" %>
+
+<%@ Property Name="SrcTable" Type="SchemaExplorer.TableSchema" Category="3.当前要做的表"  Description="当前要做的表" %>
+package <%=package%>.service;
+
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+
+import com.capuccino.tulip.bean.Paged;
+import com.capuccino.tulip.bean.Query;
+import com.capuccino.tulip.bean.Query.DBOrder;
+import com.capuccino.tulip.exception.MysqlDBException;
+import com.capuccino.tulip.util.ObjectUtil;
+import com.capuccino.tulip.service.BaseService; 
+
+import <%=package%>.dao.po.<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO;
+
+
+@Service("<%=getTableJavaFirstLowerName(SrcTable.Name)%>Service")
+public class <%=getTableJavaFirstUpperName(SrcTable.Name)%>Service extends BaseService<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO>{
+	
+	Logger log = Logger.getLogger(this.getClass());
+	
+	/**
+	 * 新增对象
+	 * @param obj
+	 * @throws MysqlDBException
+	 */
+	public void add<%=getTableJavaFirstUpperName(SrcTable.Name)%>(<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO obj) throws MysqlDBException{
+		if(ObjectUtil.isEmpty(obj)){
+			MysqlDBException e = new MysqlDBException("新增对象为空");
+			log.error("新增对象为空",e);
+			throw e;
+		}
+		this.insert(obj);
+	}
+	
+	/**
+	 * 更新单个对象
+	 * @param obj
+	 * @throws MysqlDBException
+	 */
+	public void update<%=getTableJavaFirstUpperName(SrcTable.Name)%>(<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO obj) throws MysqlDBException{
+		if(ObjectUtil.isEmpty(obj)){
+			MysqlDBException e = new MysqlDBException("修改对象为空");
+			log.error("修改对象为空",e);
+			throw e;
+		}
+		this.update(obj);
+	}
+	
+	/**
+	 * 通过主键删除对象
+	 * @param id
+	 * @throws MysqlDBException 
+	 */
+	public void delete<%=getTableJavaFirstUpperName(SrcTable.Name)%>ById(String id) throws MysqlDBException{
+		if(ObjectUtil.isEmpty(id)){
+			MysqlDBException e = new MysqlDBException("通过主键删除对象，主键 id 不能为空");
+			log.error("通过主键删除对象，主键 id 不能为空",e);
+			throw e;
+		}
+		this.delete(id);
+	}
+	
+	/**
+	 * 通过主键 查询对象
+	 * @param id
+	 * @throws MysqlDBException
+	 */
+	public <%=getTableJavaFirstUpperName(SrcTable.Name)%>PO get<%=getTableJavaFirstUpperName(SrcTable.Name)%>ById(String id) throws MysqlDBException{
+		if(ObjectUtil.isEmpty(id)){
+			MysqlDBException e = new MysqlDBException("通过主键 查询对象，主键 id 不能为空");
+			log.error("通过主键 查询对象，主键 id 不能为空",e);
+			throw e;
+		}
+		return this.get(id);
+	}
+	
+	/**
+	 * 条件查询返回分页列表
+	 * @param pageNo
+	 * @param pageSize
+	 * @param obj
+	 * @return
+	 * @throws MysqlDBException
+	 */
+	@SuppressWarnings("unchecked")
+	public Paged<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> queryPage<%=getTableJavaFirstUpperName(SrcTable.Name)%>(Integer pageNo,Integer pageSize,
+			<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO obj) throws MysqlDBException{
+		if(ObjectUtil.isEmpty(obj)){
+			MysqlDBException e = new MysqlDBException("查询条件对象为空 - 异常");
+			log.error("查询条件对象为空 - 异常",e);
+			throw e;
+		}
+        Query<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> q = Query.build(<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO.class);
+		q.setPaged(pageNo, pageSize);
+		
+        <%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+        <%if(IsDataColumn(t1)){ %>
+        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin()) && !ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End())) {
+			q.addBetween("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin(), obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
+		}else{
+			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin())) q.addGt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin());
+			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End()))   q.addLt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
+		}
+        
+        <%}else{%>
+        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>()))q.addEq("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>()); 
+        <%}%>
+		<%}%>
+        
+		//q.addOrder("createtime", DBOrder.DESC);
+		Paged<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> page = this.findPagedByQuery(q);
+		return page;
+	}
+	
+	/**
+	 * 条件查询  返回列表
+	 * @param obj
+	 * @return
+	 * @throws MysqlDBException
+	 */
+	@SuppressWarnings("unchecked")
+	public List<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> queryList<%=getTableJavaFirstUpperName(SrcTable.Name)%>ByParam(<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO obj) throws MysqlDBException{
+		if(ObjectUtil.isEmpty(obj)){
+			MysqlDBException e = new MysqlDBException("查询条件对象为空 - 异常");
+			log.error("查询条件对象为空 - 异常",e);
+			throw e;
+		}
+        Query<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> q = Query.build(<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO.class);
+		
+		<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+        <%if(IsDataColumn(t1)){ %>
+        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin()) && !ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End())) {
+			q.addBetween("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin(), obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
+		}else{
+			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin())) q.addGt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin());
+			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End()))   q.addLt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
+		}
+        
+        <%}else{%>
+        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>()))q.addEq("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>()); 
+        <%}%>
+		<%}%>
+		return this.findByQuery(q);
+	}
+    
+    /**
+	 * 条件查询  返回对象实体
+	 * @param obj
+	 * @return
+	 * @throws MysqlDBException
+	 */
+	@SuppressWarnings("unchecked")
+	public <%=getTableJavaFirstUpperName(SrcTable.Name)%>PO get<%=getTableJavaFirstUpperName(SrcTable.Name)%>ByParam(<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO obj) throws MysqlDBException{
+		if(ObjectUtil.isEmpty(obj)){
+			MysqlDBException e = new MysqlDBException("查询条件对象为空 - 异常");
+			log.error("查询条件对象为空 - 异常",e);
+			throw e;
+		}
+        Query<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> q = Query.build(<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO.class);
+		
+		<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+        <%if(IsDataColumn(t1)){ %>
+        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin()) && !ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End())) {
+			q.addBetween("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin(), obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
+		}else{
+			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin())) q.addGt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin());
+			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End()))   q.addLt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
+		}
+        
+        <%}else{%>
+        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>()))q.addEq("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>()); 
+        <%}%>
+		<%}%>
+		return this.get(q);
+	}
+	
+	/**
+	 * 导出excel 数据表
+	 * @param obj
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<String[]> query<%=getTableJavaFirstUpperName(SrcTable.Name)%>ForExl(<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO obj)throws MysqlDBException{
+		if(ObjectUtil.isEmpty(obj)){
+			MysqlDBException e = new MysqlDBException("查询条件对象为空 - 异常");
+			log.error("查询条件对象为空 - 异常",e);
+			throw e;
+		}
+        Query<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> q = Query.build(<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO.class);
+		
+        <%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+        <%if(IsDataColumn(t1)){ %>
+        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin()) && !ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End())) {
+			q.addBetween("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin(), obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
+		}else{
+			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin())) q.addGt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin());
+			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End()))   q.addLt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
+		}
+        
+        <%}else{%>
+        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>()))q.addEq("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>()); 
+        <%}%>
+		<%}%> 
+		<% 
+        string temp = "";
+        foreach(ColumnSchema t1 in SrcTable.Columns){ 
+            temp+="\"";
+            temp+=getPropertiesName(t1.Name);
+            temp+="\",";
+        }
+        
+        %>
+		String[] columnProperty = {<%=cut(temp)%>};
+		return this.findExpByQuery(q, columnProperty);
+	}
+	
+	
+	
+}
+

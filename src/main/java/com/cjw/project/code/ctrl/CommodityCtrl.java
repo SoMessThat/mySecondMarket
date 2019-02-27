@@ -280,4 +280,18 @@ public class CommodityCtrl {
 		response.setData(po);
 		return response;
 	}
+	
+	/**
+	 * 登陆界面路口
+	 * @createTime: 2018年10月10日 上午9:29:57
+	 * @author: wu.kaibin
+	 * @return
+	 */
+	@RequestMapping(value = "/main")
+	public ModelAndView main() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("tCommodity");
+		return mv;
+	}
+
 }

@@ -2,19 +2,21 @@ function addcommodity(){
 	layui.use('form', function(){
 		var form = layui.form,
 		$ = layui.$;
-		layer.open({
+		parent.layer.open({
 			type: 2,
 			skin: 'layui-layer-rim',
 			title: '发布闲置商品',
 			btn: ['保存'],
 			btnAlign: 'c',
 			shadeClose: true,
-			shade: false,
+			shade: [0.8, '#393D49'],
 			maxmin: false,
-			area: ['70%', '80%'],
+			offset: 'auto',
+			area: ['70%', '60%'],
 			content: BASE_PATH+'/TCommodity/addcommodityDialog.do',
 			success : function(layero, index){
-			},
+				layer.iframeAuto(index);
+			},	
 			yes: function (layero, index) {
 				var body = layui.layer.getChildFrame('body', layero); 
 				//获取弹出框的值
@@ -70,11 +72,12 @@ function wantcommodity(){
 			btn: ['保存'],
 			btnAlign: 'c',
 			shadeClose: true,
-			shade: false,
+			shade: [0.8, '#393D49'],
 			maxmin: false,
-			area: ['70%', '80%'],
+			offset: 'auto',
 			content: /*BASE_PATH+*/'../wantcommodity.jsp',
 			success : function(layero, index){
+				layer.iframeAuto(index);
 			},
 			yes: function (layero, index) {
 				var body = layui.layer.getChildFrame('body', layero); 

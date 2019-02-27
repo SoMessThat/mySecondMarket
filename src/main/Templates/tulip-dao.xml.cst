@@ -1,0 +1,29 @@
+﻿<%@ CodeTemplate Src="common.cs"  Inherits="Common.CommonSqlCode" Language="C#" 
+TargetLanguage="Java" Description="NetTiers main template." Debug="True" ResponseEncoding="UTF-8"%>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="Common" %>
+
+<%@ Property Name="package" Type="String" Category="2.项目"  Default=""   Description="包名，输入com.cse.sherp" %>		
+<%@ Property Name="author" Type="String" Category="1.版权信息"   Description="作者"  Optional="True" Default="ZhengChao"  %>
+<%@ Property Name="email" Type="String" Category="1.版权信息"  Description="作者的Email" Optional="True"  Default="zhengchao730@163.com" %>
+
+<%@ Property Name="SrcTable" Type="SchemaExplorer.TableSchema" Category="3.当前要做的表"  Description="当前要做的表" %>
+
+
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="<%=package%>.dao.<%=getTableJavaFirstUpperName(SrcTable.Name)%>DAO" >
+
+	 
+	
+</mapper>  
+
+
+
+
+
+

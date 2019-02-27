@@ -1,0 +1,324 @@
+﻿<%@ CodeTemplate Src="common.cs"  Inherits="Common.CommonSqlCode" Language="C#" 
+TargetLanguage="Java" Description="NetTiers main template." Debug="True" ResponseEncoding="UTF-8"%>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="Common" %> 
+
+<%@ Property Name="inputClass" Type="String" Category="2.项目"  Default=""   Description="包名，输入com.cse.sherp" %>		
+<%@ Property Name="ulClass" Type="String" Category="2.项目"  Default=""   Description="包名，输入com.cse.sherp" %>		
+
+
+<%@ Property Name="author" Type="String" Category="1.版权信息"   Description="作者"  Optional="True" Default="ZhengChao"  %>
+<%@ Property Name="email" Type="String" Category="1.版权信息"  Description="作者的Email" Optional="True"  Default="zhengchao730@163.com" %>
+
+<%@ Property Name="SrcTable" Type="SchemaExplorer.TableSchema" Category="3.当前要做的表"  Description="当前要做的表" %>
+
+
+< %@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+< %@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+< %@include file="../../base.jsp"%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+	</head>
+	<body>  
+	<script type="text/javascript" src="< %=basePath%>/<%=getTableJavaFirstLowerName(SrcTable.Name)%>.js"></script>
+	<form  id="dictlistform" class="layui-form" style="margin-top: 5px">
+	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+		<div class="layui-input-inline">
+			<input type="text" id="<%=getPropertiesName(t1.Name)%>" name="<%=getPropertiesName(t1.Name)%>" placeholder="<%=getPropertiesName(t1.Name)%>" class="layui-input" style="width:100px">
+        <ul class="<%=ulClass%>" ><li><%=getPropertiesName(t1.Name)%></li></ul>
+		</div>
+	<%}%>
+		
+  		<input class="layui-btn layui-btn-small layui-btn-normal" id="add<%=getTableJavaFirstUpperName(SrcTable.Name)%>" value="新增" style="width:100px" />
+		<button id="resetbtn" type="reset" class="layui-btn layui-btn-small layui-btn-warm">清空</button>
+	</form>
+	<table class="layui-table" id="<%=getTableJavaFirstLowerName(SrcTable.Name)%>list" lay-filter="<%=getTableJavaFirstLowerName(SrcTable.Name)%>list"></table>
+	
+</body>
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+</html>
+
+	
+    <!--  input -->
+    	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+		obj.<%=getPropertiesXXXname(t1.Name,"set")%>(objTemp.<%=getPropertiesXXXname(t1.Name,"get")%>());
+	<%}%>
+    
+    
+     <!--  ul  li -->
+    	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+        <ul class="<%=ulClass%>" ><li><%=getPropertiesName(t1.Name)%></li></ul>
+	<%}%>
+    
+    
+      <!--  ul  li -->
+    	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+        <%=getPropertiesName(t1.Name)%>: $("#<%=getPropertiesName(t1.Name)%>").val(),
+	<%}%>
+    
+  <!--  table  js -->
+    	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+        {column:"<%=getPropertiesName(t1.Name)%>",display:"<%=t1.Description%>" }  ,
+	<%}%>
+
+
+  layui.use(['layer', 'table','element','form','laydate'], function(){
+	  var layer = layui.layer, 
+	  	  table = layui.table, 
+	  	  element = layui.element, 
+	  	  laydate = layui.laydate,
+	  	  laypage=layui.laypage,
+	  	  form = layui.form,
+	  	  $ = layui.$;
+
+   	  table.render({
+   		elem: '<%=getTableJavaFirstLowerName(SrcTable.Name)%>list',
+	    url: BASE_PATH+'/<%=getTableJavaFirstUpperName(SrcTable.Name)%>/queryPage<%=getTableJavaFirstUpperName(SrcTable.Name)%>.do',
+	 //   toolbar: '#barDemo',
+		limit:10,	
+		limits:[5,10,15,20],
+		toolbar: true,
+	    page:true, //开启分页
+	    height:'full-150',
+	    response: {
+	    	  statusName: 'status' //数据状态的字段名称，默认：code
+	    	  ,statusCode: 200//成功的状态码，默认：0
+	    	  ,msgName: 'messages' //状态信息的字段名称，默认：msg
+	    	  ,countName: 'count' //数据总数的字段名称，默认：count
+	    	  ,dataName: 'data' //数据列表的字段名称，默认：data
+	    	},
+	    cols: [[ //表头
+		<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+       	  {column:"<%=getPropertiesName(t1.Name)%>", title: '<%=t1.Description%>', width:200, fixed: 'left' }  ,
+	<%}%>
+	      {fixed: 'right', title: '操作',width: 150, align:'center', toolbar: '#barDemo'}
+	    ]]
+      });
+   
+   	  //监听行工具事件
+   	  table.on('tool(<%=getTableJavaFirstLowerName(SrcTable.Name)%>list)', function(obj){
+	   	  if(obj.event === 'del'){
+	   		  layer.confirm('真的删除行么', function(index){
+	   			  var id = obj.data.id;
+	   			  $.ajax({
+	   				  url:BASE_PATH+'/<%=getTableJavaFirstUpperName(SrcTable.Name)%>/del<%=getTableJavaFirstUpperName(SrcTable.Name)%>.do',
+	   				  type:'get',
+	   				  dataType:'text',
+	   				  data:{
+	   					  id:id,
+	   					  },
+	   				  error:function (res) {
+	   					  layer.alert(res.errors);
+	   				  },
+	   				  success:function (res) {
+   						  layer.alert('保存成功!',function(){
+		                		layer.closeAll();
+   							    table.reload('<%=getTableJavaFirstLowerName(SrcTable.Name)%>list');
+		                	});
+			   			  obj.del();
+	   				  }
+	   			  });
+	   		  });
+	   	  } else if(obj.event === 'edit'){
+	   		  layer.open({
+	    	      type: 2,
+	    	      skin: 'layui-layer-rim',
+	    	      title: '编辑房间信息',
+	    	      btn: ['保存'],
+	    	      btnAlign: 'c',
+	    	      shadeClose: true,
+	    	      shade: true,
+	    	      maxmin: false,
+	    	      area: ['70%', '80%'],
+	    	      content: /*BASE_PATH+*/'../edit<%=getTableJavaFirstUpperName(SrcTable.Name)%>.jsp',
+	    	      success : function(layero, index){
+	    	    	  var body = layer.getChildFrame('body', index);
+    	    	      var iframeWin = window[layero.find('iframe')[0]['name']];
+    	    	      var dialogform = iframeWin.layui.form;
+	    	    	  var id = obj.data.id;
+					//设置不可编辑
+	    	    	  //body.find("input#roomcode").attr("disabled",true);
+  	                  //body.find("select#roomfloor").attr("disabled",true);
+	    	    	  $.ajax({
+			                url:BASE_PATH+'/<%=getTableJavaFirstUpperName(SrcTable.Name)%>/find<%=getTableJavaFirstUpperName(SrcTable.Name)%>ById.do',
+			                type:'get',
+			                dataType:'json',
+			                async:true,  //异步加载
+			                data:{
+			                	'id':id
+			                },
+			                error:function (res) {
+			                    layer.alert(res.data.erro);
+			                },
+			                success : function(data){
+							<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+								body.find("input#<%=getPropertiesName(t1.Name)%>").val(data.data.<%=getPropertiesName(t1.Name)%>),
+							<%}%>
+							//dialogform.render('select');
+			    	                
+			    	        },
+			            });
+	    	      },
+	    	      yes: function (layero, index) {
+	    	    	  var body = layui.layer.getChildFrame('body', layero); //得到iframe页的body内容
+	    	    	//获取值弹出框值
+					<!--  ul  li -->
+				 <%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+				      var <%=getPropertiesName(t1.Name)%>=body.find("input#<%=getPropertiesName(t1.Name)%>").val(),
+				 <%}%>
+	    			  //判断是否为空
+	    			/*if(roomCode==""||roomFloor==""||roomType==""||roomState==""||roomPrix==""){
+	    				layer.alert('请输入完整信息!');
+	    			}
+	    			else {*/ 	
+	    	    	  $.ajax({
+	    	    		  url:BASE_PATH+'/<%=getTableJavaFirstUpperName(SrcTable.Name)%>/update<%=getTableJavaFirstUpperName(SrcTable.Name)%>ById.do',
+	    	    		  type:'get',
+	    	    		  data: {
+	    	    		  <%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+							  <%=getPropertiesName(t1.Name)%>:body.find("input#<%=getPropertiesName(t1.Name)%>").val(),
+						  <%}%>
+	    	    			},
+	    	    		  dataType:'json',
+	    	    		  error:function (res) {
+	    	    			  layer.alert('网络错误!');
+	    	    		  },
+	    	    		  success : function(layero, index){
+	    	    			  layer.alert('修改成功!',function(){
+	    	    				  layer.closeAll();
+	    	    				  table.reload('roomlist');
+	    	    			  });
+	    	    		  },
+	    	    	  });
+	    			//}
+
+	              }
+	   		  });
+	   	  }
+   	  });
+	
+});
+  
+  //查询条件监听
+layui.use(['form','table','layedit', 'laydate'], function(){
+	var form = layui.form,
+	table = layui.table,
+	layer = layui.layer,
+	layedit = layui.layedit,
+	laydate = layui.laydate,
+	$ = layui.$;
+      
+	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+	 $("#<%=getPropertiesName(t1.Name)%>").bind('input propertychange', function () {
+		table.reload('<%=getPropertiesName(t1.Name)%>list', {
+	        page: {
+	          curr: 1 //重新从第 1 页开始
+	        },
+	        where: {
+	        <%foreach(ColumnSchema t2 in SrcTable.Columns){%>
+				<%=getPropertiesName(t2.Name)%>: $("#<%=getPropertiesName(t2.Name)%>").val(),
+			<%}%>
+		    }
+	    });
+	});
+	<%}%>
+     /*下拉框
+      form.on('select(roomfloor)', function(data){
+   		table.reload('roomlist', {
+		        page: {
+		          curr: 1 //重新从第 1 页开始
+		        },
+		        where: {
+		        	roomcode:$('#roomcode').val(),
+  	            	roomfloor:$('#roomfloor').val(),
+  	            	roomtype:$('#roomtype').val(),
+  	            	roomstate:$('#roomstate').val(),
+	            	roomprix:$('#roomprix').val()
+		        }
+	      });
+  	    });
+	  */
+      
+    //清空
+     $("#resetbtn").on('click',function(){
+    	table.reload('<%=getTableJavaFirstLowerName(SrcTable.Name)%>list', {
+    		page: {
+  		          curr: 1 //重新从第 1 页开始
+  		    },
+    		where: {
+    		<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+				<%=getPropertiesName(t1.Name)%>: '',
+			<%}%>
+  		    }
+    	});
+	});
+    
+    
+      //新增按钮
+	$(document).on('click','#add<%=getTableJavaFirstUpperName(SrcTable.Name)%>',function(){
+		layer.open({
+			type: 2,
+			skin: 'layui-layer-rim',
+			title: '新增<%=getTableJavaFirstUpperName(SrcTable.Name)%>信息',
+			btn: ['保存'],
+			btnAlign: 'c',
+			shadeClose: true,
+			shade: true,
+			maxmin: false,
+			area: ['70%', '80%'],
+			content: /*BASE_PATH+*/'../add<%=getTableJavaFirstUpperName(SrcTable.Name)%>.jsp',
+			yes: function (layero, index) {
+				var body = layui.layer.getChildFrame('body', layero); //得到iframe页的body内容
+				//获取值弹出框值
+				var roomCode=body.find("input#roomcode").val();
+				var roomFloor=body.find("select#roomfloor").val();
+				var roomType=body.find("select#roomtype").val();
+				var roomState=body.find("select#roomstate").val();
+				var roomPrix=body.find("input#roomprix").val();
+				var remark=body.find("textarea#remark").val();
+				var roomcodeExist=body.find("label#roomcodeExist").text();
+				//判断是否为空
+				/*if(roomCode==""||roomFloor==""||roomType==""||roomState==""||roomPrix==""){
+				layer.alert('请输入完整信息!');
+				}
+			else if(roomcodeExist==""){*/
+				$.ajax({
+					url:BASE_PATH+'/room/addRoom.php',
+					type:'get',
+					data: {
+						<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+						<%=getPropertiesName(t1.Name)%>body.find("input#<%=getPropertiesName(t1.Name)%>").val(),
+						<%}%>
+					},
+					dataType:'json',
+					error:function (res) {
+						layer.alert('网络错误!');
+					},
+					success : function(layero, index){
+						layer.alert('添加成功!',function(){
+						layer.closeAll();
+						table.reload('roomlist');
+						});
+					}
+				});
+			//}
+			/*else{
+			layer.alert('房间已存在!');
+			}
+			*/
+			}
+		});
+	});
+});
