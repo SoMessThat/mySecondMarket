@@ -62,5 +62,13 @@
 			bb.creart_time
 		LIMIT ${pageNo},${pageSize};
 	</select>
+	
+	<select id="countCommodity"  resultType="com.cjw.project.code.vo.CountCommiditionVO">
+		SELECT
+			( SELECT COUNT(id) FROM t_commodity WHERE seller_id=1 AND buyer_id IS NULL ) "saleing",
+			( SELECT COUNT(id) FROM t_commodity WHERE seller_id=1 AND buyer_id  &lt;&gt; NULL ) "saled",
+			( SELECT COUNT(id) FROM t_solicitude WHERE user_id =1 AND type = "关注" ) "attention",
+			( SELECT COUNT(id) FROM t_solicitude WHERE user_id =1 AND type = "收藏" ) "collect";
+	</select>
 
 </mapper>  

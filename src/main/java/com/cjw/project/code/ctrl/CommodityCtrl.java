@@ -1,6 +1,3 @@
-
- 
-	
 package com.cjw.project.code.ctrl;
 
 import java.io.File;
@@ -21,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cjw.project.code.po.CommodityPO;
 import com.cjw.project.code.service.CommodityService;
+import com.cjw.project.code.vo.CountCommiditionVO;
 import com.cjw.project.tool.util.ObjectUtil;
 import com.cjw.project.tool.util.UUIDUtil;
 import com.cjw.project.tool.util.ajax.Response;
@@ -294,4 +292,28 @@ public class CommodityCtrl {
 		return mv;
 	}
 
+	/**
+	 * 统计售卖商品数，收藏数等
+	 * @createTime: 2018年10月10日 上午9:29:57
+	 * @author: wu.kaibin
+	 * @param sellerId
+	 * @return
+	 */
+	@RequestMapping(value="/countCommodity")
+	@ResponseBody
+	public Response<CountCommiditionVO> countCommodity(String sellerId){
+		Response<CountCommiditionVO> response =ResponseFactory.getDefaultSuccessResponse();
+		if (ObjectUtil.isEmpty(sellerId)) {
+			response.setError("id不能为空");
+			return response;
+		}
+		try {
+			response.setData(tCommodityService.countCommodity(sellerId));
+		} catch (MysqlDBException e) {
+			response.setError("网络连接失败，请检查网络");
+			return response;
+		}
+		response.setResult(Response.RESULT_SUCCESS);
+		return response;
+	}
 }

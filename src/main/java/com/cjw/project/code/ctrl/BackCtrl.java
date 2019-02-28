@@ -1,9 +1,4 @@
 package com.cjw.project.code.ctrl;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cjw.project.code.dao.SmartQueueTimesDAO;
-import com.cjw.project.code.dao.testDAO;
 import com.cjw.project.code.po.UserPO;
-import com.cjw.project.code.po.testPO;
 import com.cjw.project.code.service.UserService;
 import com.cjw.project.tool.util.ObjectUtil;
 import com.cjw.project.tool.util.code.MD5;
@@ -101,68 +93,6 @@ public class BackCtrl{
 	public ModelAndView main() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("login");
-		return mv;
-	}
-
-	@Autowired testDAO testdao;
-	@Autowired SmartQueueTimesDAO smart;
-	@RequestMapping(value = "/test")
-	public ModelAndView test() {
-		ModelAndView mv = new ModelAndView();
-		List<testPO> a = testdao.queryinhtime();
-		if (a.size()>10) {
-			mv.setViewName("index");
-		}
-		else
-			mv.setViewName("login");
-		Format f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String oldtel="1532132132-929722";
-		int i=0;
-		Date oldate=new Date();
-//		a.add(new testPO());
-		for (testPO testPO : a) {
-			//			//多一条数据
-			if (testPO.getCallerno().equals(oldtel)) {
-				i+=testPO.getTimes();
-//				if (testPO.getDevicetype()==2) {
-//					i=0;	
-//				}
-//				if (testPO.getDevicetype()==1) {
-//					i+=testPO.getTimes();
-//				}
-//					i=0;
-//					if (testPO.getCallidnum()!=-1) {
-//						flag=true;
-//					}
-//				}
-//				if (testPO.getDevicetype()==3) {
-//					if (testPO.getCallidnum()==-1) {
-//						//如果找到id相等并且有type有2得的就跳过；否则加1
-//						if (flag) {
-//							i=0;
-//							flag=false;
-//						}
-//						else {
-//							i++;
-//						}
-//					}
-//					else
-//						i++;
-//				}
-			}
-			else {
-				smart.modify(oldtel, i,f.format(oldate));
-//				flag=false;
-//				SmartQueueTimesPO po =new SmartQueueTimesPO();
-//				po.setCallerno(oldtel);
-//				po.setQueueTimes(i);
-//				smart.insert(po);
-//				
-				oldtel=testPO.getCallerno();
-				i=testPO.getTimes();
-				oldate=testPO.getWaitbegin();
-			}
-		}
 		return mv;
 	}
 	

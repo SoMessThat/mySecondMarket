@@ -10,6 +10,7 @@ import com.cjw.project.code.dao.CommodityDAO;
 import com.cjw.project.code.dao.CommodityPictureRefDAO;
 import com.cjw.project.code.po.CommodityPO;
 import com.cjw.project.code.po.CommodityPictureRefPO;
+import com.cjw.project.code.vo.CountCommiditionVO;
 import com.cjw.project.tool.bean.Query;
 import com.cjw.project.tool.util.ObjectUtil;
 import com.cjw.project.tool.util.UUIDUtil;
@@ -264,6 +265,21 @@ public class CommodityService extends BaseService<CommodityPO>{
         if(!ObjectUtil.isEmpty(obj.getState()))q.addEq("state", obj.getState()); 
 		String[] columnProperty = {"id","name","category","info","pop","pictureId","price","secprice","conditions","messageId","num","sellerId","buyerId","creartTime","closingTime","state"};
 		return this.findExpByQuery(q, columnProperty);
+	}
+
+	/**
+	 * 统计售卖商品数，收藏数等
+	 * @param sellerId
+	 * @return
+	 * @throws MysqlDBException
+	 */
+	public CountCommiditionVO countCommodity(String sellerId)throws MysqlDBException {
+		if(ObjectUtil.isEmpty(sellerId)){
+			MysqlDBException e = new MysqlDBException("查询条件对象为空 - 异常");
+			log.error("查询条件对象为空 - 异常",e);
+			throw e;
+		}
+		return commodityDAO.countCommodity(sellerId);
 	}
 	
 	

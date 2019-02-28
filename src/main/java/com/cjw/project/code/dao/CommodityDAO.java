@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import com.cjw.project.code.po.CommodityPO;
+import com.cjw.project.code.vo.CountCommiditionVO;
 
 
 /**
@@ -17,7 +18,20 @@ import com.cjw.project.code.po.CommodityPO;
 @Component
 public interface CommodityDAO extends BaseDAO<CommodityPO> {
 
+	/**
+	 * 商品分页
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
 	List<CommodityPO> findPagedByQuery(@Param(value = "pageNo") Integer pageNo, @Param(value = "pageSize") Integer pageSize);
+
+	/**
+	 * 统计售卖商品数，收藏数等
+	 * @param sellerId
+	 * @return
+	 */
+	CountCommiditionVO countCommodity(String sellerId);
 	
 
 }
