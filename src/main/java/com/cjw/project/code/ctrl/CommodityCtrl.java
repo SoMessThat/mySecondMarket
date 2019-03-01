@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cjw.project.code.po.CommodityPO;
+import com.cjw.project.code.po.UserPO;
 import com.cjw.project.code.service.CommodityService;
 import com.cjw.project.code.vo.CountCommiditionVO;
 import com.cjw.project.tool.util.ObjectUtil;
@@ -24,6 +25,7 @@ import com.cjw.project.tool.util.UUIDUtil;
 import com.cjw.project.tool.util.ajax.Response;
 import com.cjw.project.tool.util.ajax.ResponseFactory;
 import com.cjw.project.tool.web.MysqlDBException;
+import com.cjw.project.tool.web.WebContext;
 
 
 @Controller
@@ -224,20 +226,6 @@ public class CommodityCtrl {
 	}
 	
 	/**
-	 * 打开编辑字典弹窗
-	 * @createTime: 2018年11月8日 下午11:25:05
-	 * @author: wu.kaibin
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/addcommodityDialog")
-	public ModelAndView addcommodityDialog(HttpServletRequest request){
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("addcommodity");
-		return mv;
-	}
-	
-	/**
 	 * 上传图片
 	 * @param file
 	 * @param request
@@ -278,19 +266,6 @@ public class CommodityCtrl {
 		response.setData(po);
 		return response;
 	}
-	
-	/**
-	 * 登陆界面路口
-	 * @createTime: 2018年10月10日 上午9:29:57
-	 * @author: wu.kaibin
-	 * @return
-	 */
-	@RequestMapping(value = "/main")
-	public ModelAndView main() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("tCommodity");
-		return mv;
-	}
 
 	/**
 	 * 统计售卖商品数，收藏数等
@@ -316,4 +291,30 @@ public class CommodityCtrl {
 		response.setResult(Response.RESULT_SUCCESS);
 		return response;
 	}
+	
+	/**
+	 * 查看商品详细信息
+	 * @createTime: 2018年10月10日 上午9:29:57
+	 * @author: wu.kaibin
+	 * @return
+	 */
+	@RequestMapping(value = "/info")
+	public ModelAndView info(String id) {
+		ModelAndView mv = new ModelAndView();
+		if (ObjectUtil.isEmpty(id)) {
+			mv.setViewName("commoditionInfo");
+			return mv;
+		}
+		try {
+			mv.addObject("commodity", tCommodityService.getTCommodityById(id));
+		} catch (MysqlDBException e) {
+			e.printStackTrace();
+		}
+		UserPO userPO = (UserPO) WebContext.getSessionAttribute("userInfo");
+		mv.addObject("user", userPO);
+		mv.setViewName("commoditionInfo");
+		return mv;
+		
+	}
+	
 }

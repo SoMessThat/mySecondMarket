@@ -291,19 +291,19 @@
 							<div data-v-5aeb7472="" class="sublist">
 								<div data-v-5aeb7472="" class="sub">
 									<p data-v-5aeb7472="" class="name">出售中</p>
-									<p data-v-5aeb7472="" class="num">0</p>
+									<p data-v-5aeb7472="" id="saleing1" class="num">0</p>
 								</div>
 								<div data-v-5aeb7472="" class="sub">
 									<p data-v-5aeb7472="" class="name">已卖出</p>
-									<p data-v-5aeb7472="" class="num">0</p>
+									<p data-v-5aeb7472="" id="saled1" class="num">0</p>
 								</div>
 								<div data-v-5aeb7472="" class="sub">
 									<p data-v-5aeb7472="" class="name">我的关注</p>
-									<p data-v-5aeb7472="" class="num">0</p>
+									<p data-v-5aeb7472="" id="attention1" class="num">0</p>
 								</div>
 								<div data-v-5aeb7472="" class="sub">
 									<p data-v-5aeb7472="" class="name">我的收藏</p>
-									<p data-v-5aeb7472="" class="num">0</p>
+									<p data-v-5aeb7472="" id="collect1" class="num">0</p>
 								</div>
 							</div>
 						</div>
@@ -333,32 +333,58 @@
 									src="//img.alicdn.com/tfs/TB1W0t9nVzqK1RjSZSgXXcpAVXa-52-52.png"
 									class="item-icon">
 								<p data-v-60ebec27="" class="item-name">出售中</p>
-								<p data-v-60ebec27="" class="item-num">0</p>
+								<p data-v-60ebec27="" id="saleing" class="item-num">0</p>
 							</div>
 							<div data-v-60ebec27="" class="my-item">
 								<img data-v-60ebec27=""
 									src="//img.alicdn.com/tfs/TB1xwqvn4jaK1RjSZKzXXXVwXXa-52-52.png"
 									class="item-icon">
 								<p data-v-60ebec27="" class="item-name">已卖出</p>
-								<p data-v-60ebec27="" class="item-num">0</p>
+								<p data-v-60ebec27="" id="saled" class="item-num">0</p>
 							</div>
 							<div data-v-60ebec27="" class="my-item">
 								<img data-v-60ebec27=""
 									src="//img.alicdn.com/tfs/TB1k8c.nSzqK1RjSZFjXXblCFXa-52-52.png"
 									class="item-icon">
 								<p data-v-60ebec27="" class="item-name">我的关注</p>
-								<p data-v-60ebec27="" class="item-num">0</p>
+								<p data-v-60ebec27="" id="attention" class="item-num">0</p>
 							</div>
 							<div data-v-60ebec27="" class="my-item">
 								<img data-v-60ebec27=""
 									src="//img.alicdn.com/tfs/TB1wahwn4naK1RjSZFtXXbC2VXa-52-52.png"
 									class="item-icon">
 								<p data-v-60ebec27="" class="item-name">我的收藏</p>
-								<p data-v-60ebec27="" class="item-num">0</p>
+								<p data-v-60ebec27="" id="collect" class="item-num">0</p>
 							</div>
 						</div>
 					</div>
 				</div>
+				<script type="text/javascript">
+			 	  layui.use('jquery', function(){
+			 		  var $ = layui.jquery;
+			 		 $.ajax({
+							url:BASE_PATH+'/TCommodity/countCommodity.do',
+							type:'post',
+							data: {
+								sellerId:$('#user').val(),
+							},
+							dataType:'json',
+							error:function (res) {
+								layer.alert(res.data.erro);
+							},
+							success : function(layero, index){
+								$("#saleing").text(layero.data.saleing);
+								$("#saled").text(layero.data.saled);
+								$("#attention").text(layero.data.attention);
+								$("#collect").text(layero.data.collect);
+								$("#saleing1").text(layero.data.saleing);
+								$("#saled1").text(layero.data.saled);
+								$("#attention1").text(layero.data.attention);
+								$("#collect1").text(layero.data.collect);
+							},
+						});
+			 		});
+	 	    </script>
 			</div>
 		</div>
 		<div data-v-0bf36d39="" class="slodbar-wrap">
@@ -433,7 +459,7 @@
 			 		      $.get(BASE_PATH+'/TCommodity/queryPageTCommodity.do?limit=10&page='+page,function(res){
 			 		        //假设你的列表返回在data集合中
 			 		        layui.each(res.data, function(index, item){
-			 		          lis.push('<a data-v-4c853d07="" href="//2.taobao.com/item.htm?id=584816873266" target="_blank" class="item-wrap">');
+			 		          lis.push('<a data-v-4c853d07="" href="'+BASE_PATH+'/TCommodity/info.do?id='+item.id+'" target="_blank" class="item-wrap">');
 			 		          lis.push('<div data-v-4c853d07="" class="item-img" style="background-image: url('+item.pictureAdress+');"></div>');
 			 		          lis.push('<div data-v-4c853d07="" class="item-info">');
 			 		          lis.push('<p data-v-4c853d07="" class="item-title">'+item.name+'</p>');

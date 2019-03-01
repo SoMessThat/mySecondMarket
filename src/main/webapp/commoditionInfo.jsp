@@ -1,11 +1,13 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@include file="base.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description"
-	content="迪奥口红 二手，上闲鱼.淘宝二手，担保交易，先行赔付，假一赔三，七天无理由退换货，让你全面安心购物。" />
-<meta name="keywords" content="迪奥口红 - 闲鱼.淘宝二手" />
+	content="${commodity.name}" />
+<meta name="keywords" content="${commodity.name}" />
 <meta name="spm-id" content="2007.1000338" />
 <title>&#36842;&#22885;&#21475;&#32418; - 闲鱼.淘宝二手</title>
 <script>window.g_config={appId:1007,toolbar:false};</script>
@@ -37,10 +39,7 @@ with(document)with(body)with(insertBefore(createElement("script"),firstChild))se
 </script>
 
 	<script>(function(){var a=document.body;window.screen.width>1024?a.className="w1190":a.className="w990"})();</script>
-
-
-
-
+<input type="hidden" name="commotity" id="commotity" value="${commotity.id}">
 	<!-- S GLOBAL HTML -->
 	<div id="J_SiteNav" class="site-nav">
 		<div id="J_SiteNavBd" class="site-nav-bd">
@@ -117,26 +116,24 @@ KISSY.use('widget/header5/index');
 							<li id="J_Browse"
 								data-url="//count.taobao.com/counter3?keys=ICVT_7_584816873266&amp;inc=ICVT_7_584816873266&amp;sign=582049afbe625afef194cf6ddb987ca9932e1"
 								data-key="ICVT_7_584816873266">
-								<h5>宝贝浏览次数</h5> <span>加载中...</span>
+								<h5>宝贝浏览次数</h5> <span>${commodity.pop}</span>
 							</li>
 							<li><h5>最近编辑</h5>
-								<span>2018-12-28 21:41</span></li>
+								<span><script> document.write( timestampToTime(${commodity.creartTime}));</script></span></li>
 							<li class="tn-item-from"><a target="_blank"
 								href="//www.taobao.com/market/2/new-fish.php"><h5>来自</h5>
 									<p class="tn-item-icon"></p></a></li>
 						</ul>
 					</div>
-					<div class="seller-info" id="J_SellerInfo"
+					<div class="seller-info " id="J_SellerInfo"
 						data-url="//2.taobao.com/itemref/trade_ratting.htm?uid=IvH8yMkPePmN4PF9zOmlIPH*eXmleMm*HvHgSvFguvmxT">
 						<div class="simple" data-spm="2007.1000338.1">
 							<div class="avatar">
-								<img
-									src="//wwc.alicdn.com/avatar/getAvatar.do?userNick=可爱天使任&width=30&height=30&type=sns">
+								<img src="//wwc.alicdn.com/avatar/getAvatar.do?userNick=可爱天使任&width=30&height=30&type=sns">
 							</div>
 							<div class="wangwang">
-								<a
-									href="//2.taobao.com/credit/credit.htm?userIdCode=IvH8yMkPePmN4PF9zOmlIPH*eXmleMm*HvHgSvFguvmxT"
-									class="hCard fn" target="_blank">可爱天使任</a>
+								<a href="//2.taobao.com/credit/credit.htm?userIdCode=IvH8yMkPePmN4PF9zOmlIPH*eXmleMm*HvHgSvFguvmxT"
+									class="hCard fn" target="_blank">${user.username}</a>
 							</div>
 							<div class="user-icons">
 								<span title="已通过实名认证" class="user-verify"></span> <span
@@ -144,29 +141,19 @@ KISSY.use('widget/header5/index');
 							</div>
 							<b class="arrow-wrap"><i class="arrow"></i></b>
 						</div>
-						<div class="details"></div>
-						<textarea id="J_SellerTPL" class="hidden"
-							data-spm="2007.1000338.2">
-            <div class="basic-info">
-                <p> 女</p>
-                <p>注册时间：2008-09-08</p>
-            </div>
-            <div class="seller-rate">
-                <h4>转卖<strong> {soldCount} </strong>笔，<strong> {rateCount} </strong>人评价</h4>
-                <ul class="parameter">
-                    <li><span>靠谱度：</span><strong class="high">{kpdValue}</strong> 分<span
-										class="high">&nbsp;&nbsp;{kpdDesc}</span></li>
-                    <li><span>性价比：</span><strong class="high">{xjbValue}</strong> 分<span
-										class="high">&nbsp;&nbsp;{xjbDesc}</span></li>
-                </ul>
-            </div>
-            <div class="check-more">
-                <a class="check-info"
-									href="//2.taobao.com/credit/credit.htm?userIdCode=IvH8yMkPePmN4PF9zOmlIPH*eXmleMm*HvHgSvFguvmxT"
-									target="_blank">查看卖家信息</a>
-                <b class="arrow-wrap"><i class="arrow"></i></b>
-            </div>
-        </textarea>
+						<div class="details">
+				            <div class="basic-info">
+				                <p>北京 女</p>
+				                <p>注册时间：2009-07-12</p>
+				            </div>
+				            <div class="seller-rate">
+				                <h4>转卖<strong> 6 </strong>笔，<strong> 0 </strong>人评价</h4>
+				                <ul class="parameter">
+				                    <li><span>靠谱度：</span><strong class="high">-</strong> 分<span class="high">&nbsp;&nbsp;</span></li>
+				                    <li><span>性价比：</span><strong class="high">-</strong> 分<span class="high">&nbsp;&nbsp;</span></li>
+				                </ul>
+				            </div>
+						</div>
 					</div>
 					<div>
 						<a
@@ -178,17 +165,21 @@ KISSY.use('widget/header5/index');
 					<div class="col-main">
 						<div class="main-wrap">
 							<div class="property" id="J_Property">
-								<h1 class="title">迪奥口红</h1>
+								<h1 class="title">${commodity.name}</h1>
 								<ul class="price-info">
 									<li class="price-block"><span class="para">转&nbsp;&nbsp;卖&nbsp;&nbsp;价：</span>
-										<span class="price big"><b>&yen;</b><em>219.00</em></span> <span
+										<span class="price big"><b>&yen;</b><em>${commodity.secprice}</em></span> <span
 										class="bargain-tip"> <i class="i-tip"></i>该商品拒绝讲价！
 									</span></li>
+									<li class="price-block"><span class="para">原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</span>
+										<b>¥</b>
+                						<span>${commodity.price}</span>
+               						</li>
 								</ul>
 								<ul class="idle-info" data-spm="2007.1000338.3">
-									<li><span class="para">成 色：</span> <em>非全新</em></li>
+									<li><span class="para">成 色：</span> <em>${commodity.conditions}</em></li>
 									<li><span class="para">所&nbsp;&nbsp;在&nbsp;&nbsp;地：</span>
-										<em>北京北京 石景山区</em></li>
+										<em>${commodity.conditions}</em></li>
 									<li class="contact"><span class="para">联系方式：</span>
 										<div style="display: none">
 											<span class="J_WangWang" data-nick="可爱天使任" data-icon="large"></span>
@@ -199,9 +190,7 @@ KISSY.use('widget/header5/index');
 									<li id="J_Freight" class="freight"><a id="J_Region"
 										class="region" href="#" data-default=""> 至 <em
 											id="J_RegionName"></em><i></i>
-									</a> <span id="J_Carriage" class="fee"
-										data-url="//adpmanager.taobao.com/detail/delivery_detail.do?itemId=584816873266">运费：<em
-											class="rmb">&yen;</em><span id="J_Fee">加载中...</span></span></li>
+									</a> <span id="J_Carriage" class="fee">运费：<em class="rmb">&yen;</em><span id="J_Fee">免运费</span></span></li>
 									</li>
 								</ul>
 								<div class="buy-now" data-spm="2007.1000338.4">
@@ -218,7 +207,7 @@ KISSY.use('widget/header5/index');
 										type="hidden" name="item_id" value="584816873266" /> <input
 										type="hidden" name="auction_id" value="584816873266" /> <input
 										type="hidden" name="auction_type" value="b" /> <input
-										type="hidden" name="title" value="迪奥口红" /> <input
+										type="hidden" name="title" value="${commodity.name}" /> <input
 										type="hidden" name="seller_id"
 										value="IvH8yMkPePmN4PF9zOmlIPH*eXmleMm*HvHgSvFguvmxT" /> <input
 										type="hidden" name="allow_quantity" value="1" /> <input
@@ -257,24 +246,6 @@ KISSY.use('widget/header5/index');
 										</div>
 									</div>
 								</div>
-								<div class="do-more clearfix" data-spm="2007.1000338.5">
-									<div class="share" id="J_Share"
-										data-comment="矮油，不错哦！在淘宝二手发现个挺靠谱的闲置宝贝，只卖219.00元。你们帮我参谋参谋，如何？"
-										data-url="//count.taobao.com/counter3?keys=DFX_200_1_584816873266"
-										data-count="//2.taobao.com/activity/grantPoints.htm?type=1&_tb_token_=3933e334e1ab3"
-										data-key="DFX_200_1_584816873266">
-										<a class="btn" href="#">分享（<em class="J_ShareCount">0</em>）
-										</a>
-									</div>
-									<div class="favorite"
-										data-url="//count.taobao.com/counter3?keys=ICCP_1_584816873266"
-										data-key="ICCP_1_584816873266">
-										<a class="btn" id="J_AddFav"
-											data-url="//trade.2.taobao.com/care_item.htm?id=584816873266&_tb_token_=3933e334e1ab3"
-											href="javascript:void(0);">赞（<em>0</em>）
-										</a>
-									</div>
-								</div>
 								<div class="guarantee_new">
 									<div class="dbjy">
 										<span class="tit"></span> <strong class="desc">由支付宝先行保管,验货OK再付款到卖家账户。</strong>
@@ -298,108 +269,137 @@ KISSY.use('widget/header5/index');
 					</div>
 					<div class="col-sub">
 
-						<div id="J_Slider" class="slider" data-spm="2007.1000338.7">
 
 
-							<ul class="album">
+<div id="J_Slider" class="slider" data-spm="2007.1000338.7" data-spm-max-idx="6">
+		<ul class="album" style="position: absolute; width: 999999px; left: -0px;">
+
+        			<li class="item sh-pic ks-switchable-panel-internal72" style="display: block; float: left;">
+
+    					 <a href="javascript:void(0);" data-spm-anchor-id="2007.1000338.7.1">
+
+							<img class="big-img" src="http://img.alicdn.com/bao/uploaded/i1/587220610/O1CN011GNQ2pZdMgOkrKy_!!587220610.jpg" lazyload-img="">
+
+															<div class="mau-guide" style="display: none;">
+									<img class="guide-img" src="//gw.alicdn.com/mt/TB1WAqBPFXXXXbUXXXXXXXXXXXX-480-340.png" style="visibility: visible;">
+									<img class="close-img" src="//gw.alicdn.com/tps/TB1d6OhMVXXXXbSXXXXXXXXXXXX-32-32.png" data-spm-anchor-id="2007.1000338.7.i0.403057cctP7obe">
+								<div id="qrcode" title="https://market.m.taobao.com/app/idleFish-F2e/widle-taobao-rax/page-detail?no_silent_callapp=1&amp;wh_weex=true&amp;wx_navbar_transparent=true&amp;id=587231586968" style="position: absolute; top: 176px; left: 180px; z-index: 999999; width: 110px; height: 110px; visibility: visible;"><canvas width="110" height="110" style="display: none;"></canvas><img alt="Scan me!" style="display: block;" src="data:image/png;base64,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"></div></div>
+							
+						 </a>
+
+						 
+                	</li>
+
+        			
+        			<li class="item sh-pic ks-switchable-panel-internal72" style="display: block; float: left;">
+
+    					 <a href="javascript:void(0);" data-spm-anchor-id="2007.1000338.7.2">
+
+							<img class="big-img" src="http://img.alicdn.com/bao/uploaded/i1/TB2lXJHu4SYBuNjSsphXXbGvVXa_!!0-mytaobao.jpg" lazyload-img="">
+
+							
+						 </a>
+
+						 
+                	</li>
+
+        			
+        			<li class="item sh-pic ks-switchable-panel-internal72" style="display: block; float: left;">
+
+    					 <a href="javascript:void(0);" data-spm-anchor-id="2007.1000338.7.3">
+
+							<img class="big-img" src="http://img.alicdn.com/bao/uploaded/i3/TB2k6prAr9YBuNjy0FgXXcxcXXa_!!0-mytaobao.jpg" lazyload-img="">
+
+							
+						 </a>
+
+						 
+                	</li>
+
+    			
+    		
+           
+        </ul>
+
+		
+		<div id="J_Thumbs" class="thumbs-wrapper">
+
+			<div class="thumb-list">
+
+                <ul class="thumbs clearfix">
+
+					
+            		
+            			
+                			
+                			<li class="sh-pic ks-switchable-trigger-internal71">
+
+            					 <a href="javascript:void(0);" data-spm-anchor-id="2007.1000338.7.4">
+
+        							<img class="small-img" src="http://img.alicdn.com/bao/uploaded/i1/587220610/O1CN011GNQ2pZdMgOkrKy_!!587220610.jpg">
+
+        						 </a>
+
+                        	</li>
+
+            			
+            		
+            			
+                			
+                			<li class="sh-pic  ks-switchable-trigger-internal71 selected">
+
+            					 <a href="javascript:void(0);" data-spm-anchor-id="2007.1000338.7.5">
+
+        							<img class="small-img" src="http://img.alicdn.com/bao/uploaded/i1/TB2lXJHu4SYBuNjSsphXXbGvVXa_!!0-mytaobao.jpg">
+
+        						 </a>
+
+                        	</li>
+
+                			
+                			<li class="sh-pic  ks-switchable-trigger-internal71">
+
+            					 <a href="javascript:void(0);" data-spm-anchor-id="2007.1000338.7.6">
+
+        							<img class="small-img" src="http://img.alicdn.com/bao/uploaded/i3/TB2k6prAr9YBuNjy0FgXXcxcXXa_!!0-mytaobao.jpg">
+
+        						 </a>
+
+                        	</li>
+
+            			
+            		
+                </ul>
+
+			</div>
+
+		</div>
+
+	
+</div>
 
 
 
 
 
-								<li class="item sh-pic"><a href="javascript:void(0);">
-
-										<img class="big-img"
-										src="//assets.alicdn.com/p/fp/2011a/assets/space.gif"
-										lazyload-img="//img.alicdn.com/bao/uploaded/i3/O1CN01jVk9du1SEVm5yeeIY_!!0-fleamarket.jpg_728x728.jpg" />
-
-										<div class='mau-guide'>
-											<img class='guide-img'
-												src='//gw.alicdn.com/tps/TB1t7jmLpXXXXbGXVXXXXXXXXXX-480-340.png' />
-											<img class='close-img'
-												src='//gw.alicdn.com/tps/TB1d6OhMVXXXXbSXXXXXXXXXXXX-32-32.png' />
-										</div>
-
-								</a></li>
 
 
 
 
 
-								<li class="item sh-pic"><a href="javascript:void(0);">
-
-										<img class="big-img"
-										src="//assets.alicdn.com/p/fp/2011a/assets/space.gif"
-										lazyload-img="//img.alicdn.com/bao/uploaded/i2/O1CN010tmces1CQOC5WSLhz_!!0-fleamarket.jpg_728x728.jpg" />
-
-
-								</a></li>
 
 
 
 
 
-								<li class="item sh-pic"><a href="javascript:void(0);">
-
-										<img class="big-img"
-										src="//assets.alicdn.com/p/fp/2011a/assets/space.gif"
-										lazyload-img="//img.alicdn.com/bao/uploaded/i4/O1CN01G3O9dz20Egri00cmx_!!0-fleamarket.jpg_728x728.jpg" />
-
-
-								</a></li>
-
-
-
-
-							</ul>
-
-
-							<div id="J_Thumbs" class="thumbs-wrapper">
-
-								<div class="thumb-list">
-
-									<ul class="thumbs clearfix">
 
 
 
 
 
-										<li class="sh-pic selected"><a
-											href="javascript:void(0);"> <img class="small-img"
-												src="//img.alicdn.com/bao/uploaded/i3/O1CN01jVk9du1SEVm5yeeIY_!!0-fleamarket.jpg_80x60.jpg" />
-
-										</a></li>
 
 
 
-
-
-										<li class="sh-pic "><a href="javascript:void(0);"> <img
-												class="small-img"
-												src="//img.alicdn.com/bao/uploaded/i2/O1CN010tmces1CQOC5WSLhz_!!0-fleamarket.jpg_80x60.jpg" />
-
-										</a></li>
-
-
-
-
-
-										<li class="sh-pic "><a href="javascript:void(0);"> <img
-												class="small-img"
-												src="//img.alicdn.com/bao/uploaded/i4/O1CN01G3O9dz20Egri00cmx_!!0-fleamarket.jpg_80x60.jpg" />
-
-										</a></li>
-
-
-
-									</ul>
-
-								</div>
-
-							</div>
-
-
-						</div>
 
 						<div id="J_IdleDesc" class="idle-desc">
 
@@ -473,7 +473,7 @@ KISSY.use('widget/header5/index');
 
 								<div
 									data-url="//osdsc.alicdn.com/i7/580/810/584816873266/TB10Yivyq6qK1RjSZFm8qt0PFla.desc%7Cvar%5Edesc%3Bsign%5E64b70be0bb315b0d3486dcdd6d310cc7%3Blang%5Egbk%3Bt%5E1546004490"
-									class="describe" id="J_DescContent">描述加载中，请稍候...</div>
+									class="describe" id="J_DescContent">${commodity.info}</div>
 
 
 
@@ -507,7 +507,7 @@ KISSY.use('widget/header5/index');
 
 								<div id="J_Message" data-targetkey="584816873266"
 									data-recuserid="IvH8yMkPePmN4PF9zOmlIPH*eXmleMm*HvHgSvFguvmxT"
-									data-title="迪奥口红"></div>
+									data-title="${commodity.name}"></div>
 
 								<input id="J_Token" type='hidden' name='_tb_token_'
 									value='3933e334e1ab3'>
@@ -550,8 +550,8 @@ KISSY.use('widget/header5/index');
 
 		</div>
 	</div>
-	<div id="J_SideBar" class="sidebar">
-		<div id="J_GoTop" class="scroll-top">
+	<div id="J_SideBar" class="sidebar" style="left:90%;">
+		<div id="J_GoTop" class="scroll-top" style="visibility: visible;">
 			<a href="javascript:void(0);"><span>返回顶部</span></a>
 		</div>
 		<a id="J_Advice" class="advice-sidebar"
