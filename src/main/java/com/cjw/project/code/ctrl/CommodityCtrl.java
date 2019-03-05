@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cjw.project.code.po.CommodityPO;
 import com.cjw.project.code.po.UserPO;
 import com.cjw.project.code.service.CommodityService;
+import com.cjw.project.code.service.UserService;
 import com.cjw.project.code.vo.CountCommiditionVO;
 import com.cjw.project.tool.util.ObjectUtil;
 import com.cjw.project.tool.util.UUIDUtil;
@@ -34,7 +35,8 @@ public class CommodityCtrl {
 
 	@Autowired
 	private CommodityService tCommodityService;
-	
+	@Autowired
+	private UserService userService;
 	@RequestMapping(value ="/queryPageTCommodity")
 	@ResponseBody
 	public Response<List<CommodityPO>> queryPageTCommodity(Integer page,Integer limit,HttpServletRequest request){
@@ -306,7 +308,9 @@ public class CommodityCtrl {
 			return mv;
 		}
 		try {
-			mv.addObject("commodity", tCommodityService.getTCommodityById(id));
+			CommodityPO commodity = tCommodityService.getTCommodityById(id);
+			mv.addObject("commodity", commodity);
+			mv.addObject("seller", userService.getTUserById(commodity.getSellerId()));
 		} catch (MysqlDBException e) {
 			e.printStackTrace();
 		}
