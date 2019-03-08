@@ -13,7 +13,7 @@ function addcommodity(){
 			maxmin: false,
 			offset: 'auto',
 			area: ['70%', '60%'],
-			content: BASE_PATH+'/TCommodity/addcommodityDialog.do',
+			content: /*BASE_PATH+*/'../addcommodity.jsp',
 			success : function(layero, index){
 				layer.iframeAuto(index);
 			},	

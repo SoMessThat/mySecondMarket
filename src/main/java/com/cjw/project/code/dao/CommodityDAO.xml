@@ -71,4 +71,19 @@
 			( SELECT COUNT(id) FROM t_solicitude WHERE user_id =1 AND type = "收藏" ) "collect";
 	</select>
 
+	<!-- 某一天的会议室使用情况  -->
+	<resultMap autoMapping="true" id="DayMeetingResultMap" type="com.cjw.project.code.po.MessagePO">
+		<collection autoMapping="true" column="{id=id,time=time}" ofType="com.cjw.project.code.vo.UserVO" property="meeting" select="selectMeetingByBoardroom">
+		</collection>
+	</resultMap>
+	<select id="querySituation" resultMap="DayMeetingResultMap">
+		SELECT id ,name boardroom_name, #{time,jdbcType=VARCHAR} time
+		FROM scf_boardroom
+		WHERE state = 'ENABLE'
+	</select>
+	<select id="selectMeetingByBoardroom" parameterType="java.util.Map" resultType="com.cetccity.scf.meeting.vo.MeetingVo">
+		SELECT * FROM scf_meeting
+		WHERE boardroom_id = #{id}
+		AND begin_time LIKE CONCAT(#{time,jdbcType=VARCHAR}, '%')
+	</select>
 </mapper>  
