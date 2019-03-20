@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.cjw.project.code.po.CommodityPO;
 import com.cjw.project.code.vo.CountCommiditionVO;
+import com.cjw.project.code.vo.MessageVO;
 
 
 /**
@@ -33,7 +34,12 @@ public interface CommodityDAO extends BaseDAO<CommodityPO> {
 	 */
 	CountCommiditionVO countCommodity(String sellerId);
 	
-
+	/**
+	 * 统计售卖商品数，收藏数等
+	 * @param sellerId
+	 * @return
+	 */
+	List<MessageVO> queryMessage(String commodityId);
 }
 
 

@@ -72,18 +72,23 @@
 	</select>
 
 	<!-- 某一天的会议室使用情况  -->
-	<resultMap autoMapping="true" id="DayMeetingResultMap" type="com.cjw.project.code.po.MessagePO">
-		<collection autoMapping="true" column="{id=id,time=time}" ofType="com.cjw.project.code.vo.UserVO" property="meeting" select="selectMeetingByBoardroom">
+	<resultMap autoMapping="true" id="DayMeetingResultMap" type="com.cjw.project.code.vo.MessageVO">
+		<result property="id" column="id" />
+		<result property="ownerId" column="owner_id" />
+		<result property="ownerName" column="owner_name" />
+		<result property="passersbyId" column="passersby_id" />
+		<result property="answerId" column="answer_id" />
+		<result property="commodityId" column="commodity_id" />
+		<result property="content" column="content" />
+		<result property="time" column="time" />
+		<result property="passersbyName" column="passersby_name" />
+		<collection column="{id=id}" ofType="com.cjw.project.code.vo.MessageVO" property="answer" select="selectMeetingByBoardroom">
 		</collection>
 	</resultMap>
-	<select id="querySituation" resultMap="DayMeetingResultMap">
-		SELECT id ,name boardroom_name, #{time,jdbcType=VARCHAR} time
-		FROM scf_boardroom
-		WHERE state = 'ENABLE'
+	<select id="queryMessage" parameterType="java.lang.String" resultMap="DayMeetingResultMap">
+		SELECT * FROM t_message WHERE commodity_id=#{commodityId} AND answer_id IS NULL;
 	</select>
-	<select id="selectMeetingByBoardroom" parameterType="java.util.Map" resultType="com.cetccity.scf.meeting.vo.MeetingVo">
-		SELECT * FROM scf_meeting
-		WHERE boardroom_id = #{id}
-		AND begin_time LIKE CONCAT(#{time,jdbcType=VARCHAR}, '%')
+	<select id="selectMeetingByBoardroom" parameterType="java.util.Map" resultMap="DayMeetingResultMap">
+		SELECT * FROM t_message WHERE answer_id = #{id}
 	</select>
 </mapper>  
