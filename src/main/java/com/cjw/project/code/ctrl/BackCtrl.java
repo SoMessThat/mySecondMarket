@@ -59,11 +59,6 @@ public class BackCtrl{
 			if(!ObjectUtil.isEmpty(TUserPO)){
 //				TUserPO.setLastTime(loginTime);
 				TuserService.updateTUser(TUserPO);
-//				if (TUserPO.getStatue()!=1) {
-//					mv.addObject("erro", "网络错误，请重新登录");
-//					mv.setViewName("../login");//img.alicdn.com/tfs/TB1AApbnxnaK1RjSZFBXXcW7VXa-140-140.png
-//					return mv;
-//				}
 				if (TUserPO.getIsAdmin()==1) {
 					mv.addObject("user", TUserPO);
 					mv.setViewName("index");

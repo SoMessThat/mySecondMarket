@@ -1,3 +1,4 @@
+<%@page import="javax.xml.crypto.dsig.keyinfo.RetrievalMethod"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@include file="base.jsp"%>
 <!DOCTYPE html>
@@ -14,8 +15,6 @@
 
 
 <!-- start idle vmcommon assets 4.0-->
-<link rel="shortcut icon" type="image/x-icon"
-	href="//www.taobao.com/favicon.ico" />
 <link rel="search" type="application/opensearchdescription+xml"
 	href="//assets.alicdn.com/plugins/opensearch/provider.xml" title="淘宝购物" />
 <!-- S GLOBAL CSS -->
@@ -45,7 +44,8 @@ with(document)with(body)with(insertBefore(createElement("script"),firstChild))se
 </script>
 
 	<script>(function(){var a=document.body;window.screen.width>1024?a.className="w1190":a.className="w990"})();</script>
-<input type="hidden" name="commotity" id="commotity" value="${commotity.id}">
+	<script type="text/javascript" src="<%=basePath%>/commoditionInfo.js"></script>
+<input type="hidden" name="commodity" id="commodity" value="${commodity.id}">
 	<!-- S GLOBAL HTML -->
 	<div id="J_SiteNav" class="site-nav">
 		<div id="J_SiteNavBd" class="site-nav-bd">
@@ -514,7 +514,6 @@ KISSY.use('widget/header5/index');
 
 
 
-
 <!-- 留言 -->
 <div id="SOHUCS" sid="16"><div id="SOHU_MAIN">
 <div class="module-cmt-header">
@@ -568,6 +567,7 @@ KISSY.use('widget/header5/index');
         </div>
     </div>
 </div>
+	 	    
 <!-- 评论列表  S -->
 <div node-type="module-cmt-list" class="module-cmt-list section-list-w">
     
@@ -591,6 +591,7 @@ KISSY.use('widget/header5/index');
                 </li>
             </ul>
         </div>
+
         <div node-type="cmt-list" id="cy-cmt-list">
 	        <div node-type="cmt-item" data-id="1574501057" data-user-id="10065897456987" data-platform-id="3" class="clear-g block-cont-gw">
 		    <div class="cont-head-gw">
@@ -627,8 +628,15 @@ KISSY.use('widget/header5/index');
 		                   	</span>
 		                   	<i class="gap-gw"></i>
 		                   	<span node-type="reply" class="click-reply-gw">
-		                  	 	<a href="javascript:void(0)">取消回复</a>
-		                   	</span>
+<script>
+
+</script>
+		                  	 	<a id="<%
+							        Random a = new Random();
+									int id=a.nextInt(1000000);
+							        out.print(id);
+							%>" href="javascript:void(0)" onclick="openGW(this)">回复</a>
+							</span>
 		                    <i class="gap-gw"></i>
 		                    <span node-type="support" class="click-ding-gw">
 		                        <a href="javascript:;"><i class="icon-gw icon-ding-bg"></i><em class="icon-name-bg">123</em></a>
@@ -644,7 +652,7 @@ KISSY.use('widget/header5/index');
 		            
 		            
 		<!--             style="display:none ;" -->
-		            <div class="module-cmt-box" style="display: blocknone;"> 
+		            <div id="box_<%=id %>" class="module-cmt-box" style="display: none;"> 
 		    <!-- 展开状态 -->
 		     <div class="post-wrap-w">
 		        <div class="post-wrap-border-l"></div>
@@ -682,108 +690,33 @@ KISSY.use('widget/header5/index');
 		        </div>
 		    </div>
 		</div> 
-		
-		
+		<div node-type="cmt-list" id="cy-cmt-list">
+			<div node-type="cmt-item" data-id="1574501057" data-user-id="10065897456987" data-platform-id="3" class="clear-g block-cont-gw">
+			    <div id="mydiv">
+		    		
+		  	 	</div>
+	    	</div>
+    	</div>
+		 <script type="text/javascript">
+			 	  layui.use('jquery', function(){
+			 		  var $ = layui.jquery;
+			 		 $.ajax({
+							url:BASE_PATH+'/TCommodity/queryMessage.do?commodityId='+$('#commodity').val(),
+							type:'get',
+							dataType:'json',
+							error:function (res) {
+								layer.alert(res.data.erro);
+							},
+							success : function(data){
+								for(var i=0;i<data.data.length;i++){
+									message(data.data[i]);
+								}
+							},
+						});
+			 		});
+	 	    </script>
 		
 		<!-- 第二 -->
-		
-		<div node-type="cmt-list" id="cy-cmt-list">
-	        <div node-type="cmt-item" data-id="1574501057" data-user-id="10065897456987" data-platform-id="3" class="clear-g block-cont-gw">
-		    <div class="cont-head-gw">
-		        <div class="head-img-gw">
-		                        <a node-type="photo" href="javascript:;" title="哈哈">
-		                <div class="img-corner"></div>
-		                <img src="http://sucimg.itc.cn/avatarimg/10065897456987_1534862560258_c55" width="42" height="42" alt="">
-		            </a>
-		        </div>
-		    </div>
-		    <div class="cont-msg-gw">
-		        <div class="msg-wrap-gw">
-		            <div class="wrap-user-gw global-clear-spacing">
-		                <span class="user-time-gw">2018年9月1日 10:54</span>
-		                <span class="module-cy-score user-grade-gw"></span>
-						<span node-type="nickname" class="user-name-gw"><a href="javascript:void(0)">mess</a></span>
-		                <span class="user-address-gw">[<i>我家在北京</i>网友]</span>
-		            </div>
-		            
-		            <div class="wrap-issue-gw">
-		                <p class="issue-wrap-gw"><span class="wrap-word-gw">我回复你啊</span></p>
-		                <div class="cy-see-more">
-		                    <span></span><i></i>
-		                </div>
-		            </div>
-		            
-		            <div node-type="btns-bar" class="clear-g wrap-action-gw">
-		                <div node-type="action-click-gw" class="action-click-gw global-clear-spacing">
-		                    <i class="gap-gw"></i>
-		                    <span node-type="report" class="click-report-gw">
-			                    <a href="javascript:void(0)"><i class="icon-gw icon-flag"></i>
-		<!-- 	                   		<em>举报</em> -->
-			                   	</a>
-		                   	</span>
-		                   	<i class="gap-gw"></i>
-		                   	<span node-type="reply" class="click-reply-gw">
-		                  	 	<a href="javascript:void(0)">取消回复</a>
-		                   	</span>
-		                    <i class="gap-gw"></i>
-		                    <span node-type="support" class="click-ding-gw">
-		                        <a href="javascript:;"><i class="icon-gw icon-ding-bg"></i><em class="icon-name-bg">123</em></a>
-		                    </span>
-		                    
-		                    <i class="gap-gw"></i>
-		                    <span node-type="oppose" class="click-cai-gw">
-		                        <a href="javascript:;"><i class="icon-gw icon-cai-bg"></i><em class="icon-name-bg">321</em></a>
-		                    </span>
-		            	</div>
-		                
-		            </div>
-		            
-		            
-		<!--             style="display:block ;" -->
-		            <div class="module-cmt-box" style="display: block;"> 
-		    <!-- 展开状态 -->
-		     <div class="post-wrap-w">
-		        <div class="post-wrap-border-l"></div>
-		        <div class="post-wrap-border-r"></div>
-		        <div node-type="post-wrap-main" class="post-wrap-main post-wrap-main-focus">
-		            <div class="post-wrap-border-t">
-		                <div node-type="post-wrap-border-t-l" class="post-wrap-border-t-l"></div>
-		                <div node-type="post-wrap-border-t-r" class="post-wrap-border-t-r"></div>
-		            </div>
-		            <div class="wrap-area-w">
-		                <div class="area-textarea-w area-textarea-e">
-		                    <textarea node-type="textarea" name="" class="textarea-fw textarea-bf">那里那么多屁话。。。</textarea>
-		                </div>
-		            </div>
-		        </div>
-		        <div class="clear-g wrap-action-w">
-		            <div class="clear-g action-issue-w">
-		                <div class="issue-btn-w">
-		                    <a href="javascript:void(0)">
-		                        <button node-type="issue" class="btn-fw"></button>
-		                    </a>
-		                </div>
-		            
-		            <div class="issue-icon-w" node-type="share-icons">
-		                </div>
-		           
-		            </div>
-		            <div class="cbox-prompt-w" node-type="error-tips">
-		                <span node-type="prompt-empty" class="prompt-empty-w">评论内容为空！</span>
-		            </div>
-		        </div>
-		    </div>
-		</div> 
-		
-		                    </div>
-		    </div>
-			</div>
-		</div>
-		
-		
-		
-		
-		
 		
 		
 		
@@ -822,11 +755,6 @@ KISSY.use('widget/header5/index');
     </div>
 	</div>
 -->
-
-
-
-
-
 
 
 

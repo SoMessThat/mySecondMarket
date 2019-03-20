@@ -11,6 +11,7 @@ import com.cjw.project.code.dao.CommodityPictureRefDAO;
 import com.cjw.project.code.po.CommodityPO;
 import com.cjw.project.code.po.CommodityPictureRefPO;
 import com.cjw.project.code.vo.CountCommiditionVO;
+import com.cjw.project.code.vo.MessageVO;
 import com.cjw.project.tool.bean.Query;
 import com.cjw.project.tool.util.ObjectUtil;
 import com.cjw.project.tool.util.UUIDUtil;
@@ -282,7 +283,20 @@ public class CommodityService extends BaseService<CommodityPO>{
 		return commodityDAO.countCommodity(sellerId);
 	}
 	
-	
+	/**
+	 * 统计售卖商品数，收藏数等
+	 * @param sellerId
+	 * @return
+	 * @throws MysqlDBException
+	 */
+	public List<MessageVO> queryMessage(String commodityId)throws MysqlDBException {
+		if(ObjectUtil.isEmpty(commodityId)){
+			MysqlDBException e = new MysqlDBException("查询条件对象为空 - 异常");
+			log.error("查询条件对象为空 - 异常",e);
+			throw e;
+		}
+		return commodityDAO.queryMessage(commodityId);
+	}
 	
 }
 

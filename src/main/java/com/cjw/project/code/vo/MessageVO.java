@@ -1,9 +1,7 @@
 package com.cjw.project.code.vo; 
 
 
-import org.apache.log4j.Logger;
-
-import com.cjw.project.tool.annotation.Table;
+import java.util.List;
 
 
 
@@ -13,17 +11,11 @@ import com.cjw.project.tool.annotation.Table;
  * @author:WuKaiBin
  * @email:842387850@qq.com
  */  
-@Table("T_MESSAGE")
-public class MessagePO implements java.io.Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2490441853418057421L;
-
-
-	Logger log = Logger.getLogger(this.getClass());
-    
+/**
+ * @author Wu
+ *
+ */
+public class MessageVO {
 	
 	/**  -- id */
 	private String id;
@@ -44,7 +36,7 @@ public class MessagePO implements java.io.Serializable {
 	/**  -- answer_id */
 	private String answerId;
 	
-	private MessagePO answer;
+	private List<MessageVO> answer;
 	
 	/**  -- commodity_id */
 	private String commodityId;
@@ -140,14 +132,6 @@ public class MessagePO implements java.io.Serializable {
 		this.passersbyName = passersbyName;
 	}
 
-	public Logger getLog() {
-		return log;
-	}
-
-	public void setLog(Logger log) {
-		this.log = log;
-	}
-
 	public UserVO getOwner() {
 		return owner;
 	}
@@ -164,21 +148,21 @@ public class MessagePO implements java.io.Serializable {
 		this.passersby = passersby;
 	}
 
-	public MessagePO getAnswer() {
+	public List<MessageVO> getAnswer() {
 		return answer;
 	}
 
-	public void setAnswer(MessagePO answer) {
+	public void setAnswer(List<MessageVO> answer) {
 		this.answer = answer;
 	}
 
 	@Override
 	public String toString() {
-		return "MessagePO [log=" + log + ", id=" + id + ", ownerId=" + ownerId + ", owner=" + owner + ", ownerName="
+		return "MessageVO [id=" + id + ", ownerId=" + ownerId + ", owner=" + owner + ", ownerName="
 				+ ownerName + ", passersbyId=" + passersbyId + ", passersby=" + passersby + ", answerId=" + answerId
 				+ ", answer=" + answer + ", commodityId=" + commodityId + ", content=" + content + ", time=" + time
 				+ ", passersbyName=" + passersbyName + "]";
 	}
-    
+
     
 }

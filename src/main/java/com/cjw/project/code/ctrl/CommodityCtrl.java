@@ -21,6 +21,7 @@ import com.cjw.project.code.po.UserPO;
 import com.cjw.project.code.service.CommodityService;
 import com.cjw.project.code.service.UserService;
 import com.cjw.project.code.vo.CountCommiditionVO;
+import com.cjw.project.code.vo.MessageVO;
 import com.cjw.project.tool.util.ObjectUtil;
 import com.cjw.project.tool.util.UUIDUtil;
 import com.cjw.project.tool.util.ajax.Response;
@@ -321,4 +322,28 @@ public class CommodityCtrl {
 		
 	}
 	
+	/**
+	 * 留言信息
+	 * @createTime: 2018年10月10日 上午9:29:57
+	 * @author: wu.kaibin
+	 * @param sellerId
+	 * @return
+	 */
+	@RequestMapping(value="/queryMessage")
+	@ResponseBody
+	public Response<List<MessageVO>> queryMessage(HttpServletRequest request){
+		Response<List<MessageVO>> response =ResponseFactory.getDefaultSuccessResponse();
+		String commodityId= request.getParameter("commodityId");
+		try {
+			List<MessageVO> a = tCommodityService.queryMessage(commodityId);
+			response.setData(a);	
+//			return a;
+		} catch (MysqlDBException e) {
+			response.setError("网络连接失败，请检查网络");
+//			return response;
+		}
+		response.setResult(Response.RESULT_SUCCESS);
+		return response;
+//		return null;
+	}
 }
