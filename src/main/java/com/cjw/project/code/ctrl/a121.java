@@ -2,8 +2,10 @@ package com.cjw.project.code.ctrl;
 
 public class a121 {
 
+//	http://www.jq22.com/yanshi10489
+//	http://www.jq22.com/demo/jQueryGwc201707250014/#
 	
-
+	
 /*https://github.com/SoMessThat/CommunityManager.git
  * tAnnouncement_id 
  * 
