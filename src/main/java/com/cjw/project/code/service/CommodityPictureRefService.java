@@ -63,13 +63,13 @@ public class CommodityPictureRefService extends BaseService<CommodityPictureRefP
 	 * @param id
 	 * @throws MysqlDBException
 	 */
-	public void getCommodityPictureRefById(String id) throws MysqlDBException{
+	public CommodityPictureRefPO getCommodityPictureRefById(String id) throws MysqlDBException{
 		if(ObjectUtil.isEmpty(id)){
 			MysqlDBException e = new MysqlDBException("通过主键 查询对象，主键 id 不能为空");
 			log.error("通过主键 查询对象，主键 id 不能为空",e);
 			throw e;
 		}
-		this.get(id);
+		return this.get(id);
 	}
 	
 	/**
@@ -91,7 +91,7 @@ public class CommodityPictureRefService extends BaseService<CommodityPictureRefP
         Query<CommodityPictureRefPO> q = Query.build(CommodityPictureRefPO.class);
 		q.setPaged(pageNo, pageSize);
 		
-        if(!ObjectUtil.isEmpty(obj.getId()))q.addEq("id", obj.getId()); 
+        if(!ObjectUtil.isEmpty(obj.getCid()))q.addEq("id", obj.getCid()); 
         if(!ObjectUtil.isEmpty(obj.getCommodityId()))q.addEq("commodityId", obj.getCommodityId()); 
         if(!ObjectUtil.isEmpty(obj.getPictureAdress()))q.addEq("pictureAdress", obj.getPictureAdress()); 
         
@@ -115,7 +115,7 @@ public class CommodityPictureRefService extends BaseService<CommodityPictureRefP
 		}
         Query<CommodityPictureRefPO> q = Query.build(CommodityPictureRefPO.class);
 		
-        if(!ObjectUtil.isEmpty(obj.getId()))q.addEq("id", obj.getId()); 
+        if(!ObjectUtil.isEmpty(obj.getCid()))q.addEq("id", obj.getCid()); 
         if(!ObjectUtil.isEmpty(obj.getCommodityId()))q.addEq("commodityId", obj.getCommodityId()); 
         if(!ObjectUtil.isEmpty(obj.getPictureAdress()))q.addEq("pictureAdress", obj.getPictureAdress()); 
 		return this.findByQuery(q);
@@ -136,7 +136,7 @@ public class CommodityPictureRefService extends BaseService<CommodityPictureRefP
 		}
         Query<CommodityPictureRefPO> q = Query.build(CommodityPictureRefPO.class);
 		
-        if(!ObjectUtil.isEmpty(obj.getId()))q.addEq("id", obj.getId()); 
+        if(!ObjectUtil.isEmpty(obj.getCid()))q.addEq("id", obj.getCid()); 
         if(!ObjectUtil.isEmpty(obj.getCommodityId()))q.addEq("commodityId", obj.getCommodityId()); 
         if(!ObjectUtil.isEmpty(obj.getPictureAdress()))q.addEq("pictureAdress", obj.getPictureAdress()); 
 		return this.get(q);
@@ -156,7 +156,7 @@ public class CommodityPictureRefService extends BaseService<CommodityPictureRefP
 		}
         Query<CommodityPictureRefPO> q = Query.build(CommodityPictureRefPO.class);
 		
-        if(!ObjectUtil.isEmpty(obj.getId()))q.addEq("id", obj.getId()); 
+        if(!ObjectUtil.isEmpty(obj.getCid()))q.addEq("id", obj.getCid()); 
         if(!ObjectUtil.isEmpty(obj.getCommodityId()))q.addEq("commodityId", obj.getCommodityId()); 
         if(!ObjectUtil.isEmpty(obj.getPictureAdress()))q.addEq("pictureAdress", obj.getPictureAdress()); 
 		String[] columnProperty = {"id","commodityId","pictureAdress"};

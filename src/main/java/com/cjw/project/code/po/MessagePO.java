@@ -64,7 +64,7 @@ public class MessagePO implements java.io.Serializable {
     @Column("PASSERSBY_NAME")    
 	private String passersbyName;
     
-    
+    private MessagePO message;
 
     public String getId() {
 		return id;
@@ -146,9 +146,15 @@ public class MessagePO implements java.io.Serializable {
 		this.passersbyName = passersbyName;
 	}
     
-    
-    
-    @Override
+    public MessagePO getMessage() {
+		return message;
+	}
+
+	public void setMessage(MessagePO message) {
+		this.message = message;
+	}
+
+	@Override
 	public String toString() {
 		 StringBuffer sb = new StringBuffer();
          if(!ObjectUtil.isEmpty(this.getId()))sb.append("id="+this.id+ " | ");

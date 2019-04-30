@@ -41,7 +41,7 @@ public class CommodityService extends BaseService<CommodityPO>{
 		String a []  = address.split(";");
 		for(int i=0;i<a.length;i++){
 			CommodityPictureRefPO po = new CommodityPictureRefPO();
-			po.setId(UUIDUtil.getSortUUID());
+			po.setCid(UUIDUtil.getSortUUID());
 			po.setCommodityId(obj.getId());
 			po.setPictureAdress(a[i]);
 			commodityPictureRefDAO.insert(po);
@@ -88,7 +88,7 @@ public class CommodityService extends BaseService<CommodityPO>{
 			log.error("通过主键 查询对象，主键 id 不能为空",e);
 			throw e;
 		}
-		return this.get(id);
+		return commodityDAO.getTCommodityById(id);
 	}
 	
 	/**

@@ -71,7 +71,6 @@
 			( SELECT COUNT(id) FROM t_solicitude WHERE user_id =1 AND type = "收藏" ) "collect";
 	</select>
 
-	<!-- 某一天的会议室使用情况  -->
 	<resultMap autoMapping="true" id="DayMeetingResultMap" type="com.cjw.project.code.vo.MessageVO">
 		<result property="id" column="id" />
 		<result property="ownerId" column="owner_id" />
@@ -82,13 +81,13 @@
 		<result property="content" column="content" />
 		<result property="time" column="time" />
 		<result property="passersbyName" column="passersby_name" />
-		<collection column="{id=id}" ofType="com.cjw.project.code.vo.MessageVO" property="answer" select="selectMeetingByBoardroom">
+		<collection column="{id=id}" ofType="com.cjw.project.code.vo.MessageVO" property="answer" select="selectMessage">
 		</collection>
 	</resultMap>
 	<select id="queryMessage" parameterType="java.lang.String" resultMap="DayMeetingResultMap">
 		SELECT * FROM t_message WHERE commodity_id=#{commodityId} AND answer_id IS NULL;
 	</select>
-	<select id="selectMeetingByBoardroom" parameterType="java.util.Map" resultMap="DayMeetingResultMap">
+	<select id="selectMessage" parameterType="java.util.Map" resultMap="DayMeetingResultMap">
 		SELECT * FROM t_message WHERE answer_id = #{id}
 	</select>
 </mapper>  

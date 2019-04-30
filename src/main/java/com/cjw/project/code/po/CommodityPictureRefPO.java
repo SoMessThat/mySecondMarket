@@ -1,5 +1,6 @@
 package com.cjw.project.code.po; 
 
+
 import org.apache.log4j.Logger;
 
 import com.cjw.project.tool.annotation.Column;
@@ -12,8 +13,8 @@ import com.cjw.project.tool.util.ObjectUtil;
 /**
  * CommodityPictureRefPO
  * Description:
- * @author:ZhengChao
- * @email:zhengchao730@163.com
+ * @author:WuKaiBin
+ * @email:842387850@qq.com
  */  
 @Table("COMMODITY_PICTURE_REF")
 public class CommodityPictureRefPO implements java.io.Serializable {
@@ -21,32 +22,37 @@ public class CommodityPictureRefPO implements java.io.Serializable {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 9116521330813183091L;
+	private static final long serialVersionUID = -1822106207204279304L;
 
 
 	Logger log = Logger.getLogger(this.getClass());
     
 	
-	/**  -- id */
-	@PrimaryKey("CID")    
-	private String id;
+	/**
+	 * -- cid
+	 */
+    @PrimaryKey("CID")
+	private String cid;
 	
-	/**  -- commodity_id */
+	/**
+	 * -- commodity_id
+	 */
     @Column("COMMODITY_ID")    
 	private String commodityId;
 	
-	/**  -- picture_adress */
+	/**
+	 * -- picture_adress
+	 */
     @Column("PICTURE_ADRESS")    
 	private String pictureAdress;
     
-    
 
-    public String getId() {
-		return id;
+    public String getCid() {
+		return cid;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setCid(String cid) {
+		this.cid = cid;
 	}
     
 
@@ -72,7 +78,7 @@ public class CommodityPictureRefPO implements java.io.Serializable {
     @Override
 	public String toString() {
 		 StringBuffer sb = new StringBuffer();
-         if(!ObjectUtil.isEmpty(this.getId()))sb.append("id="+this.id+ " | ");
+         if(!ObjectUtil.isEmpty(this.getCid()))sb.append("cid="+this.cid+ " | ");
          if(!ObjectUtil.isEmpty(this.getCommodityId()))sb.append("commodityId="+this.commodityId+ " | ");
          if(!ObjectUtil.isEmpty(this.getPictureAdress()))sb.append("pictureAdress="+this.pictureAdress+ " | ");
 		 log.debug(sb.toString());

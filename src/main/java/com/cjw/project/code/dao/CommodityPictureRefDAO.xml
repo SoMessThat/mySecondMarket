@@ -7,6 +7,8 @@
 		<result property="pictureId" column="picture_id" />
 		<result property="commodityId" column="commodity_id" />
 	</resultMap>
+	
+	
 </mapper>  
 
 

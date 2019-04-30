@@ -40,6 +40,8 @@ public interface CommodityDAO extends BaseDAO<CommodityPO> {
 	 * @return
 	 */
 	List<MessageVO> queryMessage(String commodityId);
+
+	CommodityPO getTCommodityById(String id);
 }
 
 

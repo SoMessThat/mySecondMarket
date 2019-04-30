@@ -1,6 +1,8 @@
 package com.cjw.project.code.po; 
 
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.cjw.project.tool.annotation.Column;
@@ -102,8 +104,10 @@ public class CommodityPO implements java.io.Serializable {
     @Column("STATE")    
 	private String state;
     
-    
+    private List<CommodityPictureRefPO> pics;
 
+    private List<MessagePO> messagess;
+    
     public String getId() {
 		return id;
 	}
@@ -273,9 +277,23 @@ public class CommodityPO implements java.io.Serializable {
 		this.state = state;
 	}
     
-    
-    
-    @Override
+    public List<CommodityPictureRefPO> getPics() {
+		return pics;
+	}
+
+	public void setPics(List<CommodityPictureRefPO> pics) {
+		this.pics = pics;
+	}
+	
+	public List<MessagePO> getMessagess() {
+		return messagess;
+	}
+
+	public void setMessagess(List<MessagePO> messagess) {
+		this.messagess = messagess;
+	}
+
+	@Override
 	public String toString() {
 		 StringBuffer sb = new StringBuffer();
          if(!ObjectUtil.isEmpty(this.getId()))sb.append("id="+this.id+ " | ");
