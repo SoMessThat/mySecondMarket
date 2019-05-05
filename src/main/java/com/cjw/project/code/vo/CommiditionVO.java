@@ -1,19 +1,26 @@
 package com.cjw.project.code.vo;
 
+import java.util.List;
+
+import com.cjw.project.code.po.CommodityPictureRefPO;
+
 public class CommiditionVO {
 	private String id;
 	private String name;
 	private String category;
 	private String info;
 	private Integer pop;
-	private String pictureId;
+	private List<CommodityPictureRefPO> picture;
 	private Double price;
 	private Double secprice;
 	private String conditions;
 	private String messageId;
+	private List<MessageVO> messages;
 	private Integer num;
 	private String sellerId;
+	private UserVO seller;
 	private String buyerId;
+	private UserVO buyer;
 	private Long creartTime;
 	private Long closingTime;
 	private String state;
@@ -48,11 +55,11 @@ public class CommiditionVO {
 	public void setPop(Integer pop) {
 		this.pop = pop;
 	}
-	public String getPictureId() {
-		return pictureId;
+	public List<CommodityPictureRefPO> getPicture() {
+		return picture;
 	}
-	public void setPictureId(String pictureId) {
-		this.pictureId = pictureId;
+	public void setPictureId(List<CommodityPictureRefPO> picture) {
+		this.picture = picture;
 	}
 	public Double getPrice() {
 		return price;
@@ -78,6 +85,12 @@ public class CommiditionVO {
 	public void setMessageId(String messageId) {
 		this.messageId = messageId;
 	}
+	public List<MessageVO> getMessages() {
+		return messages;
+	}
+	public void setMessages(List<MessageVO> messages) {
+		this.messages = messages;
+	}
 	public Integer getNum() {
 		return num;
 	}
@@ -90,11 +103,23 @@ public class CommiditionVO {
 	public void setSellerId(String sellerId) {
 		this.sellerId = sellerId;
 	}
+	public UserVO getSeller() {
+		return seller;
+	}
+	public void setSeller(UserVO seller) {
+		this.seller = seller;
+	}
 	public String getBuyerId() {
 		return buyerId;
 	}
 	public void setBuyerId(String buyerId) {
 		this.buyerId = buyerId;
+	}
+	public UserVO getBuyer() {
+		return buyer;
+	}
+	public void setBuyer(UserVO buyer) {
+		this.buyer = buyer;
 	}
 	public Long getCreartTime() {
 		return creartTime;

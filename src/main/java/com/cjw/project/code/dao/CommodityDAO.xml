@@ -84,10 +84,34 @@
 		<collection column="{id=id}" ofType="com.cjw.project.code.vo.MessageVO" property="answer" select="selectMessage">
 		</collection>
 	</resultMap>
-	<select id="queryMessage" parameterType="java.lang.String" resultMap="DayMeetingResultMap">
+	<select id="queryMessage" resultMap="DayMeetingResultMap">
 		SELECT * FROM t_message WHERE commodity_id=#{commodityId} AND answer_id IS NULL;
 	</select>
-	<select id="selectMessage" parameterType="java.util.Map" resultMap="DayMeetingResultMap">
+	<select id="selectMessage" resultMap="DayMeetingResultMap">
 		SELECT * FROM t_message WHERE answer_id = #{id}
+	</select>
+	<select id="getTCommodityById" resultType="com.cjw.project.code.po.CommodityPO">
+		SELECT * FROM t_commodity WHERE id = #{id}
+	</select>
+	
+	<resultMap autoMapping="true" id="CommodityMap" type="com.cjw.project.code.vo.CommiditionVO">
+		<association column="{id=seller_id}" property="seller" select="selectUser"></association>
+		<association column="{id=buyer_id}" property="buyer" select="selectUser"></association>
+		<collection column="{commodityId=id}" property="messages" select="queryMessage">
+		</collection>
+		<collection column="{commodityId=id}" property="picture" select="queryPicture">
+		</collection>
+	</resultMap>
+	
+	<select id="queryCommodity" resultMap="CommodityMap">
+		SELECT * FROM T_COMMODITY WHERE id = #{commodityId}
+	</select>
+	
+	<select id="selectUser" resultType="com.cjw.project.code.vo.UserVO">
+		SELECT * FROM t_user WHERE id = #{id}
+	</select>
+	
+	<select id="queryPicture" resultType="com.cjw.project.code.po.CommodityPictureRefPO">
+		SELECT * FROM commodity_picture_ref WHERE commodity_id = #{commodityId}
 	</select>
 </mapper>  

@@ -11,7 +11,6 @@
 		<title></title>
 	</head>
 	<body>  
-	<script type="text/javascript" src="< %=basePath%>/tOrder.js"></script>
 	<form  id="tOrderlistform" class="layui-form" style="margin-top: 5px">
 		<div class="layui-input-inline">
 			<input type="text" id="id" name="id" placeholder="id" class="layui-input" style="width:100px">
@@ -75,6 +74,7 @@
 	</form>
 	<table class="layui-table" id="tOrderlist" lay-filter="tOrderlist"></table>
 	
+	<script type="text/javascript" src="<%=basePath%>/tOrder.js"></script>
 </body>
 <script type="text/html" id="barDemo">
   <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>

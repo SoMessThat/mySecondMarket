@@ -516,7 +516,6 @@ SecondHand.current = 'detail';
 		                    <i class="gap-gw"></i>
 		                    <span node-type="report" class="click-report-gw">
 			                    <a href="javascript:void(0)"><i class="icon-gw icon-flag"></i>
-		<!-- 	                   		<em>举报</em> -->
 			                   	</a>
 		                   	</span>
 		                   	<i class="gap-gw"></i>

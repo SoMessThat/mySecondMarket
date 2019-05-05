@@ -14,9 +14,11 @@ layui.use(['jquery'], function(){
 		}
 
 	}
+	
 	function createId() {
 		    	return (Math.random()*10000000).toString(16).substr(0,4)+'-'+(new Date()).getTime()+'-'+Math.random().toString().substr(2,5);
 		    }
+	
 	window.message = function(data){
 		var id=createId();
 		$("#mydiv").append(
@@ -103,6 +105,8 @@ layui.use(['jquery'], function(){
 				'               </div>'+
 				'			</div>  ');
 	}
+	
+	
 	var ione=$(".one"),ithe=$(".the"),itwo=$(".two img"),tthe=$(".the img");
 	var arr=["../images/bg2.jpg","../images/logo.png","../images/shehui.jpg"];
 	var oarr=["img/111.jpg","img/222.jpg","img/333.jpg"];
@@ -131,9 +135,9 @@ layui.use(['jquery'], function(){
 						})
 			})
 			$.ajax({
-				url:BASE_PATH+'/TCommodity/findTCommodityById.do',
+				url:BASE_PATH+'/TCommodity/queryCommodity.do',
 				type:'get',
-				dataType:'text',
+				dataType:'json',
 				data:{
 					id:$('#commodity').val(),
 				},
@@ -141,7 +145,9 @@ layui.use(['jquery'], function(){
 					layer.alert(res.errors);
 				},
 				success:function (res) {
-					console.log(res.data);
+					for (var int = 0; int < res.data.picture.length; int++) {
+						oarr.push(res.data.picture[int].pictureAdress)
+					}
 				}
 			});
 });

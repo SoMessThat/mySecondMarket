@@ -10,6 +10,7 @@ import com.cjw.project.code.dao.CommodityDAO;
 import com.cjw.project.code.dao.CommodityPictureRefDAO;
 import com.cjw.project.code.po.CommodityPO;
 import com.cjw.project.code.po.CommodityPictureRefPO;
+import com.cjw.project.code.vo.CommiditionVO;
 import com.cjw.project.code.vo.CountCommiditionVO;
 import com.cjw.project.code.vo.MessageVO;
 import com.cjw.project.tool.bean.Query;
@@ -296,6 +297,17 @@ public class CommodityService extends BaseService<CommodityPO>{
 			throw e;
 		}
 		return commodityDAO.queryMessage(commodityId);
+	}
+
+	/**
+	 * 商品信息
+	 * @createTime: 2018年10月10日 上午9:29:57
+	 * @author: wu.kaibin
+	 * @param sellerId
+	 * @return
+	 */
+	public CommiditionVO queryCommodity(String commodityId) {
+		return commodityDAO.queryCommodity(commodityId);
 	}
 	
 }

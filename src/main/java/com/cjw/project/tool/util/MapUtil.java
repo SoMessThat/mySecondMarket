@@ -57,7 +57,7 @@ public class MapUtil {
 	}
 	public final static void main(String[] args) {
 
-	        	String obj=GetLocationMsg(119.371528,26.085293);
+//	        	String obj=GetLocationMsg(119.371528,26.085293);
 	        	
 	        	//baidu
 	        	//转换成json格式字符串

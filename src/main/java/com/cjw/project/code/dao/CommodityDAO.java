@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import com.cjw.project.code.po.CommodityPO;
+import com.cjw.project.code.vo.CommiditionVO;
 import com.cjw.project.code.vo.CountCommiditionVO;
 import com.cjw.project.code.vo.MessageVO;
 
@@ -42,6 +43,8 @@ public interface CommodityDAO extends BaseDAO<CommodityPO> {
 	List<MessageVO> queryMessage(String commodityId);
 
 	CommodityPO getTCommodityById(String id);
+
+	CommiditionVO queryCommodity(String commodityId);
 }
 
 
