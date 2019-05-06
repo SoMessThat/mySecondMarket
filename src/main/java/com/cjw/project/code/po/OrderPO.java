@@ -58,20 +58,10 @@ public class OrderPO implements java.io.Serializable {
 	/**  -- creart_time */
     @Column("CREART_TIME")    
 	private Long creartTime;
-	// (查询条件 - 开始) 
-	private Long creartTimeBegin;
-    // (查询条件 - 结束)  
-    private Long creartTimeEnd;
-    
 	
 	/**  -- pay_time */
     @Column("PAY_TIME")    
 	private Long payTime;
-	// (查询条件 - 开始) 
-	private Long payTimeBegin;
-    // (查询条件 - 结束)  
-    private Long payTimeEnd;
-    
 	
 	/**  -- state */
     @Column("STATE")    
@@ -165,20 +155,6 @@ public class OrderPO implements java.io.Serializable {
 	public void setCreartTime(Long creartTime) {
 		this.creartTime = creartTime;
 	}
-	public Long getCreartTimeBegin() {
-		return creartTimeBegin;
-	}
-	public void setCreartTimeBegin(Long creartTimeBegin) {
-		this.creartTimeBegin = creartTimeBegin;
-	}
-    public Long getCreartTimeEnd() {
-		return creartTimeEnd;
-	}
-	public void setCreartTimeEnd(Long creartTimeEnd) {
-		this.creartTimeEnd = creartTimeEnd;
-	}
-    
-    
 
     public Long getPayTime() {
 		return payTime;
@@ -187,20 +163,6 @@ public class OrderPO implements java.io.Serializable {
 	public void setPayTime(Long payTime) {
 		this.payTime = payTime;
 	}
-	public Long getPayTimeBegin() {
-		return payTimeBegin;
-	}
-	public void setPayTimeBegin(Long payTimeBegin) {
-		this.payTimeBegin = payTimeBegin;
-	}
-    public Long getPayTimeEnd() {
-		return payTimeEnd;
-	}
-	public void setPayTimeEnd(Long payTimeEnd) {
-		this.payTimeEnd = payTimeEnd;
-	}
-    
-    
 
     public String getState() {
 		return state;

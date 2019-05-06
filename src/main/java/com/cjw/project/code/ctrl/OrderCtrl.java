@@ -121,33 +121,33 @@ public class OrderCtrl {
 	public Response<OrderPO> updateTOrderById(HttpServletRequest request){
 		Response<OrderPO> response =ResponseFactory.getDefaultSuccessResponse();
 		OrderPO condition=new OrderPO();
-        String id = request.getParameter("tOrder_id");
+        String id = request.getParameter("id");
 		if(!ObjectUtil.isEmpty(id)) condition.setId(String.valueOf(id));
-        String commodityId = request.getParameter("tOrder_commodityId");
+        String commodityId = request.getParameter("commodityId");
 		if(!ObjectUtil.isEmpty(commodityId)) condition.setCommodityId(String.valueOf(commodityId));
-        String pictureId = request.getParameter("tOrder_pictureId");
+        String pictureId = request.getParameter("pictureId");
 		if(!ObjectUtil.isEmpty(pictureId)) condition.setPictureId(String.valueOf(pictureId));
-        String price = request.getParameter("tOrder_price");
+        String price = request.getParameter("price");
 		if(!ObjectUtil.isEmpty(price)) condition.setPrice(Double.valueOf(price));
-        String num = request.getParameter("tOrder_num");
+        String num = request.getParameter("num");
 		if(!ObjectUtil.isEmpty(num)) condition.setNum(Integer.valueOf(num));
-        String sellerId = request.getParameter("tOrder_sellerId");
+        String sellerId = request.getParameter("sellerId");
 		if(!ObjectUtil.isEmpty(sellerId)) condition.setSellerId(String.valueOf(sellerId));
-        String buyerId = request.getParameter("tOrder_buyerId");
+        String buyerId = request.getParameter("buyerId");
 		if(!ObjectUtil.isEmpty(buyerId)) condition.setBuyerId(String.valueOf(buyerId));
-        String creartTime = request.getParameter("tOrder_creartTime");
+        String creartTime = request.getParameter("creartTime");
 		if(!ObjectUtil.isEmpty(creartTime)) condition.setCreartTime(Long.valueOf(creartTime));
-        String payTime = request.getParameter("tOrder_payTime");
+        String payTime = request.getParameter("payTime");
 		if(!ObjectUtil.isEmpty(payTime)) condition.setPayTime(Long.valueOf(payTime));
-        String state = request.getParameter("tOrder_state");
+        String state = request.getParameter("state");
 		if(!ObjectUtil.isEmpty(state)) condition.setState(String.valueOf(state));
-        String address = request.getParameter("tOrder_address");
+        String address = request.getParameter("address");
 		if(!ObjectUtil.isEmpty(address)) condition.setAddress(String.valueOf(address));
-        String isSign = request.getParameter("tOrder_isSign");
+        String isSign = request.getParameter("isSign");
 		if(!ObjectUtil.isEmpty(isSign)) condition.setIsSign(Integer.valueOf(isSign));
-        String isPay = request.getParameter("tOrder_isPay");
+        String isPay = request.getParameter("isPay");
 		if(!ObjectUtil.isEmpty(isPay)) condition.setIsPay(Integer.valueOf(isPay));
-        String logisticsCode = request.getParameter("tOrder_logisticsCode");
+        String logisticsCode = request.getParameter("logisticsCode");
 		if(!ObjectUtil.isEmpty(logisticsCode)) condition.setLogisticsCode(String.valueOf(logisticsCode));
 		
 		if (ObjectUtil.isEmpty(condition.getId())) {

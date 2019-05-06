@@ -109,24 +109,10 @@ public class OrderService extends BaseService<OrderPO> {
 			q.addEq("sellerId", obj.getSellerId());
 		if (!ObjectUtil.isEmpty(obj.getBuyerId()))
 			q.addEq("buyerId", obj.getBuyerId());
-		if (!ObjectUtil.isEmpty(obj.getCreartTimeBegin()) && !ObjectUtil.isEmpty(obj.getCreartTimeEnd())) {
-			q.addBetween("creartTime", obj.getCreartTimeBegin(), obj.getCreartTimeEnd());
-		} else {
-			if (!ObjectUtil.isEmpty(obj.getCreartTimeBegin()))
-				q.addGt("creartTime", obj.getCreartTimeBegin());
-			if (!ObjectUtil.isEmpty(obj.getCreartTimeEnd()))
-				q.addLt("creartTime", obj.getCreartTimeEnd());
-		}
-
-		if (!ObjectUtil.isEmpty(obj.getPayTimeBegin()) && !ObjectUtil.isEmpty(obj.getPayTimeEnd())) {
-			q.addBetween("payTime", obj.getPayTimeBegin(), obj.getPayTimeEnd());
-		} else {
-			if (!ObjectUtil.isEmpty(obj.getPayTimeBegin()))
-				q.addGt("payTime", obj.getPayTimeBegin());
-			if (!ObjectUtil.isEmpty(obj.getPayTimeEnd()))
-				q.addLt("payTime", obj.getPayTimeEnd());
-		}
-
+		if (!ObjectUtil.isEmpty(obj.getCreartTime()))
+			q.addEq("creartTime", obj.getCreartTime());
+		if (!ObjectUtil.isEmpty(obj.getPayTime()))
+			q.addEq("payTime", obj.getPayTime());
 		if (!ObjectUtil.isEmpty(obj.getState()))
 			q.addEq("state", obj.getState());
 		if (!ObjectUtil.isEmpty(obj.getAddress()))
@@ -173,24 +159,10 @@ public class OrderService extends BaseService<OrderPO> {
 			q.addEq("sellerId", obj.getSellerId());
 		if (!ObjectUtil.isEmpty(obj.getBuyerId()))
 			q.addEq("buyerId", obj.getBuyerId());
-		if (!ObjectUtil.isEmpty(obj.getCreartTimeBegin()) && !ObjectUtil.isEmpty(obj.getCreartTimeEnd())) {
-			q.addBetween("creartTime", obj.getCreartTimeBegin(), obj.getCreartTimeEnd());
-		} else {
-			if (!ObjectUtil.isEmpty(obj.getCreartTimeBegin()))
-				q.addGt("creartTime", obj.getCreartTimeBegin());
-			if (!ObjectUtil.isEmpty(obj.getCreartTimeEnd()))
-				q.addLt("creartTime", obj.getCreartTimeEnd());
-		}
-
-		if (!ObjectUtil.isEmpty(obj.getPayTimeBegin()) && !ObjectUtil.isEmpty(obj.getPayTimeEnd())) {
-			q.addBetween("payTime", obj.getPayTimeBegin(), obj.getPayTimeEnd());
-		} else {
-			if (!ObjectUtil.isEmpty(obj.getPayTimeBegin()))
-				q.addGt("payTime", obj.getPayTimeBegin());
-			if (!ObjectUtil.isEmpty(obj.getPayTimeEnd()))
-				q.addLt("payTime", obj.getPayTimeEnd());
-		}
-
+		if (!ObjectUtil.isEmpty(obj.getCreartTime()))
+			q.addEq("creartTime", obj.getCreartTime());
+		if (!ObjectUtil.isEmpty(obj.getPayTime()))
+			q.addEq("payTime", obj.getPayTime());
 		if (!ObjectUtil.isEmpty(obj.getState()))
 			q.addEq("state", obj.getState());
 		if (!ObjectUtil.isEmpty(obj.getAddress()))
@@ -234,24 +206,10 @@ public class OrderService extends BaseService<OrderPO> {
 			q.addEq("sellerId", obj.getSellerId());
 		if (!ObjectUtil.isEmpty(obj.getBuyerId()))
 			q.addEq("buyerId", obj.getBuyerId());
-		if (!ObjectUtil.isEmpty(obj.getCreartTimeBegin()) && !ObjectUtil.isEmpty(obj.getCreartTimeEnd())) {
-			q.addBetween("creartTime", obj.getCreartTimeBegin(), obj.getCreartTimeEnd());
-		} else {
-			if (!ObjectUtil.isEmpty(obj.getCreartTimeBegin()))
-				q.addGt("creartTime", obj.getCreartTimeBegin());
-			if (!ObjectUtil.isEmpty(obj.getCreartTimeEnd()))
-				q.addLt("creartTime", obj.getCreartTimeEnd());
-		}
-
-		if (!ObjectUtil.isEmpty(obj.getPayTimeBegin()) && !ObjectUtil.isEmpty(obj.getPayTimeEnd())) {
-			q.addBetween("payTime", obj.getPayTimeBegin(), obj.getPayTimeEnd());
-		} else {
-			if (!ObjectUtil.isEmpty(obj.getPayTimeBegin()))
-				q.addGt("payTime", obj.getPayTimeBegin());
-			if (!ObjectUtil.isEmpty(obj.getPayTimeEnd()))
-				q.addLt("payTime", obj.getPayTimeEnd());
-		}
-
+		if (!ObjectUtil.isEmpty(obj.getCreartTime()))
+			q.addEq("creartTime", obj.getCreartTime());
+		if (!ObjectUtil.isEmpty(obj.getPayTime()))
+			q.addEq("payTime", obj.getPayTime());
 		if (!ObjectUtil.isEmpty(obj.getState()))
 			q.addEq("state", obj.getState());
 		if (!ObjectUtil.isEmpty(obj.getAddress()))
@@ -294,24 +252,10 @@ public class OrderService extends BaseService<OrderPO> {
 			q.addEq("sellerId", obj.getSellerId());
 		if (!ObjectUtil.isEmpty(obj.getBuyerId()))
 			q.addEq("buyerId", obj.getBuyerId());
-		if (!ObjectUtil.isEmpty(obj.getCreartTimeBegin()) && !ObjectUtil.isEmpty(obj.getCreartTimeEnd())) {
-			q.addBetween("creartTime", obj.getCreartTimeBegin(), obj.getCreartTimeEnd());
-		} else {
-			if (!ObjectUtil.isEmpty(obj.getCreartTimeBegin()))
-				q.addGt("creartTime", obj.getCreartTimeBegin());
-			if (!ObjectUtil.isEmpty(obj.getCreartTimeEnd()))
-				q.addLt("creartTime", obj.getCreartTimeEnd());
-		}
-
-		if (!ObjectUtil.isEmpty(obj.getPayTimeBegin()) && !ObjectUtil.isEmpty(obj.getPayTimeEnd())) {
-			q.addBetween("payTime", obj.getPayTimeBegin(), obj.getPayTimeEnd());
-		} else {
-			if (!ObjectUtil.isEmpty(obj.getPayTimeBegin()))
-				q.addGt("payTime", obj.getPayTimeBegin());
-			if (!ObjectUtil.isEmpty(obj.getPayTimeEnd()))
-				q.addLt("payTime", obj.getPayTimeEnd());
-		}
-
+		if (!ObjectUtil.isEmpty(obj.getCreartTime()))
+			q.addEq("creartTime", obj.getCreartTime());
+		if (!ObjectUtil.isEmpty(obj.getPayTime()))
+			q.addEq("payTime", obj.getPayTime());
 		if (!ObjectUtil.isEmpty(obj.getState()))
 			q.addEq("state", obj.getState());
 		if (!ObjectUtil.isEmpty(obj.getAddress()))

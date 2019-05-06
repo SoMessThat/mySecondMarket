@@ -646,7 +646,7 @@ SecondHand.current = 'detail';
 		</div>
 	</div>
 
-
+	</div>
 	<div class="idle-footer" id="J_IdleFooter" style="    background-color: #fff;">
 		<div class="footer" data-spm="1997523009">
 

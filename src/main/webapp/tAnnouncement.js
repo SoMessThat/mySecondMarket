@@ -8,7 +8,7 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	  	  $ = layui.$;
 
    	  table.render({
-   		elem: 'tAnnouncementlist',
+   		elem: '#tAnnouncementlist',
 	    url: BASE_PATH+'/TAnnouncement/queryPageTAnnouncement.do',
 	 //   toolbar: '#barDemo',
 		limit:10,	
