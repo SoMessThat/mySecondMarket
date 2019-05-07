@@ -19,22 +19,22 @@
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="menu">
         <li class="layui-nav-item">
-    	    <a href="javascript:;" data-url="<%=request.getContextPath()%>/sales/managesalesReport.php" data-id='0' data-text="财务信息">我的信息</a>
+    	    <a href="javascript:;" data-url="<%=request.getContextPath()%>/sales/managesalesReport.php" data-id='0' data-text="我的信息">我的信息</a>
         </li>
         <li class="layui-nav-item">
-          <a href="javascript:;" data-url="<%=request.getContextPath()%>/tOrder.jsp" data-id='1' data-text="当前房间信息">我上架的商品</a>
+          <a href="javascript:;" data-url="<%=request.getContextPath()%>/tOrder.jsp" data-id='1' data-text="我上架的商品">我上架的商品</a>
         </li>
         <li class="layui-nav-item">
-    	    <a href="javascript:;" data-url="<%=request.getContextPath()%>/room/roomListView.php" data-id='2' data-text="房间信息">我发布的需求</a>
+    	    <a href="javascript:;" data-url="<%=request.getContextPath()%>/room/roomListView.php" data-id='2' data-text="我发布的需求">我发布的需求</a>
         </li>
         <li class="layui-nav-item">
-    	    <a href="javascript:;" data-url="<%=request.getContextPath()%>/order/manageOrderInfo.php" data-id='3' data-text="预约信息">我的订单</a>
+    	    <a href="javascript:;" data-url="<%=request.getContextPath()%>/tOrder.jsp" data-id='3' data-text="我的订单">我的订单</a>
         </li>
          <li class="layui-nav-item">
              <a href="javascript:;"><span class="lll">我喜欢的商品</span></a>
 			    <dl class="layui-nav-child">
-			      <dd><a href="javascript:;" data-url="<%=request.getContextPath()%>/user/manageUser.php" data-id='4' data-text="用户账号管理">我的收藏</a></dd>
-			      <dd><a href="javascript:;"  data-url="<%=request.getContextPath()%>/admin/manageAdmin.php" data-id='5' data-text="管理员账号管理">我的关注</a></dd>
+			      <dd><a href="javascript:;" data-url="<%=request.getContextPath()%>/user/manageUser.php" data-id='4' data-text="我的收藏">我的收藏</a></dd>
+			      <dd><a href="javascript:;"  data-url="<%=request.getContextPath()%>/admin/manageAdmin.php" data-id='5' data-text="我的关注">我的关注</a></dd>
 			    </dl>
         </li>
         <li class="layui-nav-item">

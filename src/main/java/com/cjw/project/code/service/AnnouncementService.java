@@ -96,12 +96,7 @@ public class AnnouncementService extends BaseService<AnnouncementPO>{
         if(!ObjectUtil.isEmpty(obj.getTitlle()))q.addEq("titlle", obj.getTitlle()); 
         if(!ObjectUtil.isEmpty(obj.getContent()))q.addEq("content", obj.getContent()); 
         if(!ObjectUtil.isEmpty(obj.getPictureId()))q.addEq("pictureId", obj.getPictureId()); 
-        if(!ObjectUtil.isEmpty(obj.getCreatTimeBegin()) && !ObjectUtil.isEmpty(obj.getCreatTimeEnd())) {
-			q.addBetween("creatTime", obj.getCreatTimeBegin(), obj.getCreatTimeEnd());
-		}else{
-			if(!ObjectUtil.isEmpty(obj.getCreatTimeBegin())) q.addGt("creatTime", obj.getCreatTimeBegin());
-			if(!ObjectUtil.isEmpty(obj.getCreatTimeEnd()))   q.addLt("creatTime", obj.getCreatTimeEnd());
-		}
+		if (!ObjectUtil.isEmpty(obj.getCreatTime()))q.addEq("creatTime", obj.getCreatTime());
         
         if(!ObjectUtil.isEmpty(obj.getState()))q.addEq("state", obj.getState()); 
         
@@ -129,12 +124,7 @@ public class AnnouncementService extends BaseService<AnnouncementPO>{
         if(!ObjectUtil.isEmpty(obj.getTitlle()))q.addEq("titlle", obj.getTitlle()); 
         if(!ObjectUtil.isEmpty(obj.getContent()))q.addEq("content", obj.getContent()); 
         if(!ObjectUtil.isEmpty(obj.getPictureId()))q.addEq("pictureId", obj.getPictureId()); 
-        if(!ObjectUtil.isEmpty(obj.getCreatTimeBegin()) && !ObjectUtil.isEmpty(obj.getCreatTimeEnd())) {
-			q.addBetween("creatTime", obj.getCreatTimeBegin(), obj.getCreatTimeEnd());
-		}else{
-			if(!ObjectUtil.isEmpty(obj.getCreatTimeBegin())) q.addGt("creatTime", obj.getCreatTimeBegin());
-			if(!ObjectUtil.isEmpty(obj.getCreatTimeEnd()))   q.addLt("creatTime", obj.getCreatTimeEnd());
-		}
+        if (!ObjectUtil.isEmpty(obj.getCreatTime()))q.addEq("creatTime", obj.getCreatTime());
         
         if(!ObjectUtil.isEmpty(obj.getState()))q.addEq("state", obj.getState()); 
 		return this.findByQuery(q);
@@ -159,12 +149,7 @@ public class AnnouncementService extends BaseService<AnnouncementPO>{
         if(!ObjectUtil.isEmpty(obj.getTitlle()))q.addEq("titlle", obj.getTitlle()); 
         if(!ObjectUtil.isEmpty(obj.getContent()))q.addEq("content", obj.getContent()); 
         if(!ObjectUtil.isEmpty(obj.getPictureId()))q.addEq("pictureId", obj.getPictureId()); 
-        if(!ObjectUtil.isEmpty(obj.getCreatTimeBegin()) && !ObjectUtil.isEmpty(obj.getCreatTimeEnd())) {
-			q.addBetween("creatTime", obj.getCreatTimeBegin(), obj.getCreatTimeEnd());
-		}else{
-			if(!ObjectUtil.isEmpty(obj.getCreatTimeBegin())) q.addGt("creatTime", obj.getCreatTimeBegin());
-			if(!ObjectUtil.isEmpty(obj.getCreatTimeEnd()))   q.addLt("creatTime", obj.getCreatTimeEnd());
-		}
+        if (!ObjectUtil.isEmpty(obj.getCreatTime()))q.addEq("creatTime", obj.getCreatTime());
         
         if(!ObjectUtil.isEmpty(obj.getState()))q.addEq("state", obj.getState()); 
 		return this.get(q);
@@ -188,12 +173,7 @@ public class AnnouncementService extends BaseService<AnnouncementPO>{
         if(!ObjectUtil.isEmpty(obj.getTitlle()))q.addEq("titlle", obj.getTitlle()); 
         if(!ObjectUtil.isEmpty(obj.getContent()))q.addEq("content", obj.getContent()); 
         if(!ObjectUtil.isEmpty(obj.getPictureId()))q.addEq("pictureId", obj.getPictureId()); 
-        if(!ObjectUtil.isEmpty(obj.getCreatTimeBegin()) && !ObjectUtil.isEmpty(obj.getCreatTimeEnd())) {
-			q.addBetween("creatTime", obj.getCreatTimeBegin(), obj.getCreatTimeEnd());
-		}else{
-			if(!ObjectUtil.isEmpty(obj.getCreatTimeBegin())) q.addGt("creatTime", obj.getCreatTimeBegin());
-			if(!ObjectUtil.isEmpty(obj.getCreatTimeEnd()))   q.addLt("creatTime", obj.getCreatTimeEnd());
-		}
+        if (!ObjectUtil.isEmpty(obj.getCreatTime()))q.addEq("creatTime", obj.getCreatTime());
         
         if(!ObjectUtil.isEmpty(obj.getState()))q.addEq("state", obj.getState()); 
 		String[] columnProperty = {"id","titlle","content","pictureId","creatTime","state"};

@@ -10,7 +10,6 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
    	  table.render({
    		elem: '#tAnnouncementlist',
 	    url: BASE_PATH+'/TAnnouncement/queryPageTAnnouncement.do',
-	 //   toolbar: '#barDemo',
 		limit:10,	
 		limits:[5,10,15,20],
 		toolbar: true,
@@ -24,12 +23,12 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	    	  ,dataName: 'data' //数据列表的字段名称，默认：data
 	    	},
 	    cols: [[ //表头
-       	  {column:"id", title: 'id', width:200, fixed: 'left' }  ,
-       	  {column:"titlle", title: 'titlle', width:200, fixed: 'left' }  ,
-       	  {column:"content", title: 'content', width:200, fixed: 'left' }  ,
-       	  {column:"pictureId", title: 'pictureId', width:200, fixed: 'left' }  ,
-       	  {column:"creatTime", title: 'creatTime', width:200, fixed: 'left' }  ,
-       	  {column:"state", title: 'state', width:200, fixed: 'left' }  ,
+       	  {field:"id", title: 'id', width:200, fixed: 'left' }  ,
+       	  {field:"titlle", title: 'titlle', width:200, fixed: 'left' }  ,
+       	  {field:"content", title: 'content', width:200, fixed: 'left' }  ,
+       	  {field:"pictureId", title: 'pictureId', width:200, fixed: 'left' }  ,
+       	  {field:"creatTime", title: 'creatTime', width:200, fixed: 'left' }  ,
+       	  {field:"state", title: 'state', width:200, fixed: 'left' }  ,
 	      {fixed: 'right', title: '操作',width: 150, align:'center', toolbar: '#barDemo'}
 	    ]]
       });
@@ -69,7 +68,7 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	    	      shade: true,
 	    	      maxmin: false,
 	    	      area: ['70%', '80%'],
-	    	      content: /*BASE_PATH+*/'../editTAnnouncement.jsp',
+	    	      content: /*BASE_PATH+*/'./editTAnnouncement.jsp',
 	    	      success : function(layero, index){
 	    	    	  var body = layer.getChildFrame('body', index);
     	    	      var iframeWin = window[layero.find('iframe')[0]['name']];
@@ -90,27 +89,27 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 			                    layer.alert(res.data.erro);
 			                },
 			                success : function(data){
-								body.find("input#id").val(data.data.id),
-								body.find("input#titlle").val(data.data.titlle),
-								body.find("input#content").val(data.data.content),
-								body.find("input#pictureId").val(data.data.pictureId),
-								body.find("input#creatTime").val(data.data.creatTime),
-								body.find("input#state").val(data.data.state),
+								body.find("input#id").val(data.data.id);
+								body.find("input#titlle").val(data.data.titlle);
+								body.find("input#content").val(data.data.content);
+								body.find("input#pictureId").val(data.data.pictureId);
+								body.find("input#creatTime").val(data.data.creatTime);
+								body.find("input#state").val(data.data.state);
 							//dialogform.render('select');
 			    	                
-			    	        },
+			    	        }
 			            });
 	    	      },
 	    	      yes: function (layero, index) {
 	    	    	  var body = layui.layer.getChildFrame('body', layero); //得到iframe页的body内容
 	    	    	//获取值弹出框值
 					<!--  ul  li -->
-				      var id=body.find("input#id").val(),
-				      var titlle=body.find("input#titlle").val(),
-				      var content=body.find("input#content").val(),
-				      var pictureId=body.find("input#pictureId").val(),
-				      var creatTime=body.find("input#creatTime").val(),
-				      var state=body.find("input#state").val(),
+				      var id=body.find("input#id").val();
+				      var titlle=body.find("input#titlle").val();
+				      var content=body.find("input#content").val();
+				      var pictureId=body.find("input#pictureId").val();
+				      var creatTime=body.find("input#creatTime").val();
+				      var state=body.find("input#state").val();
 	    			  //判断是否为空
 	    			/*if(roomCode==""||roomFloor==""||roomType==""||roomState==""||roomPrix==""){
 	    				layer.alert('请输入完整信息!');
@@ -120,12 +119,12 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	    	    		  url:BASE_PATH+'/TAnnouncement/updateTAnnouncementById.do',
 	    	    		  type:'get',
 	    	    		  data: {
-							  id:body.find("input#id").val(),
-							  titlle:body.find("input#titlle").val(),
-							  content:body.find("input#content").val(),
-							  pictureId:body.find("input#pictureId").val(),
-							  creatTime:body.find("input#creatTime").val(),
-							  state:body.find("input#state").val(),
+	    	    			  tAnnouncement_id:body.find("input#id").val(),
+	    	    			  tAnnouncement_titlle:body.find("input#titlle").val(),
+	    	    			  tAnnouncement_content:body.find("input#content").val(),
+	    	    			  tAnnouncement_pictureId:body.find("input#pictureId").val(),
+	    	    			  tAnnouncement_creatTime:body.find("input#creatTime").val(),
+	    	    			  tAnnouncement_state:body.find("input#state").val()
 	    	    			},
 	    	    		  dataType:'json',
 	    	    		  error:function (res) {
@@ -134,7 +133,7 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	    	    		  success : function(layero, index){
 	    	    			  layer.alert('修改成功!',function(){
 	    	    				  layer.closeAll();
-	    	    				  table.reload('roomlist');
+	    	    				  table.reload('tAnnouncementlist');
 	    	    			  });
 	    	    		  },
 	    	    	  });
@@ -157,92 +156,92 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 	$ = layui.$;
       
 	 $("#id").bind('input propertychange', function () {
-		table.reload('idlist', {
+		table.reload('tAnnouncementlist', {
 	        page: {
 	          curr: 1 //重新从第 1 页开始
 	        },
 	        where: {
-				id: $("#id").val(),
-				titlle: $("#titlle").val(),
-				content: $("#content").val(),
-				pictureId: $("#pictureId").val(),
-				creatTime: $("#creatTime").val(),
-				state: $("#state").val(),
+	        	tAnnouncement_id: $("#id").val(),
+	        	tAnnouncement_titlle: $("#titlle").val(),
+	        	tAnnouncement_content: $("#content").val(),
+	        	tAnnouncement_pictureId: $("#pictureId").val(),
+	        	tAnnouncement_creatTime: $("#creatTime").val(),
+	        	tAnnouncement_state: $("#state").val()
 		    }
 	    });
 	});
 	 $("#titlle").bind('input propertychange', function () {
-		table.reload('titllelist', {
+		table.reload('tAnnouncementlist', {
 	        page: {
 	          curr: 1 //重新从第 1 页开始
 	        },
 	        where: {
-				id: $("#id").val(),
-				titlle: $("#titlle").val(),
-				content: $("#content").val(),
-				pictureId: $("#pictureId").val(),
-				creatTime: $("#creatTime").val(),
-				state: $("#state").val(),
+	        	tAnnouncement_id: $("#id").val(),
+	        	tAnnouncement_titlle: $("#titlle").val(),
+	        	tAnnouncement_content: $("#content").val(),
+	        	tAnnouncement_pictureId: $("#pictureId").val(),
+	        	tAnnouncement_creatTime: $("#creatTime").val(),
+	        	tAnnouncement_state: $("#state").val()
 		    }
 	    });
 	});
 	 $("#content").bind('input propertychange', function () {
-		table.reload('contentlist', {
+		table.reload('tAnnouncementlist', {
 	        page: {
 	          curr: 1 //重新从第 1 页开始
 	        },
 	        where: {
-				id: $("#id").val(),
-				titlle: $("#titlle").val(),
-				content: $("#content").val(),
-				pictureId: $("#pictureId").val(),
-				creatTime: $("#creatTime").val(),
-				state: $("#state").val(),
+	        	tAnnouncement_id: $("#id").val(),
+	        	tAnnouncement_titlle: $("#titlle").val(),
+	        	tAnnouncement_content: $("#content").val(),
+	        	tAnnouncement_pictureId: $("#pictureId").val(),
+	        	tAnnouncement_creatTime: $("#creatTime").val(),
+	        	tAnnouncement_state: $("#state").val()
 		    }
 	    });
 	});
 	 $("#pictureId").bind('input propertychange', function () {
-		table.reload('pictureIdlist', {
+		table.reload('tAnnouncementlist', {
 	        page: {
 	          curr: 1 //重新从第 1 页开始
 	        },
 	        where: {
-				id: $("#id").val(),
-				titlle: $("#titlle").val(),
-				content: $("#content").val(),
-				pictureId: $("#pictureId").val(),
-				creatTime: $("#creatTime").val(),
-				state: $("#state").val(),
+	        	tAnnouncement_id: $("#id").val(),
+	        	tAnnouncement_titlle: $("#titlle").val(),
+	        	tAnnouncement_content: $("#content").val(),
+	        	tAnnouncement_pictureId: $("#pictureId").val(),
+	        	tAnnouncement_creatTime: $("#creatTime").val(),
+	        	tAnnouncement_state: $("#state").val()
 		    }
 	    });
 	});
 	 $("#creatTime").bind('input propertychange', function () {
-		table.reload('creatTimelist', {
+		table.reload('tAnnouncementlist', {
 	        page: {
 	          curr: 1 //重新从第 1 页开始
 	        },
 	        where: {
-				id: $("#id").val(),
-				titlle: $("#titlle").val(),
-				content: $("#content").val(),
-				pictureId: $("#pictureId").val(),
-				creatTime: $("#creatTime").val(),
-				state: $("#state").val(),
+	        	tAnnouncement_id: $("#id").val(),
+	        	tAnnouncement_titlle: $("#titlle").val(),
+	        	tAnnouncement_content: $("#content").val(),
+	        	tAnnouncement_pictureId: $("#pictureId").val(),
+	        	tAnnouncement_creatTime: $("#creatTime").val(),
+	        	tAnnouncement_state: $("#state").val()
 		    }
 	    });
 	});
 	 $("#state").bind('input propertychange', function () {
-		table.reload('statelist', {
+		table.reload('tAnnouncementlist', {
 	        page: {
 	          curr: 1 //重新从第 1 页开始
 	        },
 	        where: {
-				id: $("#id").val(),
-				titlle: $("#titlle").val(),
-				content: $("#content").val(),
-				pictureId: $("#pictureId").val(),
-				creatTime: $("#creatTime").val(),
-				state: $("#state").val(),
+	        	tAnnouncement_id: $("#id").val(),
+	        	tAnnouncement_titlle: $("#titlle").val(),
+	        	tAnnouncement_content: $("#content").val(),
+	        	tAnnouncement_pictureId: $("#pictureId").val(),
+	        	tAnnouncement_creatTime: $("#creatTime").val(),
+	        	tAnnouncement_state: $("#state").val()
 		    }
 	    });
 	});
@@ -270,12 +269,12 @@ layui.use(['form','table','layedit', 'laydate'], function(){
   		          curr: 1 //重新从第 1 页开始
   		    },
     		where: {
-				id: '',
-				titlle: '',
-				content: '',
-				pictureId: '',
-				creatTime: '',
-				state: '',
+    			tAnnouncement_id: '',
+    			tAnnouncement_titlle: '',
+    			tAnnouncement_content: '',
+    			tAnnouncement_pictureId: '',
+    			tAnnouncement_creatTime: '',
+    			tAnnouncement_state: '',
   		    }
     	});
 	});
@@ -293,32 +292,24 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 			shade: true,
 			maxmin: false,
 			area: ['70%', '80%'],
-			content: /*BASE_PATH+*/'../addTAnnouncement.jsp',
+			content: /*BASE_PATH+*/'./editTAnnouncement.jsp',
 			yes: function (layero, index) {
 				var body = layui.layer.getChildFrame('body', layero); //得到iframe页的body内容
-				//获取值弹出框值
-				var roomCode=body.find("input#roomcode").val();
-				var roomFloor=body.find("select#roomfloor").val();
-				var roomType=body.find("select#roomtype").val();
-				var roomState=body.find("select#roomstate").val();
-				var roomPrix=body.find("input#roomprix").val();
-				var remark=body.find("textarea#remark").val();
-				var roomcodeExist=body.find("label#roomcodeExist").text();
 				//判断是否为空
 				/*if(roomCode==""||roomFloor==""||roomType==""||roomState==""||roomPrix==""){
 				layer.alert('请输入完整信息!');
 				}
 			else if(roomcodeExist==""){*/
 				$.ajax({
-					url:BASE_PATH+'/room/addRoom.php',
+					url:BASE_PATH+'/TAnnouncement/addTAnnouncement.do',
 					type:'get',
 					data: {
-						idbody.find("input#id").val(),
-						titllebody.find("input#titlle").val(),
-						contentbody.find("input#content").val(),
-						pictureIdbody.find("input#pictureId").val(),
-						creatTimebody.find("input#creatTime").val(),
-						statebody.find("input#state").val(),
+						tAnnouncement_id:body.find("input#id").val(),
+						tAnnouncement_titlle:body.find("input#titlle").val(),
+						tAnnouncement_content:body.find("input#content").val(),
+						tAnnouncement_pictureId:body.find("input#pictureId").val(),
+						tAnnouncement_creatTime:body.find("input#creatTime").val(),
+						tAnnouncement_state:body.find("input#state").val()
 					},
 					dataType:'json',
 					error:function (res) {
@@ -327,7 +318,7 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 					success : function(layero, index){
 						layer.alert('添加成功!',function(){
 						layer.closeAll();
-						table.reload('roomlist');
+						table.reload('tAnnouncementlist');
 						});
 					}
 				});

@@ -23,7 +23,7 @@ import com.cjw.project.tool.web.MysqlDBException;
 
 
 @Controller
-@RequestMapping("/Announcement") 
+@RequestMapping("/TAnnouncement") 
 public class AnnouncementCtrl {
 
 	@Autowired

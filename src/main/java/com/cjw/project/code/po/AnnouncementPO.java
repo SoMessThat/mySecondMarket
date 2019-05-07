@@ -47,11 +47,6 @@ public class AnnouncementPO implements java.io.Serializable {
 	/**  -- creat_time */
     @Column("CREAT_TIME")    
 	private Long creatTime;
-	// (查询条件 - 开始) 
-	private Long creatTimeBegin;
-    // (查询条件 - 结束)  
-    private Long creatTimeEnd;
-    
 	
 	/**  -- state */
     @Column("STATE")    
@@ -102,20 +97,6 @@ public class AnnouncementPO implements java.io.Serializable {
 	public void setCreatTime(Long creatTime) {
 		this.creatTime = creatTime;
 	}
-	public Long getCreatTimeBegin() {
-		return creatTimeBegin;
-	}
-	public void setCreatTimeBegin(Long creatTimeBegin) {
-		this.creatTimeBegin = creatTimeBegin;
-	}
-    public Long getCreatTimeEnd() {
-		return creatTimeEnd;
-	}
-	public void setCreatTimeEnd(Long creatTimeEnd) {
-		this.creatTimeEnd = creatTimeEnd;
-	}
-    
-    
 
     public String getState() {
 		return state;
