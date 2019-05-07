@@ -272,7 +272,7 @@
 		<div data-v-3fb25ee8="" class="banner-wrap">
 			<div data-v-3fb25ee8="" class="main-wrap">
 				<div data-v-5aeb7472="" data-v-3fb25ee8="" class="navbar-wrap">
-					<img data-v-5aeb7472="" src="<%=basePath%>/images/logo.png"
+					<img src="<%=basePath%>/images/SecondMarketLogo.png"
 						class="logo">
 					<div data-v-5aeb7472="" class="tab-wrap">
 						<div data-v-5aeb7472="" class="tab">

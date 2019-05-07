@@ -16,19 +16,19 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	    page:true, //开启分页
 	    height:'full-150',
 	    response: {
-	    	  statusName: 'status' //数据状态的字段名称，默认：code
-	    	  ,statusCode: 200//成功的状态码，默认：0
-	    	  ,msgName: 'messages' //状态信息的字段名称，默认：msg
-	    	  ,countName: 'count' //数据总数的字段名称，默认：count
-	    	  ,dataName: 'data' //数据列表的字段名称，默认：data
-	    	},
+			statusName: 'status',
+			statusCode: 200,
+			msgName: 'messages',
+			countName: 'count',
+			dataName: 'data'
+		},
 	    cols: [[ //表头
-       	  {field:"id", title: 'id', width:200, fixed: 'left' }  ,
-       	  {field:"titlle", title: 'titlle', width:200, fixed: 'left' }  ,
-       	  {field:"content", title: 'content', width:200, fixed: 'left' }  ,
-       	  {field:"pictureId", title: 'pictureId', width:200, fixed: 'left' }  ,
-       	  {field:"creatTime", title: 'creatTime', width:200, fixed: 'left' }  ,
-       	  {field:"state", title: 'state', width:200, fixed: 'left' }  ,
+       	  {field:"id", title: 'id', width:100, fixed: 'left' }  ,
+       	  {field:"titlle", title: 'titlle', width:100, fixed: 'left' }  ,
+       	  {field:"content", title: 'content', width:100, fixed: 'left' }  ,
+       	  {field:"pictureId", title: 'pictureId', width:100, fixed: 'left' }  ,
+       	  {field:"creatTime", title: 'creatTime', width:100, fixed: 'left' }  ,
+       	  {field:"state", title: 'state', width:100, fixed: 'left' }  ,
 	      {fixed: 'right', title: '操作',width: 150, align:'center', toolbar: '#barDemo'}
 	    ]]
       });
