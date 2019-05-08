@@ -6,7 +6,25 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	  	  laypage=layui.laypage,
 	  	  form = layui.form,
 	  	  $ = layui.$;
-
+	  laydate.render({
+		  elem: '#creatTime',
+		  done: function(value, date, endDate){
+			  table.reload('tAnnouncementlist', {
+			        page: {
+			          curr: 1
+			        },
+			        where: {
+			        	tAnnouncement_id: $("#id").val(),
+			        	tAnnouncement_titlle: $("#titlle").val(),
+			        	tAnnouncement_content: $("#content").val(),
+			        	tAnnouncement_pictureId: $("#pictureId").val(),
+			        	tAnnouncement_creatTime: value,
+			        	tAnnouncement_state: $("#state").val()
+				    }
+			    });
+			  }
+	  });
+	  
    	  table.render({
    		elem: '#tAnnouncementlist',
 	    url: BASE_PATH+'/TAnnouncement/queryPageTAnnouncement.do',
@@ -23,13 +41,15 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 			dataName: 'data'
 		},
 	    cols: [[ //表头
-       	  {field:"id", title: 'id', width:100, fixed: 'left' }  ,
-       	  {field:"titlle", title: 'titlle', width:100, fixed: 'left' }  ,
-       	  {field:"content", title: 'content', width:100, fixed: 'left' }  ,
-       	  {field:"pictureId", title: 'pictureId', width:100, fixed: 'left' }  ,
-       	  {field:"creatTime", title: 'creatTime', width:100, fixed: 'left' }  ,
-       	  {field:"state", title: 'state', width:100, fixed: 'left' }  ,
-	      {fixed: 'right', title: '操作',width: 150, align:'center', toolbar: '#barDemo'}
+       	  {field:"titlle", title: '标题', fixed: 'left' }  ,
+       	  {field:"pictureId", title: 'pictureId', fixed: 'left' }  ,
+       	  {field:"content", title: '内容', fixed: 'left' }  ,
+       	  {field: 'creatTime', title: '创建时间', fixed: 'right',templet: function(res){
+	    	  var a = new Date(res.creatTime*1000).format("yyyy-MM-dd hh:mm:ss");
+	    	  return a;
+	      }},
+       	  {field:"state", title: '状态', fixed: 'right' }  ,
+	      {fixed: 'right', title: '操作', align:'center', toolbar: '#barDemo'}
 	    ]]
       });
    
@@ -93,9 +113,10 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 								body.find("input#titlle").val(data.data.titlle);
 								body.find("input#content").val(data.data.content);
 								body.find("input#pictureId").val(data.data.pictureId);
-								body.find("input#creatTime").val(data.data.creatTime);
-								body.find("input#state").val(data.data.state);
-							//dialogform.render('select');
+								var time=new Date(data.data.creatTime*1000).format("yyyy-MM-dd");
+								body.find("input#creatTime").val(time);
+								body.find("#state").val(data.data.state);
+								dialogform.render('select');
 			    	                
 			    	        }
 			            });
@@ -109,7 +130,7 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 				      var content=body.find("input#content").val();
 				      var pictureId=body.find("input#pictureId").val();
 				      var creatTime=body.find("input#creatTime").val();
-				      var state=body.find("input#state").val();
+				      var state=body.find("select#state").val();
 	    			  //判断是否为空
 	    			/*if(roomCode==""||roomFloor==""||roomType==""||roomState==""||roomPrix==""){
 	    				layer.alert('请输入完整信息!');
@@ -124,7 +145,7 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	    	    			  tAnnouncement_content:body.find("input#content").val(),
 	    	    			  tAnnouncement_pictureId:body.find("input#pictureId").val(),
 	    	    			  tAnnouncement_creatTime:body.find("input#creatTime").val(),
-	    	    			  tAnnouncement_state:body.find("input#state").val()
+	    	    			  tAnnouncement_state:body.find("select#state").val()
 	    	    			},
 	    	    		  dataType:'json',
 	    	    		  error:function (res) {
@@ -184,7 +205,7 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 	        	tAnnouncement_state: $("#state").val()
 		    }
 	    });
-	});
+	 });
 	 $("#content").bind('input propertychange', function () {
 		table.reload('tAnnouncementlist', {
 	        page: {
@@ -199,7 +220,7 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 	        	tAnnouncement_state: $("#state").val()
 		    }
 	    });
-	});
+	 });
 	 $("#pictureId").bind('input propertychange', function () {
 		table.reload('tAnnouncementlist', {
 	        page: {
@@ -214,23 +235,8 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 	        	tAnnouncement_state: $("#state").val()
 		    }
 	    });
-	});
-	 $("#creatTime").bind('input propertychange', function () {
-		table.reload('tAnnouncementlist', {
-	        page: {
-	          curr: 1 //重新从第 1 页开始
-	        },
-	        where: {
-	        	tAnnouncement_id: $("#id").val(),
-	        	tAnnouncement_titlle: $("#titlle").val(),
-	        	tAnnouncement_content: $("#content").val(),
-	        	tAnnouncement_pictureId: $("#pictureId").val(),
-	        	tAnnouncement_creatTime: $("#creatTime").val(),
-	        	tAnnouncement_state: $("#state").val()
-		    }
-	    });
-	});
-	 $("#state").bind('input propertychange', function () {
+	 });
+	 form.on('select(state)', function(data){
 		table.reload('tAnnouncementlist', {
 	        page: {
 	          curr: 1 //重新从第 1 页开始
@@ -309,7 +315,7 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 						tAnnouncement_content:body.find("input#content").val(),
 						tAnnouncement_pictureId:body.find("input#pictureId").val(),
 						tAnnouncement_creatTime:body.find("input#creatTime").val(),
-						tAnnouncement_state:body.find("input#state").val()
+						tAnnouncement_state:body.find("select#state").val()
 					},
 					dataType:'json',
 					error:function (res) {

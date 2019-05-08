@@ -11,33 +11,27 @@
 		<title></title>
 	</head>
 	<body>  
-	<script type="text/javascript" src="< %=basePath%>/tSolicitude.js"></script>
-	<form  id="tSolicitudelistform" class="layui-form" style="margin-top: 5px">
+	<script type="text/javascript" src="<%=basePath%>/myAttention.js"></script>
+	<form  id="Attentionlistform" class="layui-form" style="margin-top: 5px">
 		<div class="layui-input-inline">
 			<input type="text" id="id" name="id" placeholder="id" class="layui-input" style="width:100px">
-        <ul class="" ><li>id</li></ul>
 		</div>
 		<div class="layui-input-inline">
 			<input type="text" id="userId" name="userId" placeholder="userId" class="layui-input" style="width:100px">
-        <ul class="" ><li>userId</li></ul>
 		</div>
 		<div class="layui-input-inline">
 			<input type="text" id="commodityId" name="commodityId" placeholder="commodityId" class="layui-input" style="width:100px">
-        <ul class="" ><li>commodityId</li></ul>
 		</div>
 		<div class="layui-input-inline">
 			<input type="text" id="category" name="category" placeholder="category" class="layui-input" style="width:100px">
-        <ul class="" ><li>category</li></ul>
 		</div>
 		<div class="layui-input-inline">
 			<input type="text" id="type" name="type" placeholder="type" class="layui-input" style="width:100px">
-        <ul class="" ><li>type</li></ul>
 		</div>
 		
-  		<input class="layui-btn layui-btn-small layui-btn-normal" id="addTSolicitude" value="新增" style="width:100px" />
 		<button id="resetbtn" type="reset" class="layui-btn layui-btn-small layui-btn-warm">清空</button>
 	</form>
-	<table class="layui-table" id="tSolicitudelist" lay-filter="tSolicitudelist"></table>
+	<table class="layui-table" id="Attentionlist" lay-filter="Attentionlist"></table>
 	
 </body>
 <script type="text/html" id="barDemo">

@@ -33,8 +33,8 @@
          <li class="layui-nav-item">
              <a href="javascript:;"><span class="lll">我喜欢的商品</span></a>
 			    <dl class="layui-nav-child">
-			      <dd><a href="javascript:;" data-url="<%=request.getContextPath()%>/user/manageUser.php" data-id='4' data-text="我的收藏">我的收藏</a></dd>
-			      <dd><a href="javascript:;"  data-url="<%=request.getContextPath()%>/admin/manageAdmin.php" data-id='5' data-text="我的关注">我的关注</a></dd>
+			      <dd><a href="javascript:;" data-url="<%=request.getContextPath()%>/myCollect.jsp" data-id='4' data-text="我的收藏">我的收藏</a></dd>
+			      <dd><a href="javascript:;"  data-url="<%=request.getContextPath()%>/myAttention.jsp" data-id='5' data-text="我的关注">我的关注</a></dd>
 			    </dl>
         </li>
         <li class="layui-nav-item">

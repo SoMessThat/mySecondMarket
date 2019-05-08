@@ -12,51 +12,54 @@
 	</head>
 
 	<body>  
-	
-	<script type="text/javascript" src="<%=basePath%>/editTAnnouncement.js"></script>
-	
 <form id="tAnnouncementform" lay-filter="tAnnouncementform" class="layui-form" style="margin-top: 5px">
-<input type="hidden" id="id" name="id" class="layui-input" style="width:150px">
-<table class="layui-table">
-  <colgroup>
-    <col width="50">
-    <col width="100">
-  </colgroup>
-  <tbody>
-    <tr>
-		<td>titlle</td>
-		<td>
-			<input id="titlle" name="titlle" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>content</td>
-		<td>
-			<input id="content" name="content" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>pictureId</td>
-		<td>
-			<input id="pictureId" name="pictureId" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>creatTime</td>
-		<td>
-			<input id="creatTime" name="creatTime" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>state</td>
-		<td>
-			<input id="state" name="state" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-  </tbody>
-</table>
+	<input type="hidden" id="id" name="id" class="layui-input">
+	<div class="layui-form-item">
+		<label class="layui-form-label">标题</label>
+		<div class="layui-input-block">
+			<input id="titlle" name="titlle" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">内容</label>
+		<div class="layui-input-block">
+			<input id="content" name="content" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">图片</label>
+		<div class="layui-input-block">
+			<input id="pictureId" name="pictureId" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">创建时间</label>
+		<div class="layui-input-block">
+			<input id="creatTime" name="creatTime" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">状态</label>
+		<div class="layui-input-block">
+			<select id="state" name="state" lay-filter="state">
+		        <option value="" selected="selected">选择状态</option>
+		        <option value="开启">开启</option>
+		        <option value="关闭">关闭</option>
+			</select>
+		</div>
+	</div>
 	</form>
-
+	<script type="text/javascript">
+	layui.use(['form','laydate'], function(){
+        var laydate = layui.laydate,
+        	form = layui.form; 
+        form.render();
+		laydate.render({
+		  elem: '#creatTime',
+		  trigger: 'click'
+	  });
+	 }); 
+	</script>
 </body>
               
 </html>

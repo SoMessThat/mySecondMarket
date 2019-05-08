@@ -1,6 +1,4 @@
-< %@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-< %@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-< %@include file="/base.jsp"%>
+<%@include file="/base.jsp"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,8 +10,6 @@
 	</head>
 
 	<body>  
-	
-	<script type="text/javascript" src="<\%=basePath%>/editTSolicitude.js"></script>
 	
 <form id="tSolicitudeform" lay-filter="tSolicitudeform" class="layui-form" style="margin-top: 5px">
 <input type="hidden" id="id" name="id" class="layui-input" style="width:150px">

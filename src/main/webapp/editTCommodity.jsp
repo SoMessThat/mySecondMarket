@@ -1,17 +1,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@include file="/base.jsp"%>
-<!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<meta name="renderer" content="webkit">
-  		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title></title>
-	</head>
+</head>
 
 	<body>  
+		<meta charset="UTF-8">
+		<style type="text/css">
+		.layui-table-cell {
+			overflow: visible !important;
+		}
+		
+		.layui-table-box {
+			overflow: visible;
+		}
+		
+		.layui-table-body {
+			overflow: visible;
+		}
+		
+		td .layui-form-select {
+			margin-top: -10px;
+			margin-left: -15px;
+			margin-right: -15px;
+		}
+		</style>
 	
 	<script type="text/javascript" src="<%=basePath%>/editTCommodity.js"></script>
 	
