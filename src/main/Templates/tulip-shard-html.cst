@@ -30,7 +30,7 @@ TargetLanguage="Java" Description="NetTiers main template." Debug="True" Respons
 	</head>
 	<body>  
 	<script type="text/javascript" src="< %=basePath%>/<%=getTableJavaFirstLowerName(SrcTable.Name)%>.js"></script>
-	<form  id="dictlistform" class="layui-form" style="margin-top: 5px">
+	<form  id="<%=getTableJavaFirstLowerName(SrcTable.Name)%>listform" class="layui-form" style="margin-top: 5px">
 	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
 		<div class="layui-input-inline">
 			<input type="text" id="<%=getPropertiesName(t1.Name)%>" name="<%=getPropertiesName(t1.Name)%>" placeholder="<%=getPropertiesName(t1.Name)%>" class="layui-input" style="width:100px">
@@ -49,6 +49,54 @@ TargetLanguage="Java" Description="NetTiers main template." Debug="True" Respons
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 </html>
+
+
+
+
+<!-- edit>
+< %@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+< %@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+< %@include file="/base.jsp"%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+	</head>
+
+	<body>  
+	
+	<script type="text/javascript" src="<\%=basePath%>/edit<%=getTableJavaFirstUpperName(SrcTable.Name)%>.js"></script>
+	
+<form id="<%=getTableJavaFirstLowerName(SrcTable.Name)%>form" lay-filter="<%=getTableJavaFirstLowerName(SrcTable.Name)%>form" class="layui-form" style="margin-top: 5px">
+<input type="hidden" id="id" name="id" class="layui-input" style="width:150px">
+<table class="layui-table">
+  <colgroup>
+    <col width="50">
+    <col width="100">
+    <col width="50">
+    <col width="100">
+  </colgroup>
+  <tbody>
+	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+    <tr>
+		<td><%=getPropertiesName(t1.Name)%></td>
+		<td>
+			<input id="<%=getPropertiesName(t1.Name)%>" name="<%=getPropertiesName(t1.Name)%>" class="layui-input" style="width:150px">
+		</td>
+    </tr>
+	<%}%>
+  </tbody>
+</table>
+	</form>
+
+</body>
+              
+</html>
+
 
 	
     <!--  input -->
@@ -142,7 +190,7 @@ TargetLanguage="Java" Description="NetTiers main template." Debug="True" Respons
 	    	      shade: true,
 	    	      maxmin: false,
 	    	      area: ['70%', '80%'],
-	    	      content: /*BASE_PATH+*/'../edit<%=getTableJavaFirstUpperName(SrcTable.Name)%>.jsp',
+	    	      content: BASE_PATH+'../edit<%=getTableJavaFirstUpperName(SrcTable.Name)%>.jsp',
 	    	      success : function(layero, index){
 	    	    	  var body = layer.getChildFrame('body', index);
     	    	      var iframeWin = window[layero.find('iframe')[0]['name']];
@@ -191,14 +239,13 @@ TargetLanguage="Java" Description="NetTiers main template." Debug="True" Respons
 							  <%=getPropertiesName(t1.Name)%>:body.find("input#<%=getPropertiesName(t1.Name)%>").val(),
 						  <%}%>
 	    	    			},
-	    	    		  dataType:'json',
 	    	    		  error:function (res) {
 	    	    			  layer.alert('网络错误!');
 	    	    		  },
 	    	    		  success : function(layero, index){
 	    	    			  layer.alert('修改成功!',function(){
 	    	    				  layer.closeAll();
-	    	    				  table.reload('roomlist');
+	    	    				  table.reload('<%=getTableJavaFirstLowerName(SrcTable.Name)%>list');
 	    	    			  });
 	    	    		  },
 	    	    	  });
@@ -222,7 +269,7 @@ layui.use(['form','table','layedit', 'laydate'], function(){
       
 	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
 	 $("#<%=getPropertiesName(t1.Name)%>").bind('input propertychange', function () {
-		table.reload('<%=getPropertiesName(t1.Name)%>list', {
+		table.reload('<%=getTableJavaFirstLowerName(SrcTable.Name)%>list', {
 	        page: {
 	          curr: 1 //重新从第 1 页开始
 	        },
@@ -278,28 +325,21 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 			shade: true,
 			maxmin: false,
 			area: ['70%', '80%'],
-			content: /*BASE_PATH+*/'../add<%=getTableJavaFirstUpperName(SrcTable.Name)%>.jsp',
+			content: BASE_PATH+'/add<%=getTableJavaFirstUpperName(SrcTable.Name)%>.jsp',
 			yes: function (layero, index) {
 				var body = layui.layer.getChildFrame('body', layero); //得到iframe页的body内容
-				//获取值弹出框值
-				var roomCode=body.find("input#roomcode").val();
-				var roomFloor=body.find("select#roomfloor").val();
-				var roomType=body.find("select#roomtype").val();
-				var roomState=body.find("select#roomstate").val();
-				var roomPrix=body.find("input#roomprix").val();
-				var remark=body.find("textarea#remark").val();
-				var roomcodeExist=body.find("label#roomcodeExist").text();
+				
 				//判断是否为空
 				/*if(roomCode==""||roomFloor==""||roomType==""||roomState==""||roomPrix==""){
 				layer.alert('请输入完整信息!');
 				}
 			else if(roomcodeExist==""){*/
 				$.ajax({
-					url:BASE_PATH+'/room/addRoom.php',
+					url:BASE_PATH+'/<%=getTableJavaFirstUpperName(SrcTable.Name)%>/add<%=getTableJavaFirstUpperName(SrcTable.Name)%>.do',
 					type:'get',
 					data: {
 						<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
-						<%=getPropertiesName(t1.Name)%>body.find("input#<%=getPropertiesName(t1.Name)%>").val(),
+						<%=getPropertiesName(t1.Name)%>:body.find("input#<%=getPropertiesName(t1.Name)%>").val(),
 						<%}%>
 					},
 					dataType:'json',
@@ -309,7 +349,7 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 					success : function(layero, index){
 						layer.alert('添加成功!',function(){
 						layer.closeAll();
-						table.reload('roomlist');
+						table.reload('<%=getTableJavaFirstLowerName(SrcTable.Name)%>list');
 						});
 					}
 				});

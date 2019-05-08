@@ -47,7 +47,7 @@ namespace Common {
 				case "bit": return "Boolean";
 				case "char": return "String";
 				case "longtext": return "String";
-				case "datetime": return "String";
+				case "datetime": return "java.util.Date";
 				case "decimal": return "BigDecimal";
 				case "float": return "Double"; 
 				case "int": return "Integer";
@@ -59,7 +59,7 @@ namespace Common {
 				case "smallint": return "Integer";
 				case "text": return "byte[]";
 				case "timestamp": return "java.util.Date";
-				case "date": return "java.util.Date";
+				case "date": return "String";
 				case "varchar2": return "String";
 				case "varchar": return "String";
 				default: return "找不到对应的类型" + column.NativeType;
@@ -88,7 +88,7 @@ namespace Common {
 				case "timestamp": return "java.util.Date";
 				case "varchar2": return "String";
 				case "varchar": return "String";
-				case "date": return "java.util.Date";
+				case "date": return "String";
 				default: return "找不到对应的类型" + column.NativeType;
 			}
 		}

@@ -14,11 +14,11 @@ TargetLanguage="Java" Description="NetTiers main template." Debug="True" Respons
 package <%=package%>.dao.po; 
 
 
-import com.capuccino.tulip.util.ObjectUtil;
+import <%=package%>.tool.util.ObjectUtil;
 import org.apache.log4j.Logger;
-import com.capuccino.tulip.annotation.Column;
-import com.capuccino.tulip.annotation.PrimaryKey;
-import com.capuccino.tulip.annotation.Table;
+import <%=package%>.tool.annotation.Column;
+import <%=package%>.tool.annotation.PrimaryKey;
+import <%=package%>.tool.annotation.Table;
 
 
 
@@ -35,22 +35,16 @@ public class <%=getTableJavaFirstUpperName(SrcTable.Name)%>PO implements java.io
     
 	<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
 	
-	/** <%=t1.Description %> -- <%=t1.Name %> */
+	/**
+	 *<%=t1.Description %> -- <%=t1.Name %>
+	 */
     <%if(t1.IsPrimaryKeyMember) {%>
     @PrimaryKey("<%=t1.Name.ToUpper()%>")
     <%}else{%>
     @Column("<%=t1.Name.ToUpper()%>")    
     <%}%>
 	private <%=getPropertiesJavaType(t1)+" "+  getPropertiesName(t1.Name)%>;
-	<% if(IsDataColumn(t1)){%>	
-	// <%=t1.Description%>(查询条件 - 开始) 
-	private <%=getPropertiesJavaType(t1)+" "+  getPropertiesName(t1.Name)%>Begin;
-    // <%=t1.Description%>(查询条件 - 结束)  
-    private <%=getPropertiesJavaType(t1)+" "+  getPropertiesName(t1.Name)%>End;
-    
 	<%}%>
-	<%}%>
-    
     
     <%foreach(ColumnSchema t1 in SrcTable.Columns){%>
 
@@ -61,21 +55,6 @@ public class <%=getTableJavaFirstUpperName(SrcTable.Name)%>PO implements java.io
 	public void <%=getPropertiesXXXname(t1.Name,"set")%>(<%=getPropertiesJavaType(t1)%> <%=getPropertiesName(t1.Name)%>) {
 		this.<%=getPropertiesName(t1.Name)%> = <%=getPropertiesName(t1.Name)%>;
 	}
-    <% if(IsDataColumn(t1)){%>	
-	public <%=getPropertiesJavaType(t1)%> <%=getPropertiesXXXname(t1.Name,"get")%>Begin() {
-		return <%=getPropertiesName(t1.Name)%>Begin;
-	}
-	public void <%=getPropertiesXXXname(t1.Name,"set")%>Begin(<%=getPropertiesJavaType(t1)%> <%=getPropertiesName(t1.Name)%>Begin) {
-		this.<%=getPropertiesName(t1.Name)%>Begin = <%=getPropertiesName(t1.Name)%>Begin;
-	}
-    public <%=getPropertiesJavaType(t1)%> <%=getPropertiesXXXname(t1.Name,"get")%>End() {
-		return <%=getPropertiesName(t1.Name)%>End;
-	}
-	public void <%=getPropertiesXXXname(t1.Name,"set")%>End(<%=getPropertiesJavaType(t1)%> <%=getPropertiesName(t1.Name)%>End) {
-		this.<%=getPropertiesName(t1.Name)%>End = <%=getPropertiesName(t1.Name)%>End;
-	}
-    
-	<%}%>
     
 	<%}%>
     

@@ -18,14 +18,12 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.capuccino.tulip.bean.Paged;
-import com.capuccino.tulip.bean.Query;
-import com.capuccino.tulip.bean.Query.DBOrder;
-import com.capuccino.tulip.exception.MysqlDBException;
-import com.capuccino.tulip.util.ObjectUtil;
-import com.capuccino.tulip.service.BaseService; 
+import <%=package%>.tool.bean.Paged;
+import <%=package%>.tool.bean.Query;
+import <%=package%>.tool.web.MysqlDBException;
+import <%=package%>.tool.util.ObjectUtil;
 
-import <%=package%>.dao.po.<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO;
+import <%=package%>.code.po.<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO;
 
 
 @Service("<%=getTableJavaFirstLowerName(SrcTable.Name)%>Service")
@@ -109,17 +107,7 @@ public class <%=getTableJavaFirstUpperName(SrcTable.Name)%>Service extends BaseS
 		q.setPaged(pageNo, pageSize);
 		
         <%foreach(ColumnSchema t1 in SrcTable.Columns){%>
-        <%if(IsDataColumn(t1)){ %>
-        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin()) && !ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End())) {
-			q.addBetween("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin(), obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
-		}else{
-			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin())) q.addGt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin());
-			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End()))   q.addLt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
-		}
-        
-        <%}else{%>
         if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>()))q.addEq("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>()); 
-        <%}%>
 		<%}%>
         
 		//q.addOrder("createtime", DBOrder.DESC);
@@ -143,17 +131,7 @@ public class <%=getTableJavaFirstUpperName(SrcTable.Name)%>Service extends BaseS
         Query<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> q = Query.build(<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO.class);
 		
 		<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
-        <%if(IsDataColumn(t1)){ %>
-        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin()) && !ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End())) {
-			q.addBetween("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin(), obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
-		}else{
-			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin())) q.addGt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin());
-			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End()))   q.addLt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
-		}
-        
-        <%}else{%>
-        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>()))q.addEq("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>()); 
-        <%}%>
+        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>()))q.addEq("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>());
 		<%}%>
 		return this.findByQuery(q);
 	}
@@ -174,18 +152,8 @@ public class <%=getTableJavaFirstUpperName(SrcTable.Name)%>Service extends BaseS
         Query<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> q = Query.build(<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO.class);
 		
 		<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
-        <%if(IsDataColumn(t1)){ %>
-        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin()) && !ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End())) {
-			q.addBetween("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin(), obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
-		}else{
-			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin())) q.addGt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin());
-			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End()))   q.addLt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
-		}
-        
-        <%}else{%>
         if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>()))q.addEq("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>()); 
         <%}%>
-		<%}%>
 		return this.get(q);
 	}
 	
@@ -204,18 +172,8 @@ public class <%=getTableJavaFirstUpperName(SrcTable.Name)%>Service extends BaseS
         Query<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> q = Query.build(<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO.class);
 		
         <%foreach(ColumnSchema t1 in SrcTable.Columns){%>
-        <%if(IsDataColumn(t1)){ %>
-        if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin()) && !ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End())) {
-			q.addBetween("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin(), obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
-		}else{
-			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin())) q.addGt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>Begin());
-			if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>End()))   q.addLt("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>End());
-		}
-        
-        <%}else{%>
         if(!ObjectUtil.isEmpty(obj.<%=getPropertiesXXXname(t1.Name,"get")%>()))q.addEq("<%=getPropertiesName(t1.Name)%>", obj.<%=getPropertiesXXXname(t1.Name,"get")%>()); 
         <%}%>
-		<%}%> 
 		<% 
         string temp = "";
         foreach(ColumnSchema t1 in SrcTable.Columns){ 

@@ -11,15 +11,15 @@ TargetLanguage="Java" Description="NetTiers main template." Debug="True" Respons
 <%@ Property Name="email" Type="String" Category="1.版权信息"  Description="作者的Email" Optional="True"  Default="zhengchao730@163.com" %>
 
 <%@ Property Name="SrcTable" Type="SchemaExplorer.TableSchema" Category="3.当前要做的表"  Description="当前要做的表" %>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
-<?xml version="1.0" encoding="UTF-8" ?>  
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
-
-<mapper namespace="<%=package%>.dao.<%=getTableJavaFirstUpperName(SrcTable.Name)%>DAO" >
-
-	 
-	
+<mapper namespace="<%=package%>.code.dao.<%=getTableJavaFirstUpperName(SrcTable.Name)%>DAO" >
+	<resultMap id="<%=getTableJavaFirstUpperName(SrcTable.Name)%>ResultMap" type="<%=package%>.code.po.<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO">
+		<%foreach(ColumnSchema t1 in SrcTable.Columns){%>
+		<result property="<%=getPropertiesName(t1.Name)%>" column="<%=t1.Name%>" />  
+		<%}%>
+	</resultMap>
 </mapper>  
 
 

@@ -15,7 +15,7 @@ package <%=package%>.dao;
 
 import org.springframework.stereotype.Component;
 import com.capuccino.tulip.dao.BaseDAO;
-import <%=package%>.dao.po.<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO;
+import <%=package%>.po.<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO;
 
 
 /**

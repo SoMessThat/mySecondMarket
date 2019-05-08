@@ -11,16 +11,13 @@ TargetLanguage="Java" Description="NetTiers main template." Debug="True" Respons
 <%@ Property Name="email" Type="String" Category="1.版权信息"  Description="作者的Email" Optional="True"  Default="zhengchao730@163.com" %>
 
 <%@ Property Name="SrcTable" Type="SchemaExplorer.TableSchema" Category="3.当前要做的表"  Description="当前要做的表" %>
-
- 
-	
 package <%=package%>.ctrl;
 
 import java.util.Map;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
+import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -48,6 +45,8 @@ public class <%=getTableJavaFirstUpperName(SrcTable.Name)%>Ctrl {
 		Response<List<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO>> response = ResponseFactory.getDefaultSuccessResponse();
 		Paged<<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO> <%=getTableJavaFirstLowerName(SrcTable.Name)%>s = null;
 		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
 		<%=getTableJavaFirstUpperName(SrcTable.Name)%>PO condition=new <%=getTableJavaFirstUpperName(SrcTable.Name)%>PO();
 		<%foreach(ColumnSchema t1 in SrcTable.Columns){%>  
         String <%=getPropertiesName(t1.Name)%> = request.getParameter("<%=getTableJavaFirstLowerName(SrcTable.Name)%>_<%=getPropertiesName(t1.Name)%>");
@@ -61,7 +60,7 @@ public class <%=getTableJavaFirstUpperName(SrcTable.Name)%>Ctrl {
 			response.setError("网络连接失败，请检查网络");
 		}
 		response.setData(<%=getTableJavaFirstLowerName(SrcTable.Name)%>s.getListData());
-		response.setCount(<%=getTableJavaFirstLowerName(SrcTable.Name)%>Service.findAll().size());
+		response.setCount(<%=getTableJavaFirstLowerName(SrcTable.Name)%>s.getTotalHit());
 		response.setResult(Response.RESULT_SUCCESS);
 		return response;
 		

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<codeSmith xmlns="http://www.codesmithtools.com/schema/csp.xsd">
+  <variables>
+    <add key="ConnectionString1" value="server=localhost;User Id=root;database=cm;password=592012" />
+  </variables>
+  <propertySets>
+    <propertySet name="tulip-bean.java" output="tulip-bean.java" template="C:\Users\Suncy\Documents\CodeSmith\Templates\tulip-bean.cst">
+      <property name="author">WuKaiBin</property>
+      <property name="email">842387850@qq.com</property>
+      <property name="package">mess.wkb.cm</property>
+      <property name="SrcTable">
+        <connectionString>$(ConnectionString1)</connectionString>
+        <providerType>SchemaExplorer.MySQLSchemaProvider.MySQLSchemaProvider,SchemaExplorer.MySQLSchemaProvider</providerType>
+        <table>
+      <owner />
+      <name>cm_attendance</name>
+    </table>
+      </property>
+    </propertySet>
+  </propertySets>
+</codeSmith>
