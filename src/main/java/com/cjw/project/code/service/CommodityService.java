@@ -1,6 +1,7 @@
 package com.cjw.project.code.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import com.cjw.project.code.po.CommodityPictureRefPO;
 import com.cjw.project.code.vo.CommiditionVO;
 import com.cjw.project.code.vo.CountCommiditionVO;
 import com.cjw.project.code.vo.MessageVO;
+import com.cjw.project.tool.bean.Paged;
 import com.cjw.project.tool.bean.Query;
 import com.cjw.project.tool.util.ObjectUtil;
 import com.cjw.project.tool.util.UUIDUtil;
@@ -47,6 +49,7 @@ public class CommodityService extends BaseService<CommodityPO>{
 			po.setPictureAdress(a[i]);
 			commodityPictureRefDAO.insert(po);
 		}
+		obj.setPictureId(a[0]);
 		this.insert(obj);
 	}
 	
@@ -96,38 +99,14 @@ public class CommodityService extends BaseService<CommodityPO>{
 	 * 条件查询返回分页列表
 	 * @param pageNo
 	 * @param pageSize
-	 * @param obj
+	 * @param map
 	 * @return
 	 * @throws MysqlDBException
 	 */
-	@SuppressWarnings("unchecked")
-	public List<CommodityPO> queryPageTCommodity(Integer pageNo,Integer pageSize,
-			CommodityPO obj) throws MysqlDBException{
-		if(ObjectUtil.isEmpty(obj)){
-			MysqlDBException e = new MysqlDBException("查询条件对象为空 - 异常");
-			log.error("查询条件对象为空 - 异常",e);
-			throw e;
-		}
-        Query<CommodityPO> q = Query.build(CommodityPO.class);
-		q.setPaged(pageNo, pageSize);
-		
-        if(!ObjectUtil.isEmpty(obj.getId()))q.addEq("id", obj.getId()); 
-        if(!ObjectUtil.isEmpty(obj.getName()))q.addEq("name", obj.getName()); 
-        if(!ObjectUtil.isEmpty(obj.getCategory()))q.addEq("category", obj.getCategory()); 
-        if(!ObjectUtil.isEmpty(obj.getInfo()))q.addEq("info", obj.getInfo()); 
-        if(!ObjectUtil.isEmpty(obj.getPop()))q.addEq("pop", obj.getPop()); 
-        if(!ObjectUtil.isEmpty(obj.getPictureId()))q.addEq("pictureId", obj.getPictureId()); 
-        if(!ObjectUtil.isEmpty(obj.getPrice()))q.addEq("price", obj.getPrice()); 
-        if(!ObjectUtil.isEmpty(obj.getSecprice()))q.addEq("secprice", obj.getSecprice()); 
-        if(!ObjectUtil.isEmpty(obj.getConditions()))q.addEq("conditions", obj.getConditions()); 
-        if(!ObjectUtil.isEmpty(obj.getMessageId()))q.addEq("messageId", obj.getMessageId()); 
-        if(!ObjectUtil.isEmpty(obj.getNum()))q.addEq("num", obj.getNum()); 
-        if(!ObjectUtil.isEmpty(obj.getSellerId()))q.addEq("sellerId", obj.getSellerId()); 
-        if(!ObjectUtil.isEmpty(obj.getBuyerId()))q.addEq("buyerId", obj.getBuyerId()); 
-        if(!ObjectUtil.isEmpty(obj.getState()))q.addEq("state", obj.getState()); 
-        
-		//q.addOrder("createtime", DBOrder.DESC);
-        List<CommodityPO> page = commodityDAO.findPagedByQuery((pageNo-1)*pageSize,pageSize);
+	public Paged<CommodityPO> queryPageTCommodity(Integer pageNo,Integer pageSize,
+			Map<String, String> map) throws MysqlDBException{
+		List<CommodityPO> list = commodityDAO.findPagedByQuery(map);
+		Paged<CommodityPO> page = new Paged<CommodityPO>(list ,list.size() ,pageNo ,pageSize,true);
 		return page;
 	}
 	
@@ -309,6 +288,31 @@ public class CommodityService extends BaseService<CommodityPO>{
 	public CommiditionVO queryCommodity(String commodityId) {
 		return commodityDAO.queryCommodity(commodityId);
 	}
+
+	/**
+	 * 我的关注商品
+	 * @param pageNo
+	 * @param pageSize
+	 * @param id
+	 * @return
+	 */
+	public Paged<CommodityPO> queryAttendCommodity(Integer pageNo, Integer pageSize, String id) {
+		List<CommodityPO> list = commodityDAO.queryAttendCommodity(id);
+		Paged<CommodityPO> page = new Paged<CommodityPO>(list ,list.size() ,pageNo ,pageSize,true);
+		return page;
+	}
 	
+	/**
+	 * 根据关键字搜索
+	 * @param pageNo
+	 * @param pageSize
+	 * @param id
+	 * @return
+	 */
+	public Paged<CommodityPO> searchByKey(Integer pageNo, Integer pageSize, String key) {
+		List<CommodityPO> list = commodityDAO.searchByKey(key);
+		Paged<CommodityPO> page = new Paged<CommodityPO>(list ,list.size() ,pageNo ,pageSize,true);
+		return page;
+	}
 }
 

@@ -1,5 +1,6 @@
 package com.cjw.project.code.ctrl;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class BackCtrl{
 	 * @return
 	 */
 	@RequestMapping(value = "/index")
-	public ModelAndView login(HttpServletRequest request){
+	public ModelAndView login(HttpServletRequest request ){
 		ModelAndView mv = new ModelAndView();
 		String account = request.getParameter("TPL_username");
 		String password = request.getParameter("TPL_password");
@@ -61,6 +62,8 @@ public class BackCtrl{
 				TuserService.updateTUser(TUserPO);
 				if (TUserPO.getIsAdmin()==1) {
 					mv.addObject("user", TUserPO);
+					HttpSession session = request.getSession();
+					session.setAttribute("user", TUserPO);
 					mv.setViewName("index");
 				}
 				else {

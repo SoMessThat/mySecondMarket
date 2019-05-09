@@ -26,8 +26,8 @@
 		<div class="layui-input-inline">
 			<input type="text" id="creatTime" name="creatTime" placeholder="创建日期" class="layui-input" style="width:100px">
 		</div>
-		<div class="layui-input-inline">
-			<select id="state" name="state" lay-filter="state" style="width:100px">
+		<div class="layui-input-inline" style="width:100px">
+			<select id="state" name="state" lay-filter="state">
 		        <option value="" selected="selected">选择状态</option>
 		        <option value="开启">开启</option>
 		        <option value="关闭">关闭</option>

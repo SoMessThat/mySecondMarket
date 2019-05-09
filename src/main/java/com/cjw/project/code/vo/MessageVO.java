@@ -15,8 +15,13 @@ import java.util.List;
  * @author Wu
  *
  */
-public class MessageVO {
+public class MessageVO implements java.io.Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3447892576563515900L;
+
 	/**  -- id */
 	private String id;
 	

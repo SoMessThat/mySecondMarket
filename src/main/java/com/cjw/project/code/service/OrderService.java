@@ -1,11 +1,15 @@
 package com.cjw.project.code.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cjw.project.code.dao.OrderDAO;
 import com.cjw.project.code.po.OrderPO;
+import com.cjw.project.code.vo.OrderVO;
 import com.cjw.project.tool.bean.Paged;
 import com.cjw.project.tool.bean.Query;
 import com.cjw.project.tool.util.ObjectUtil;
@@ -16,6 +20,8 @@ public class OrderService extends BaseService<OrderPO> {
 
 	Logger log = Logger.getLogger(this.getClass());
 
+	@Autowired
+	OrderDAO orderDAO;
 	/**
 	 * 新增对象
 	 * 
@@ -81,51 +87,13 @@ public class OrderService extends BaseService<OrderPO> {
 	 * 
 	 * @param pageNo
 	 * @param pageSize
-	 * @param obj
+	 * @param map
 	 * @return
 	 * @throws MysqlDBException
 	 */
-	@SuppressWarnings("unchecked")
-	public Paged<OrderPO> queryPageTOrder(Integer pageNo, Integer pageSize, OrderPO obj) throws MysqlDBException {
-		if (ObjectUtil.isEmpty(obj)) {
-			MysqlDBException e = new MysqlDBException("查询条件对象为空 - 异常");
-			log.error("查询条件对象为空 - 异常", e);
-			throw e;
-		}
-		Query<OrderPO> q = Query.build(OrderPO.class);
-		q.setPaged(pageNo, pageSize);
-
-		if (!ObjectUtil.isEmpty(obj.getId()))
-			q.addEq("id", obj.getId());
-		if (!ObjectUtil.isEmpty(obj.getCommodityId()))
-			q.addEq("commodityId", obj.getCommodityId());
-		if (!ObjectUtil.isEmpty(obj.getPictureId()))
-			q.addEq("pictureId", obj.getPictureId());
-		if (!ObjectUtil.isEmpty(obj.getPrice()))
-			q.addEq("price", obj.getPrice());
-		if (!ObjectUtil.isEmpty(obj.getNum()))
-			q.addEq("num", obj.getNum());
-		if (!ObjectUtil.isEmpty(obj.getSellerId()))
-			q.addEq("sellerId", obj.getSellerId());
-		if (!ObjectUtil.isEmpty(obj.getBuyerId()))
-			q.addEq("buyerId", obj.getBuyerId());
-		if (!ObjectUtil.isEmpty(obj.getCreartTime()))
-			q.addEq("creartTime", obj.getCreartTime());
-		if (!ObjectUtil.isEmpty(obj.getPayTime()))
-			q.addEq("payTime", obj.getPayTime());
-		if (!ObjectUtil.isEmpty(obj.getState()))
-			q.addEq("state", obj.getState());
-		if (!ObjectUtil.isEmpty(obj.getAddress()))
-			q.addEq("address", obj.getAddress());
-		if (!ObjectUtil.isEmpty(obj.getIsSign()))
-			q.addEq("isSign", obj.getIsSign());
-		if (!ObjectUtil.isEmpty(obj.getIsPay()))
-			q.addEq("isPay", obj.getIsPay());
-		if (!ObjectUtil.isEmpty(obj.getLogisticsCode()))
-			q.addEq("logisticsCode", obj.getLogisticsCode());
-
-		// q.addOrder("createtime", DBOrder.DESC);
-		Paged<OrderPO> page = this.findPagedByQuery(q);
+	public Paged<OrderVO> queryPageTOrder(Integer pageNo, Integer pageSize, Map<String, String> map) throws MysqlDBException {
+		List<OrderVO> list = orderDAO.queryPageTOrder(map);
+		Paged<OrderVO> page = new Paged<OrderVO>(list ,list.size() ,pageNo ,pageSize,true);
 		return page;
 	}
 

@@ -19,7 +19,7 @@
 		<result property="creartTime" column="creart_time" />
 		<result property="closingTime" column="closing_time" />
 		<result property="state" column="state" />
-		<result property="pictureAdress" column="picture_adress" />
+		<result property="pictureId" column="picture_id" />
 	</resultMap>
 	
 	<!-- <if test="id != null and id != '' "><![CDATA[and id = #{id} ]]></if> 
@@ -41,26 +41,67 @@
 		!= null and closingTime != '' "><![CDATA[and closing_time = #{closingTime} 
 		]]></if> <if test="state != null and state != '' "><![CDATA[and state = #{state} 
 		]]></if> -->
-	<select id="findPagedByQuery"  resultMap="CommodityResultMap">
+	<select id="findPagedByQuery" parameterType="java.util.Map" resultMap="CommodityResultMap">
 		SELECT
-			bb.*, aa.*
+			aa.*
 		FROM
-			T_COMMODITY bb
-		LEFT JOIN commodity_picture_ref aa ON aa.commodity_id = bb.id
-		WHERE
-			NOT EXISTS (
-				SELECT
-					1
-				FROM
-					commodity_picture_ref
-				WHERE
-					commodity_id = aa.commodity_id
-				AND picture_adress &lt; aa.picture_adress
-			)
-		AND bb.buyer_id IS NULL
-		ORDER BY
-			bb.creart_time
-		LIMIT ${pageNo},${pageSize};
+			T_COMMODITY aa
+		<where>
+			<if test="id != null and id != '' ">
+			and id = #{id}
+			</if>
+		    <if test="name != null and name != '' ">
+			and name = LIKE CONCAT('%',#{name},'%')
+			</if>
+		    <if test="category != null and category != '' ">
+			and category LIKE CONCAT('%',#{category},'%')
+			</if>
+		    <if test="info != null and info != '' ">
+			and info LIKE CONCAT('%',#{info},'%')
+			</if>
+		    <if test="pop != null and pop != '' ">
+			and pop = #{pop}
+			</if>
+		    <if test="pictureId != null and pictureId != '' ">
+			and picture_id = #{pictureId}
+			</if>
+		    <if test="price != null and price != '' ">
+			and price = #{price}
+			</if>
+		    <if test="secprice != null and secprice != '' ">
+			and secprice = #{secprice}
+			</if>
+		    <if test="conditions != null and conditions != '' ">
+			and conditions LIKE CONCAT('%',#{conditions},'%')
+			</if>
+		    <if test="messageId != null and messageId != '' ">
+			and message_id = #{messageId}
+			</if>
+		    <if test="num != null and num != '' ">
+			and num = #{num}
+			</if>
+		    <if test="sellerId != null and sellerId != '' ">
+			and seller_id = #{sellerId}
+			</if>
+		    <if test="buyerId != null and buyerId != '' ">
+			and buyer_id = #{buyerId}
+			</if>
+		    <if test="creartTime != null and creartTime != '' ">
+			and creart_time = #{creartTime}
+			</if>
+		    <if test="closingTime != null and closingTime != '' ">
+			and closing_time = #{closingTime}
+			</if>
+		    <if test="state != null and state != '' ">
+			and state = #{state}
+			</if>
+		</where>
+		<if test="type == '新鲜' ">
+		ORDER BY creart_time DESC
+		</if>
+		<if test="type == '人气' ">
+		ORDER BY pop DESC
+		</if>
 	</select>
 	
 	<select id="countCommodity"  resultType="com.cjw.project.code.vo.CountCommiditionVO">
@@ -113,5 +154,19 @@
 	
 	<select id="queryPicture" resultType="com.cjw.project.code.po.CommodityPictureRefPO">
 		SELECT * FROM commodity_picture_ref WHERE commodity_id = #{commodityId}
+	</select>
+	
+	<select id="queryAttendCommodity" resultMap="CommodityResultMap">
+		SELECT * FROM t_commodity aa
+		INNER JOIN t_solicitude bb ON bb.commodity_id = aa.id
+		WHERE bb.type = '关注' AND bb.user_id = #{id}
+	</select>
+	
+	<select id="searchByKey" resultMap="CommodityResultMap">
+		SELECT * FROM t_commodity
+		WHERE `name` LIKE CONCAT('%',#{key},'%')
+		OR category LIKE CONCAT('%',#{key},'%')
+		OR info LIKE CONCAT('%',#{key},'%')
+		OR conditions LIKE CONCAT('%',#{key},'%')
 	</select>
 </mapper>  

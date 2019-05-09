@@ -4,7 +4,11 @@ import java.util.List;
 
 import com.cjw.project.code.po.CommodityPictureRefPO;
 
-public class CommiditionVO {
+public class CommiditionVO implements java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8216569797490762761L;
 	private String id;
 	private String name;
 	private String category;
@@ -24,7 +28,7 @@ public class CommiditionVO {
 	private Long creartTime;
 	private Long closingTime;
 	private String state;
-	private String pictureAdress;
+	private String pictureId;
 	public String getId() {
 		return id;
 	}
@@ -139,11 +143,14 @@ public class CommiditionVO {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public String getPictureAdress() {
-		return pictureAdress;
+	public String getPictureId() {
+		return pictureId;
 	}
-	public void setPictureAdress(String pictureAdress) {
-		this.pictureAdress = pictureAdress;
+	public void setPictureId(String pictureId) {
+		this.pictureId = pictureId;
+	}
+	public void setPicture(List<CommodityPictureRefPO> picture) {
+		this.picture = picture;
 	}
 	
 }

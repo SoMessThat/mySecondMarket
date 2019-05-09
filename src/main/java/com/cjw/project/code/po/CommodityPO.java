@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import com.cjw.project.tool.annotation.Column;
 import com.cjw.project.tool.annotation.PrimaryKey;
 import com.cjw.project.tool.annotation.Table;
+import com.cjw.project.tool.annotation.UnColumn;
 import com.cjw.project.tool.util.ObjectUtil;
 
 
@@ -103,9 +104,9 @@ public class CommodityPO implements java.io.Serializable {
 	/**  -- state */
     @Column("STATE")    
 	private String state;
-    
+    @UnColumn
     private List<CommodityPictureRefPO> pics;
-
+    @UnColumn
     private List<MessagePO> messagess;
     
     public String getId() {

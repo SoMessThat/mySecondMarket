@@ -2,27 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.cjw.project.code.dao.UserDAO">
-	<resultMap type="UserPO" id="UserResultMap">
-		<result property="id" column="id" />
-		<result property="account" column="account" />
-		<result property="username" column="username" />
-		<result property="password" column="password" />
-		<result property="userEmail" column="user_email" />
-		<result property="avatar" column="avatar" />
-		<result property="tel" column="tel" />
-		<result property="sex" column="sex" />
-		<result property="school" column="school" />
-		<result property="address" column="address" />
-		<result property="creatTime" column="creat_time" />
-		<result property="lastTime" column="last_time" />
-		<result property="loginIp" column="login_ip" />
-		<result property="isAdmin" column="is_admin" />
-		<result property="state" column="state" />
-		<result property="lng" column="lng" />
-		<result property="lat" column="lat" />
-		<result property="qq" column="qq" />
-		<result property="wechat" column="wechat" />
-		<result property="alipay" column="alipay" />
+	<resultMap autoMapping="true" type="com.cjw.project.code.vo.UserVO" id="UserResultMap">
 	</resultMap>
 	<!-- <if test="id != null and id != '' "><![CDATA[and id = #{id} ]]></if> 
 		<if test="account != null and account != '' "><![CDATA[and account = #{account} 
@@ -46,5 +26,7 @@
 		qq != '' "><![CDATA[and qq = #{qq} ]]></if> <if test="wechat != null and 
 		wechat != '' "><![CDATA[and wechat = #{wechat} ]]></if> <if test="alipay 
 		!= null and alipay != '' "><![CDATA[and alipay = #{alipay} ]]></if> -->
-
+	<select id="getUser" parameterType="java.util.Map" resultMap="UserResultMap">
+		SELECT * FROM t_user WHERE id =#{id}
+	</select>
 </mapper>  

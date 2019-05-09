@@ -14,8 +14,10 @@
   <div class="main-layout" id='main-layout'>
   <!--侧边栏-->
 			<div class="main-layout-side">
-    <div class="m-logo">
+			<a href="<%=basePath%>/index.jsp">
+			    <div class="m-logo">
 				</div>
+			</a>
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="menu">
         <li class="layui-nav-item">
@@ -52,7 +54,7 @@
 					</div>
 					<ul class="layui-nav" lay-filter="rightNav">
 					  <li class="layui-nav-item">
-					    <a href="javascript:;" data-url="admin-info.html" data-id='5' data-text="个人信息">超级管理员</a>
+					    <a href="javascript:;" id="username" data-url="admin-info.html" data-id='5' data-text="个人信息">${sessionScope.user.username}</a>
 					  </li>
 					  <li class="layui-nav-item"><a href="javascript:;">退出</a></li>
 					</ul>
@@ -77,6 +79,7 @@
 				
 			</div>
   </div>
+  <script type="text/javascript" src="./js/jquery.min.js"></script>
 <script>
 //JavaScript代码区域
 layui.use(['layer', 'form', 'element', 'jquery'], function() {

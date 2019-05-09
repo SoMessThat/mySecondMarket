@@ -94,7 +94,7 @@ public class AnnouncementService extends BaseService<AnnouncementPO>{
 		
         if(!ObjectUtil.isEmpty(obj.getId()))q.addEq("id", obj.getId()); 
         if(!ObjectUtil.isEmpty(obj.getTitlle()))q.addEq("titlle", obj.getTitlle()); 
-        if(!ObjectUtil.isEmpty(obj.getContent()))q.addEq("content", obj.getContent()); 
+        if(!ObjectUtil.isEmpty(obj.getContent()))q.addLike("content", obj.getContent()); 
         if(!ObjectUtil.isEmpty(obj.getPictureId()))q.addEq("pictureId", obj.getPictureId()); 
 		if (!ObjectUtil.isEmpty(obj.getCreatTime()))q.addEq("creatTime", obj.getCreatTime());
         

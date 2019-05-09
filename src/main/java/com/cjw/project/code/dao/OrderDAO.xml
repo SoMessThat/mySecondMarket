@@ -2,38 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.cjw.project.code.dao.OrderDAO">
-	<resultMap type="OrderPo" id="OrderResultMap">
-		<result property="id" column="id" />
+	<resultMap autoMapping="true" type="com.cjw.project.code.vo.OrderVO" id="OrderResultMap">
 		<result property="commodityId" column="commodity_id" />
-		<result property="pictureId" column="picture_id" />
-		<result property="price" column="price" />
-		<result property="num" column="num" />
-		<result property="sellerId" column="seller_id" />
-		<result property="buyerId" column="buyer_id" />
-		<result property="creartTime" column="creart_time" />
-		<result property="payTime" column="pay_time" />
-		<result property="state" column="state" />
-		<result property="address" column="address" />
-		<result property="isSign" column="is_sign" />
-		<result property="isPay" column="is_pay" />
-		<result property="logisticsCode" column="logistics_code" />
+		<association column="{id=seller_id}"
+			 property="seller" select="com.cjw.project.code.dao.UserDAO.getUser">
+		</association>
+		<association column="{commodityId=commodity_id}"
+			 property="commodity" select="com.cjw.project.code.dao.CommodityDAO.queryCommodity">
+		</association>
 	</resultMap>
-	<!-- <if test="id != null and id != '' "><![CDATA[and id = #{id} ]]></if> 
-		<if test="commodityId != null and commodityId != '' "><![CDATA[and commodity_id 
-		= #{commodityId} ]]></if> <if test="pictureId != null and pictureId != '' 
-		"><![CDATA[and picture_id = #{pictureId} ]]></if> <if test="price != null 
-		and price != '' "><![CDATA[and price = #{price} ]]></if> <if test="num != 
-		null and num != '' "><![CDATA[and num = #{num} ]]></if> <if test="sellerId 
-		!= null and sellerId != '' "><![CDATA[and seller_id = #{sellerId} ]]></if> 
-		<if test="buyerId != null and buyerId != '' "><![CDATA[and buyer_id = #{buyerId} 
-		]]></if> <if test="creartTime != null and creartTime != '' "><![CDATA[and 
-		creart_time = #{creartTime} ]]></if> <if test="payTime != null and payTime 
-		!= '' "><![CDATA[and pay_time = #{payTime} ]]></if> <if test="state != null 
-		and state != '' "><![CDATA[and state = #{state} ]]></if> <if test="address 
-		!= null and address != '' "><![CDATA[and address = #{address} ]]></if> <if 
-		test="isSign != null and isSign != '' "><![CDATA[and is_sign = #{isSign} 
-		]]></if> <if test="isPay != null and isPay != '' "><![CDATA[and is_pay = 
-		#{isPay} ]]></if> <if test="logisticsCode != null and logisticsCode != '' 
-		"><![CDATA[and logistics_code = #{logisticsCode} ]]></if> -->
-
+	<select id="queryPageTOrder" parameterType="java.util.Map" resultMap="OrderResultMap">
+		SELECT * FROM t_order aa
+		<if test="commodityName != null and commodityName != '' ">
+		INNER JOIN t_commodity bb ON bb.id = aa.commodity_id AND bb.`name` like CONCAT('%',#{commodityName},'%')
+		</if>
+		<if test="sellerName != null and sellerName != '' ">
+		INNER JOIN t_user cc ON cc.id = aa.seller_id AND cc.username LIKE CONCAT('%',#{sellerName},'%')
+		</if>
+		<where>
+			<if test="id != null and id != '' ">
+			and aa.id = #{id}
+			</if>
+			<if test="commodityId != null and commodityId != '' ">
+			and aa.commodity_id = #{commodityId}
+			</if>
+			<if test="pictureId != null and pictureId != ''">
+			and aa.picture_id = #{pictureId}
+			</if>
+			<if test="price != null and price != '' ">
+			and aa.price = #{price}
+			</if>
+			<if test="num != null and num != '' ">
+			and aa.num = #{num}
+			</if>
+			<if test="sellerId != null and sellerId != '' ">
+			and aa.seller_id = #{sellerId}
+			</if>
+			<if test="buyerId != null and buyerId != '' ">
+			and aa.buyer_id = #{buyerId}
+			</if>
+			<if test="creartTime != null and creartTime != '' ">
+			and FROM_UNIXTIME(aa.creart_time,'%Y-%m-%d') = #{creartTime}</if>
+			<if test="payTime != null and payTime != '' ">
+			and FROM_UNIXTIME(aa.pay_time,'%Y-%m-%d') = #{payTime}
+			</if>
+			<if test="state != null and state != '' ">
+			and aa.state = #{state}
+			</if>
+			<if test="address != null and address != '' ">
+			and aa.address = #{address}
+			</if>
+			<if test="isSign != null and isSign != '' ">
+			and aa.is_sign = #{isSign} 
+			</if>
+			<if test="isPay != null and isPay != '' ">
+			and aa.is_pay = #{isPay}
+			</if>
+			<if test="logisticsCode != null and logisticsCode != '' ">
+			and aa.logistics_code = #{logisticsCode}
+			</if>
+		</where>
+	</select>
 </mapper>  

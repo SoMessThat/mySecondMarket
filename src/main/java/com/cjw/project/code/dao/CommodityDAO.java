@@ -1,14 +1,16 @@
 package com.cjw.project.code.dao;
 
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cjw.project.code.po.CommodityPO;
 import com.cjw.project.code.vo.CommiditionVO;
 import com.cjw.project.code.vo.CountCommiditionVO;
 import com.cjw.project.code.vo.MessageVO;
+import com.cjw.project.code.vo.OrderVO;
 
 
 /**
@@ -26,7 +28,7 @@ public interface CommodityDAO extends BaseDAO<CommodityPO> {
 	 * @param pageSize
 	 * @return
 	 */
-	List<CommodityPO> findPagedByQuery(@Param(value = "pageNo") Integer pageNo, @Param(value = "pageSize") Integer pageSize);
+	List<CommodityPO> findPagedByQuery(@RequestParam Map<String, String> map);
 
 	/**
 	 * 统计售卖商品数，收藏数等
@@ -45,6 +47,12 @@ public interface CommodityDAO extends BaseDAO<CommodityPO> {
 	CommodityPO getTCommodityById(String id);
 
 	CommiditionVO queryCommodity(String commodityId);
+
+	List<OrderVO> queryPageTCommodity();
+
+	List<CommodityPO> queryAttendCommodity(String id);
+
+	List<CommodityPO> searchByKey(String key);
 }
 
 

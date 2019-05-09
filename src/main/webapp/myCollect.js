@@ -24,12 +24,11 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 			dataName: 'data'
 		},
 		cols: [[ //表头
-		{field:"id", title: '', width:200, fixed: 'left' }  ,
-		{field:"userId", title: '', width:200, fixed: 'left' }  ,
-		{field:"commodityId", title: '', width:200, fixed: 'left' }  ,
-		{field:"category", title: '', width:200, fixed: 'left' }  ,
-		{field:"type", title: '', width:200, fixed: 'left' }  ,
-		{fixed: 'right', title: '操作',width: 150, align:'center', toolbar: '#barDemo'}
+		        {field:"userId", title:'卖家名', fixed: 'left' }  ,
+		 		{field:"commodityId", title:'商品名', fixed: 'left' }  ,
+		 		{field:"category", title:'类别', fixed: 'left' }  ,
+		 		{field:"type", title:'', fixed: 'left' }  ,
+		 		{fixed: 'right', title: '操作', width:150, align:'center', toolbar: '#barDemo'}
 		]]
 	});
 

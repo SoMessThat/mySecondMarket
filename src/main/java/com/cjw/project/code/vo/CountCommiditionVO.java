@@ -1,7 +1,12 @@
 package com.cjw.project.code.vo;
 
-public class CountCommiditionVO {
+public class CountCommiditionVO implements java.io.Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2142854222991204119L;
+
 	/**
 	 * 出售中
 	 */

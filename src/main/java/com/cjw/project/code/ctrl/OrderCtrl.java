@@ -3,7 +3,9 @@
 	
 package com.cjw.project.code.ctrl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cjw.project.code.po.OrderPO;
 import com.cjw.project.code.service.OrderService;
+import com.cjw.project.code.vo.OrderVO;
 import com.cjw.project.tool.bean.Paged;
 import com.cjw.project.tool.util.ObjectUtil;
 import com.cjw.project.tool.util.UUIDUtil;
@@ -31,42 +34,46 @@ public class OrderCtrl {
 	
 	@RequestMapping(value ="/queryPageTOrder")
 	@ResponseBody
-	public Response<List<OrderPO>> queryPageTOrder(Integer page,Integer limit,HttpServletRequest request){
-		Response<List<OrderPO>> response = ResponseFactory.getDefaultSuccessResponse();
-		Paged<OrderPO> tOrders = null;
+	public Response<List<OrderVO>> queryPageTOrder(Integer page,Integer limit,HttpServletRequest request){
+		Response<List<OrderVO>> response = ResponseFactory.getDefaultSuccessResponse();
+		Paged<OrderVO> tOrders = null;
 		
-		OrderPO condition=new OrderPO();
-        String id = request.getParameter("tOrder_id");
-		if(!ObjectUtil.isEmpty(id)) condition.setId(String.valueOf(id));
-        String commodityId = request.getParameter("tOrder_commodityId");
-		if(!ObjectUtil.isEmpty(commodityId)) condition.setCommodityId(String.valueOf(commodityId));
-        String pictureId = request.getParameter("tOrder_pictureId");
-		if(!ObjectUtil.isEmpty(pictureId)) condition.setPictureId(String.valueOf(pictureId));
-        String price = request.getParameter("tOrder_price");
-		if(!ObjectUtil.isEmpty(price)) condition.setPrice(Double.valueOf(price));
-        String num = request.getParameter("tOrder_num");
-		if(!ObjectUtil.isEmpty(num)) condition.setNum(Integer.valueOf(num));
-        String sellerId = request.getParameter("tOrder_sellerId");
-		if(!ObjectUtil.isEmpty(sellerId)) condition.setSellerId(String.valueOf(sellerId));
-        String buyerId = request.getParameter("tOrder_buyerId");
-		if(!ObjectUtil.isEmpty(buyerId)) condition.setBuyerId(String.valueOf(buyerId));
-        String creartTime = request.getParameter("tOrder_creartTime");
-		if(!ObjectUtil.isEmpty(creartTime)) condition.setCreartTime(Long.valueOf(creartTime));
-        String payTime = request.getParameter("tOrder_payTime");
-		if(!ObjectUtil.isEmpty(payTime)) condition.setPayTime(Long.valueOf(payTime));
-        String state = request.getParameter("tOrder_state");
-		if(!ObjectUtil.isEmpty(state)) condition.setState(String.valueOf(state));
-        String address = request.getParameter("tOrder_address");
-		if(!ObjectUtil.isEmpty(address)) condition.setAddress(String.valueOf(address));
-        String isSign = request.getParameter("tOrder_isSign");
-		if(!ObjectUtil.isEmpty(isSign)) condition.setIsSign(Integer.valueOf(isSign));
-        String isPay = request.getParameter("tOrder_isPay");
-		if(!ObjectUtil.isEmpty(isPay)) condition.setIsPay(Integer.valueOf(isPay));
-        String logisticsCode = request.getParameter("tOrder_logisticsCode");
-		if(!ObjectUtil.isEmpty(logisticsCode)) condition.setLogisticsCode(String.valueOf(logisticsCode));
-	
+		Map<String, String> map = new HashMap<String, String>();
+		String id = request.getParameter("tOrder_id");
+		if(!ObjectUtil.isEmpty(id)) map.put("id",id);
+		String commodityId = request.getParameter("tOrder_commodityId");
+		if(!ObjectUtil.isEmpty(commodityId)) map.put("commodityId",commodityId);
+		String pictureId = request.getParameter("tOrder_pictureId");
+		if(!ObjectUtil.isEmpty(pictureId)) map.put("pictureId",pictureId);
+		String price = request.getParameter("tOrder_price");
+		if(!ObjectUtil.isEmpty(price)) map.put("price",price);
+		String num = request.getParameter("tOrder_num");
+		if(!ObjectUtil.isEmpty(num)) map.put("num",num);
+		String sellerId = request.getParameter("tOrder_sellerId");
+		if(!ObjectUtil.isEmpty(sellerId)) map.put("sellerId",sellerId);
+		String buyerId = request.getParameter("tOrder_buyerId");
+		if(!ObjectUtil.isEmpty(buyerId)) map.put("buyerId",buyerId);
+		String creartTime = request.getParameter("tOrder_creartTime");
+		if(!ObjectUtil.isEmpty(creartTime)) map.put("creartTime",creartTime);
+		String payTime = request.getParameter("tOrder_payTime");
+		if(!ObjectUtil.isEmpty(payTime)) map.put("payTime",payTime);
+		String state = request.getParameter("tOrder_state");
+		if(!ObjectUtil.isEmpty(state)) map.put("state",state);
+		String address = request.getParameter("tOrder_address");
+		if(!ObjectUtil.isEmpty(address)) map.put("address",address);
+		String isSign = request.getParameter("tOrder_isSign");
+		if(!ObjectUtil.isEmpty(isSign)) map.put("isSign",isSign);
+		String isPay = request.getParameter("tOrder_isPay");
+		if(!ObjectUtil.isEmpty(isPay)) map.put("isPay",isPay);
+		String logisticsCode = request.getParameter("tOrder_logisticsCode");
+		if(!ObjectUtil.isEmpty(logisticsCode)) map.put("logisticsCode",logisticsCode);
+		String commodityName = request.getParameter("commodityName");
+		if(!ObjectUtil.isEmpty(commodityName)) map.put("commodityName",commodityName);
+		String sellerName = request.getParameter("sellerName");
+		if(!ObjectUtil.isEmpty(sellerName)) map.put("sellerName",sellerName);
+		
 		try {
-			tOrders = tOrderService.queryPageTOrder(page,limit,condition);
+			tOrders = tOrderService.queryPageTOrder(page,limit,map);
 		} catch (MysqlDBException e) {
 			e.printStackTrace();
 			response.setError("网络连接失败，请检查网络");

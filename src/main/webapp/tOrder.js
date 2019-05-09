@@ -6,14 +6,32 @@ layui.use(['layer', 'table','form','laydate'], function(){
 	form = layui.form,
 	$ = layui.$;
 
+	laydate.render({
+		  elem: '#payTime',
+		  done: function(value, date, endDate){
+			  table.reload('tOrderlist', {
+					page: {
+						curr: 1 //重新从第 1 页开始
+					},
+					where: {
+						commodityName: $("#commodityName").val(),
+						tOrder_price: $("#price").val(),
+						sellerName: $("#sellerName").val(),
+						tOrder_payTime: value,
+						tOrder_state: $("#state").val(),
+						tOrder_isSign: $("#isSign").val()
+					}
+				});
+		  }
+	  });
+	
 	table.render({
 		elem: '#tOrderlist',
 		url: BASE_PATH+'/TOrder/queryPageTOrder.do',
-		limit:10,	
+		limit:5,	
 		limits:[5,10,15,20],
-		toolbar: true,
 		page:true, //开启分页
-		height:'450px',
+		height:'full-50',
 		response: {
 			statusName: 'status',
 			statusCode: 200,
@@ -22,19 +40,22 @@ layui.use(['layer', 'table','form','laydate'], function(){
 			dataName: 'data'
 		},
 		cols: [[ //表头
-		         {field:"commodityId", title: '', width:50, fixed: 'left' }  ,
-		         {field:"pictureId", title: '', width:50, fixed: 'left' }  ,
-		         {field:"price", title: '价格', width:50, fixed: 'left' }  ,
-		         {field:"sellerId", title: '', width:50, fixed: 'left' }  ,
-		         {field:"buyerId", title: '', width:50, fixed: 'left' }  ,
-		         {field:"creartTime", title: '创建时间', width:50, fixed: 'left' }  ,
-		         {field:"payTime", title: '付款时间', width:50, fixed: 'left' }  ,
-		         {field:"state", title: '状态', width:50, fixed: 'left' }  ,
-		         {field:"address", title: '地址', width:50, fixed: 'left' }  ,
-		         {field:"isSign", title: '', width:50, fixed: 'left' }  ,
-		         {field:"isPay", title: '', width:50, fixed: 'left' }  ,
-		         {field:"logisticsCode", title: '', width:50, fixed: 'left' }  ,
-		         {fixed: 'right', title: '操作',width: 50, align:'center', toolbar: '#barDemo'}
+		         {field:"commodityName", title: '商品名', fixed: 'left',
+		        	 	templet: function(res){return res.commodity.name}},
+		         {field:"pictureId", title: '图片',style:'height:100px', fixed: 'left',
+		        	 	templet: function(res){return '<div><img src="'+res.pictureId+'"</div>' }},
+		         {field:"price", title: '价格', fixed: 'left' }  ,
+		         {field:'seller.username', title: '卖家昵称', fixed: 'left',
+		        	 	templet: function(res){return res.seller.username}},
+		         {field:"payTime", title: '付款时间', fixed: 'left',templet: function(res){
+			    	  var a = new Date(res.payTime*1000).format("yyyy-MM-dd hh:mm:ss");
+			    	  return a;
+			      }},
+		         {field:"state", title: '状态', fixed: 'left' }  ,
+		         {field:"address", title: '地址', fixed: 'left' }  ,
+		         {field:"isSign", title: '是否签收', fixed: 'left' }  ,
+		         {field:"logisticsCode", title: '物流', fixed: 'left' }  ,
+		         {fixed: 'right', title: '操作',width:150, align:'center', toolbar: '#barDemo'}
 		         ]]
 	});
 
@@ -63,88 +84,7 @@ layui.use(['layer', 'table','form','laydate'], function(){
 				});
 			});
 		} else if(obj.event === 'edit'){
-			layer.open({
-				type: 2,
-				skin: 'layui-layer-rim',
-				title: '编辑房间信息',
-				btn: ['保存'],
-				btnAlign: 'c',
-				shadeClose: true,
-				shade: true,
-				maxmin: false,
-				area: ['70%', '80%'],
-				content: BASE_PATH+'/editTOrder.jsp',
-				success : function(layero, index){
-					var body = layer.getChildFrame('body', index);
-					var iframeWin = window[layero.find('iframe')[0]['name']];
-					var dialogform = iframeWin.layui.form;
-					var id = obj.data.id;
-					//设置不可编辑
-					//body.find("input#roomcode").attr("disabled",true);
-					//body.find("select#roomfloor").attr("disabled",true);
-					$.ajax({
-						url:BASE_PATH+'/TOrder/findTOrderById.do',
-						type:'get',
-						dataType:'json',
-						async:true,  //异步加载
-						data:{
-							'id':id
-						},
-						error:function (res) {
-							layer.alert(res.data.erro);
-						},
-						success : function(data){
-							body.find("input#id").val(data.data.id),
-							body.find("input#commodityId").val(data.data.commodityId),
-							body.find("input#pictureId").val(data.data.pictureId),
-							body.find("input#price").val(data.data.price),
-							body.find("input#num").val(data.data.num),
-							body.find("input#sellerId").val(data.data.sellerId),
-							body.find("input#buyerId").val(data.data.buyerId),
-							body.find("input#creartTime").val(data.data.creartTime),
-							body.find("input#payTime").val(data.data.payTime),
-							body.find("input#state").val(data.data.state),
-							body.find("input#address").val(data.data.address),
-							body.find("input#isSign").val(data.data.isSign),
-							body.find("input#isPay").val(data.data.isPay),
-							body.find("input#logisticsCode").val(data.data.logisticsCode);
-							//dialogform.render('select');
-						}
-					});
-				},
-				yes: function (layero, index) {
-					var body = layui.layer.getChildFrame('body', layero); //得到iframe页的body内容
-					$.ajax({
-						url:BASE_PATH+'/TOrder/updateTOrderById.do',
-						type:'get',
-						data: {
-							id:body.find("input#id").val(),
-							commodityId:body.find("input#commodityId").val(),
-							pictureId:body.find("input#pictureId").val(),
-							price:body.find("input#price").val(),
-							num:body.find("input#num").val(),
-							sellerId:body.find("input#sellerId").val(),
-							buyerId:body.find("input#buyerId").val(),
-							creartTime:body.find("input#creartTime").val(),
-							payTime:body.find("input#payTime").val(),
-							state:body.find("input#state").val(),
-							address:body.find("input#address").val(),
-							isSign:body.find("input#isSign").val(),
-							isPay:body.find("input#isPay").val(),
-							logisticsCode:body.find("input#logisticsCode").val(),
-						},
-						error:function (res) {
-							layer.alert('网络错误!');
-						},
-						success : function(layero, index){
-							layer.alert('修改成功!',function(){
-								layer.closeAll();
-								table.reload('tOrderlist');
-							});
-						}
-					});
-				}
-			});
+			window.open(BASE_PATH+"/TCommodity/info.do?id="+obj.data.commodityId,"_blank");
 		}
 	});
 
@@ -159,72 +99,18 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 	laydate = layui.laydate,
 	$ = layui.$;
 
-	$("#id").bind('input propertychange', function () {
+	$("#commodityName").bind('input propertychange', function () {
 		table.reload('tOrderlist', {
 			page: {
 				curr: 1 //重新从第 1 页开始
 			},
 			where: {
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
+				commodityName: $("#commodityName").val(),
 				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
+				sellerName: $("#sellerName").val(),
 				tOrder_payTime: $("#payTime").val(),
 				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
-			}
-		});
-	});
-	$("#commodityId").bind('input propertychange', function () {
-		table.reload('tOrderlist', {
-			page: {
-				curr: 1 //重新从第 1 页开始
-			},
-			where:{
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
-				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
-				tOrder_payTime: $("#payTime").val(),
-				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
-			}
-		});
-	});
-	$("#pictureId").bind('input propertychange', function () {
-		table.reload('tOrderlist', {
-			page: {
-				curr: 1 //重新从第 1 页开始
-			},
-			where:{
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
-				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
-				tOrder_payTime: $("#payTime").val(),
-				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
+				tOrder_isSign: $("#isSign").val()
 			}
 		});
 	});
@@ -234,269 +120,60 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 				curr: 1 //重新从第 1 页开始
 			},
 			where: {
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
+				commodityName: $("#commodityName").val(),
 				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
+				sellerName: $("#sellerName").val(),
 				tOrder_payTime: $("#payTime").val(),
 				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
+				tOrder_isSign: $("#isSign").val()
 			}
 		});
 	});
-	$("#num").bind('input propertychange', function () {
+	$("#sellerName").bind('input propertychange', function () {
 		table.reload('tOrderlist', {
 			page: {
 				curr: 1 //重新从第 1 页开始
 			},
 			where: {
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
+				commodityName: $("#commodityName").val(),
 				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
+				sellerName: $("#sellerName").val(),
 				tOrder_payTime: $("#payTime").val(),
 				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
+				tOrder_isSign: $("#isSign").val()
 			}
 		});
 	});
-	$("#sellerId").bind('input propertychange', function () {
+	form.on('select(state)', function(data){
 		table.reload('tOrderlist', {
 			page: {
 				curr: 1 //重新从第 1 页开始
 			},
 			where: {
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
+				commodityName: $("#commodityName").val(),
 				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
+				sellerName: $("#sellerName").val(),
 				tOrder_payTime: $("#payTime").val(),
 				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
+				tOrder_isSign: $("#isSign").val()
 			}
 		});
 	});
-	$("#buyerId").bind('input propertychange', function () {
+	form.on('select(isSign)', function(data){
 		table.reload('tOrderlist', {
 			page: {
 				curr: 1 //重新从第 1 页开始
 			},
 			where: {
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
+				commodityName: $("#commodityName").val(),
 				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
+				sellerName: $("#sellerName").val(),
 				tOrder_payTime: $("#payTime").val(),
 				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
+				tOrder_isSign: $("#isSign").val()
 			}
 		});
 	});
-	$("#creartTime").bind('input propertychange', function () {
-		table.reload('tOrderlist', {
-			page: {
-				curr: 1 //重新从第 1 页开始
-			},
-			where: {
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
-				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
-				tOrder_payTime: $("#payTime").val(),
-				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
-			}
-		});
-	});
-	$("#payTime").bind('input propertychange', function () {
-		table.reload('tOrderlist', {
-			page: {
-				curr: 1 //重新从第 1 页开始
-			},
-			where: {
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
-				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
-				tOrder_payTime: $("#payTime").val(),
-				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
-			}
-		});
-	});
-	$("#state").bind('input propertychange', function () {
-		table.reload('tOrderlist', {
-			page: {
-				curr: 1 //重新从第 1 页开始
-			},
-			where: {
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
-				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
-				tOrder_payTime: $("#payTime").val(),
-				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
-			}
-		});
-	});
-	$("#address").bind('input propertychange', function () {
-		table.reload('tOrderlist', {
-			page: {
-				curr: 1 //重新从第 1 页开始
-			},
-			where: {
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
-				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
-				tOrder_payTime: $("#payTime").val(),
-				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
-			}
-		});
-	});
-	$("#isSign").bind('input propertychange', function () {
-		table.reload('tOrderlist', {
-			page: {
-				curr: 1 //重新从第 1 页开始
-			},
-			where: {
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
-				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
-				tOrder_payTime: $("#payTime").val(),
-				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
-			}
-		});
-	});
-	$("#isPay").bind('input propertychange', function () {
-		table.reload('tOrderlist', {
-			page: {
-				curr: 1 //重新从第 1 页开始
-			},
-			where: {
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
-				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
-				tOrder_payTime: $("#payTime").val(),
-				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
-			}
-		});
-	});
-	$("#logisticsCode").bind('input propertychange', function () {
-		table.reload('tOrderlist', {
-			page: {
-				curr: 1 //重新从第 1 页开始
-			},
-			where: {
-				tOrder_id: $("#id").val(),
-				tOrder_commodityId: $("#commodityId").val(),
-				tOrder_pictureId: $("#pictureId").val(),
-				tOrder_price: $("#price").val(),
-				tOrder_num: $("#num").val(),
-				tOrder_sellerId: $("#sellerId").val(),
-				tOrder_buyerId: $("#buyerId").val(),
-				tOrder_creartTime: $("#creartTime").val(),
-				tOrder_payTime: $("#payTime").val(),
-				tOrder_state: $("#state").val(),
-				tOrder_address: $("#address").val(),
-				tOrder_isSign: $("#isSign").val(),
-				tOrder_isPay: $("#isPay").val(),
-				tOrder_logisticsCode: $("#logisticsCode").val(),
-			}
-		});
-	});
-	/*下拉框
-      form.on('select(roomfloor)', function(data){
-   		table.reload('roomlist', {
-		        page: {
-		          curr: 1 //重新从第 1 页开始
-		        },
-		        where: {
-		        	roomcode:$('#roomcode').val(),
-  	            	roomfloor:$('#roomfloor').val(),
-  	            	roomtype:$('#roomtype').val(),
-  	            	roomstate:$('#roomstate').val(),
-	            	roomprix:$('#roomprix').val()
-		        }
-	      });
-  	    });
-	 */
 
 	//清空
 	$("#resetbtn").on('click',function(){
@@ -505,82 +182,15 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 				curr: 1 //重新从第 1 页开始
 			},
 			where: {
-				tOrder_id: '',
-				tOrder_commodityId: '',
-				tOrder_pictureId: '',
+				commodityName: '',
 				tOrder_price: '',
-				tOrder_num: '',
-				tOrder_sellerId: '',
-				tOrder_buyerId: '',
-				tOrder_creartTime: '',
+				sellerName: '',
 				tOrder_payTime: '',
 				tOrder_state: '',
-				tOrder_address: '',
 				tOrder_isSign: '',
-				tOrder_isPay: '',
-				tOrder_logisticsCode: '',
 			}
 		});
 	});
 
 
-	//新增按钮
-	$(document).on('click','#addTOrder',function(){
-		layer.open({
-			type: 2,
-			skin: 'layui-layer-rim',
-			title: '新增TOrder信息',
-			btn: ['保存'],
-			btnAlign: 'c',
-			shadeClose: true,
-			shade: true,
-			maxmin: false,
-			area: ['70%', '80%'],
-			content: BASE_PATH+'/editTOrder.jsp',
-			yes: function (layero, index) {
-				var body = layui.layer.getChildFrame('body', layero); //得到iframe页的body内容
-
-				//判断是否为空
-				/*if(roomCode==""||roomFloor==""||roomType==""||roomState==""||roomPrix==""){
-				layer.alert('请输入完整信息!');
-				}
-			else if(roomcodeExist==""){*/
-				$.ajax({
-					url:BASE_PATH+'/TOrder/addTOrder.do',
-					type:'get',
-					data: {
-						tOrder_id:body.find("input#id").val(),
-						tOrder_commodityId:body.find("input#commodityId").val(),
-						tOrder_pictureId:body.find("input#pictureId").val(),
-						tOrder_price:body.find("input#price").val(),
-						tOrder_num:body.find("input#num").val(),
-						tOrder_sellerId:body.find("input#sellerId").val(),
-						tOrder_buyerId:body.find("input#buyerId").val(),
-						tOrder_creartTime:body.find("input#creartTime").val(),
-						tOrder_payTime:body.find("input#payTime").val(),
-						tOrder_state:body.find("input#state").val(),
-						tOrder_address:body.find("input#address").val(),
-						tOrder_isSign:body.find("input#isSign").val(),
-						tOrder_isPay:body.find("input#isPay").val(),
-						tOrder_logisticsCode:body.find("input#logisticsCode").val(),
-					},
-					dataType:'json',
-					error:function (res) {
-						layer.alert('网络错误!');
-					},
-					success : function(layero, index){
-						layer.alert('添加成功!',function(){
-							layer.closeAll();
-							table.reload('tOrderlist');
-						});
-					}
-				});
-				//}
-				/*else{
-			layer.alert('房间已存在!');
-			}
-				 */
-			}
-		});
-	});
 });

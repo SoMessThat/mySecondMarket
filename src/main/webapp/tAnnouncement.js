@@ -21,8 +21,8 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 			        	tAnnouncement_creatTime: value,
 			        	tAnnouncement_state: $("#state").val()
 				    }
-			    });
-			  }
+			  });
+		  }
 	  });
 	  
    	  table.render({

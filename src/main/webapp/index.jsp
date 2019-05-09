@@ -27,7 +27,7 @@
 </head>
 
 <body data-spm="1000261">
-	<input type="hidden" name="user" id="user" value="${user.id}">
+	<input type="hidden" name="user" id="user" value="${sessionScope.user.id}">
 	<script type="text/javascript" src="<%=basePath%>/index.js"></script>
 	<script id="tb-beacon-aplus"
 		src="//g.alicdn.com/alilog/mlog/aplus_v2.js"
@@ -56,7 +56,7 @@
 					data-name="login" data-spm="754894437"><div
 						class="site-nav-menu-hd">
 						<div class="site-nav-sign">
-							<a href="#" target="_top" class="h"><!-- 亲，请登录 -->欢迎您，${user.username}</a> <a href="#"
+							<a href="#" target="_top" class="h"><!-- 亲，请登录 -->欢迎您，${sessionScope.user.username}</a> <a href="#"
 								target="_top"><!-- 免费注册 -->退出</a>
 						</div>
 						<div class="site-nav-user">
@@ -130,7 +130,7 @@
 					class="site-nav-menu site-nav-mytaobao site-nav-multi-menu J_MultiMenu"
 					id="J_SiteNavMytaobao" data-name="mytaobao" data-spm="1997525045">
 					<div class="site-nav-menu-hd">
-						<a href="#" target="_top"> <span>我的闲钱网</span>
+						<a href="<%=basePath%>/my.jsp" target="_top"> <span>我的闲钱网</span>
 						</a> <span class="site-nav-arrow"><span class="site-nav-icon"></span></span>
 
 					</div>
@@ -319,10 +319,10 @@
 					<div data-v-60ebec27="" class="logined">
 						<div data-v-60ebec27="" class="user-info">
 							<div data-v-60ebec27="" class="head">
-								<img data-v-60ebec27="" src="${user.avatar}" class="head-img">
+								<img data-v-60ebec27="" src="${sessionScope.user.avatar}" class="head-img">
 							</div>
 							<div data-v-60ebec27="" class="user-des">
-								<p data-v-60ebec27="" class="nick">${user.username}</p>
+								<p data-v-60ebec27="" class="nick">${sessionScope.user.username}</p>
 								<p data-v-60ebec27="" class="sum">虽然没挣到钱，但在闲钱网开心就好</p>
 							</div>
 						</div>
@@ -409,83 +409,47 @@
 				</div>
 			</div>
 		</div>
-		<div data-v-03fbd53c="" class="tabbar-wrap">
-			<div data-v-03fbd53c="" class="item">
+		<div data-v-03fbd53c="" id="tittleBar" class="tabbar-wrap">
+			<div data-v-03fbd53c="" class="item" onclick="change(this)" str="type=新鲜">
 				<p data-v-03fbd53c="" class="name active">新鲜</p>
 				<div data-v-03fbd53c="" class="line"></div>
 			</div>
-			<div data-v-03fbd53c="" class="item">
-				<p data-v-03fbd53c="" class="name">附近</p>
+			<div data-v-03fbd53c="" class="item" onclick="change(this)" str="type=人气">
+				<p data-v-03fbd53c="" class="name">人气</p>
 				<!---->
 			</div>
-			<div data-v-03fbd53c="" class="item">
-				<p data-v-03fbd53c="" class="name">关注</p>
+			<div data-v-03fbd53c="" class="item" onclick="change(this)" str="category=配件">
+				<p data-v-03fbd53c="" class="name">配件</p>
 				<!---->
 			</div>
-			<div data-v-03fbd53c="" class="item">
+			<div data-v-03fbd53c="" class="item" onclick="change(this)" str="category=手机">
 				<p data-v-03fbd53c="" class="name">手机</p>
 				<!---->
 			</div>
-			<div data-v-03fbd53c="" class="item">
-				<p data-v-03fbd53c="" class="name">租房</p>
-				<!---->
-			</div>
-			<div data-v-03fbd53c="" class="item">
+			<div data-v-03fbd53c="" class="item" onclick="change(this)" str="category=书籍">
 				<p data-v-03fbd53c="" class="name">书籍</p>
 				<!---->
 			</div>
-			<div data-v-03fbd53c="" class="item">
+			<div data-v-03fbd53c="" class="item" onclick="change(this)" str="type=关注">
+				<p data-v-03fbd53c="" class="name">关注</p>
+				<!---->
+			</div>
+			<div data-v-03fbd53c="" class="item" onclick="change(this)" str="type=收购">
 				<p data-v-03fbd53c="" class="name">收购</p>
 				<!---->	
 			</div>
-<div class="layui-input-block" style="float: left; position: relative;">
-    <label class="layui-form-label">名称</label>
-  <input style="width: auto;" type="text" id="select_orderId" name="select_orderId" lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
-</div>
-  <button class="layui-btn" lay-submit="" id="searchBtn" data-type="getInfo" style="float: left;">搜索</button>
+			<div style="margin-right: 20px">
+				<div class="layui-input-block" style="float: left; position: relative;">
+				    <label class="layui-form-label">关键字：</label>
+				  	<input style="width: auto;" type="text" id="key" name="key" lay-verify="required" placeholder="请输入关键字" autocomplete="off" class="layui-input">
+				</div>
+				<button class="layui-btn" lay-submit="" id="searchBtn" data-type="getInfo" style="float: left; font-weight: 500;
+					background-color: #ffd84d;font-size: 16px;font-family: PingFangSC-Semibold;" onclick="searchByKey()">搜索</button>
+			</div>
 		</div>
 		<div class="item-list">
 			<div class="item-list-wrap" id="demo"></div>
 			<script type="text/javascript">
-			 	  layui.use('flow', function(){
-			 		  var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
-			 		  var flow = layui.flow;
-			 		  flow.load({
-			 		    elem: '#demo' //指定列表容器
-			 		    ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
-			 		      var lis = [];
-			 		      //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
-			 		      $.get(BASE_PATH+'/TCommodity/queryPageTCommodity.do?limit=10&page='+page,function(res){
-			 		        //假设你的列表返回在data集合中
-			 		        layui.each(res.data, function(index, item){
-			 		          lis.push('<a data-v-4c853d07="" href="'+BASE_PATH+'/TCommodity/info.do?id='+item.id+'" target="_blank" class="item-wrap">');
-			 		          lis.push('<div data-v-4c853d07="" class="item-img" style="background-image: url('+item.pictureAdress+');"></div>');
-			 		          lis.push('<div data-v-4c853d07="" class="item-info">');
-			 		          lis.push('<p data-v-4c853d07="" class="item-title">'+item.name+'</p>');
-			 		          lis.push('<div data-v-4c853d07="" class="price-line">');
-			 		          lis.push('<div data-v-4c853d07="" class="price">');
-			 		      	  lis.push('<p data-v-4c853d07="" class="price-unit">￥</p>');
-			 		     	  lis.push('<p data-v-4c853d07="" class="price-value">'+item.price+'</p>');
-			 		 	      lis.push('</div>');
-			 		   		  lis.push('<p data-v-4c853d07="" class="want-num">'+item.pop+'人想要</p>');
- 		   		    		  lis.push('</div>');
-			 			   	  lis.push('</div>');
-		 			    	  lis.push('<div data-v-4c853d07="" class="user-line">');
-			 			      lis.push('<div data-v-4c853d07="" class="user-info">');
-			 			 	  lis.push('<img data-v-4c853d07="" src="http://img.alicdn.com/bao/uploaded/i1/O1CN01CNIVnZ1LriMilqWll_!!0-fleamarket.jpg" class="usericon">');
-			 				  lis.push('<p data-v-4c853d07="" class="user-name">'+item.sellerId+'</p>');
-		 					  lis.push('<img data-v-4c853d07="" src="http://gw.alicdn.com/mt/TB1HCq9GN1YBuNjy1zcXXbNcXXa-168-24.png" class="user-tag">');
-				 			  lis.push('</div>');
-				 			  lis.push('</div></a>');
-			 		        }); 
-			 		        
-			 		        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-			 		        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
-			 		        next(lis.join(' '), page < res.count/10);    
-			 		      },"json");
-			 		    }
-			 		  });
-			 		});
 	 	    </script>
 		</div>
 
