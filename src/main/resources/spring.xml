@@ -90,7 +90,6 @@
 				rollback-for="java.lang.Exception,com.capuccino.tulip.exception.MysqlDBException" />
 			<tx:method name="do*"
 				rollback-for="java.lang.Exception,com.capuccino.tulip.exception.MysqlDBException" />
-			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
 	<aop:config>

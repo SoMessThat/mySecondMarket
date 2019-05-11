@@ -1,10 +1,4 @@
-package com.cjw.project.code.vo; 
-
-
-import org.apache.log4j.Logger;
-
-
-
+package com.cjw.project.code.vo;
 
 /**
  * TUserPO

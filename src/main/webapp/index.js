@@ -161,3 +161,16 @@ function searchByKey() {
 	})
 }
 loadInfo("type=新鲜");
+
+layui.use('layer', function(){
+	var $ = layui.jquery,
+	layer = layui.layer;
+	$("#phoneWeb").hover(function() {
+		openMsg();
+	}, function() {
+		layer.close(subtips);
+	});
+	function openMsg() {
+		subtips = layer.msg('<img src="'+BASE_PATH+'/images/WebCode.png" />', {offset: 'auto'});;
+	} 
+});

@@ -169,4 +169,7 @@
 		OR info LIKE CONCAT('%',#{key},'%')
 		OR conditions LIKE CONCAT('%',#{key},'%')
 	</select>
+	<update id="look">
+		UPDATE t_commodity SET pop=pop+1 WHERE id = #{key}
+	</update>
 </mapper>  

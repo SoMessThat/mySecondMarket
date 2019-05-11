@@ -56,8 +56,8 @@
 	        <option value="玩具">玩具</option>
 	        <option value="服饰">服饰</option>
 	        <option value="家居">家居</option>
-	        <option value="美食">美食</option>
 	        <option value="票卷">票卷</option>
+	        <option value="其他">其他</option>
 		</select>
       </td>
     </tr>

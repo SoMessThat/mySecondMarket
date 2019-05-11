@@ -53,6 +53,8 @@ public interface CommodityDAO extends BaseDAO<CommodityPO> {
 	List<CommodityPO> queryAttendCommodity(String id);
 
 	List<CommodityPO> searchByKey(String key);
+
+	void look(String id);
 }
 
 

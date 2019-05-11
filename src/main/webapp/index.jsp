@@ -46,55 +46,19 @@
 
 
 	<div class="site-nav site-nav-status-logout" id="J_SiteNav"
-		data-component-config="{ &quot;cart&quot;: &quot;0.0.6&quot;,&quot;message&quot;: &quot;3.4.6&quot;,&quot;umpp&quot;: &quot;1.5.4&quot;,&quot;mini-login&quot;: &quot;6.3.8&quot;,&quot;tb-ie-updater&quot;: &quot;0.0.4&quot;,&quot;tbar&quot;: &quot;2.1.0&quot;,&quot;tb-footer&quot;: &quot;1.1.7&quot;,&quot;sidebar&quot;: &quot;1.0.10&quot; }"
-		data-tbar="{ &quot;show&quot;:true, &quot;miniCart&quot;: &quot;2.12.2&quot;,&quot;paramsBlackList&quot;: &quot;_wt,seeyouagain1722&quot;,&quot;my_activity&quot;: &quot;https://market.m.taobao.com/apps/abs/5/38/my12?psId=58386&amp;pcPsId=58388&quot;, &quot;venueUrl&quot;: &quot;https://1212.taobao.com?wh_weex=true&amp;data_prefetch=true&amp;wx_navbar_transparent=true&quot;, &quot;helpUrl&quot;: &quot;https://consumerservice.taobao.com/online-help&quot;, &quot;validTime&quot;:{&quot;startTime&quot;: 1512057599, &quot;endTime&quot;: 1513094400}, &quot;style&quot;: {&quot;name&quot;: &quot;171212&quot;, &quot;path&quot;: &quot;kg/sidebar-style-171212/0.0.5/&quot; }, &quot;page&quot;:[],&quot;blackList&quot;:[],&quot;navDataId&quot;:{&quot;tceSid&quot;:1182567,&quot;tceVid&quot;:0},&quot;pluginVersion&quot;:{ &quot;cart&quot;:&quot;0.2.0&quot;,&quot;history&quot;:&quot;0.2.0&quot;,&quot;redpaper&quot;:&quot;0.0.8&quot;,&quot;gotop&quot;:&quot;0.2.5&quot;,&quot;help&quot;:&quot;0.2.1&quot;,&quot;ww&quot;:&quot;0.0.3&quot;,&quot;pagenav&quot;:&quot;0.0.27&quot;,&quot;myasset&quot;:&quot;0.0.9&quot;,&quot;my1212&quot;:&quot;0.0.1&quot;,&quot;my1111&quot;:&quot;0.2.2&quot;}}">
+		data-tbar="">
 		<div class="site-nav-bd" id="J_SiteNavBd">
 
 			<ul class="site-nav-bd-l" id="J_SiteNavBdL" data-spm-ab="1">
 
-				<li class="site-nav-menu site-nav-login" id="J_SiteNavLogin"
-					data-name="login" data-spm="754894437"><div
+				<li class="site-nav-menu site-nav-login" id="J_SiteNavLogin" data-name="login" data-spm="754894437"><div
 						class="site-nav-menu-hd">
 						<div class="site-nav-sign">
-							<a href="#" target="_top" class="h"><!-- 亲，请登录 -->欢迎您，${sessionScope.user.username}</a> <a href="#"
-								target="_top"><!-- 免费注册 -->退出</a>
+							<a class="h">${sessionScope.user.username}</a> <a>退出</a>
 						</div>
-						<div class="site-nav-user">
-							<a href="#" target="_top" class="site-nav-login-info-nick ">undefined</a>
-							<span class="site-nav-arrow"><span class="site-nav-icon"></span></span>
-						</div>
-					</div>
-					<div class="site-nav-menu-bd" id="J_SiteNavLoginPanel"></div></li>
-
-
-
-
-				<li id="J_Tmsg"
-					class="site-nav-tmsg tmsg site-nav-multi-menu J_MultiMenu"
-					data-name="tmsg" data-spm="1997563201">
-					<div class="J_Menu site-nav-menu">
-						<div class="site-nav-menu-hd J_Tmsg_Basic tmsg_basic">
-							<span class="J_Tmsg_Logo tmsg_logo_area" style="zoom: 1;">
-								<span class="J_Tmsg_Logo_Loading tmsg_logo_loading"></span> <span
-								class="J_Tmsg_Logo_Icon tmsg_logo_icon site-nav-icon"
-								style="display: none"></span> <span
-								class="J_Tmsg_Logo_Text tmsg_logo_text">消息</span> <span
-								class="J_Tmsg_Logo_Unread tmsg_logo_unread"></span>
-							</span> <span class="site-nav-arrow"><span class="site-nav-icon"></span></span>
-
-						</div>
-
-						<div class="site-nav-menu-bd">
-							<div class="J_Tmsg_Panel_Apps tmsg_panel_apps"></div>
-						</div>
-					</div>
-					<div class="J_Tmsg_Panels tmsg_panels">
-						<div class="J_Tmsg_Panel_Detail tmsg_panel_detail"></div>
-						<div class="J_Tmsg_Panel_history tmsg_panel_history"></div>
-						<div class="J_Tmsg_Panel_Strong tmsg_panel_strong"></div>
-						<div class="J_Tmsg_Panel_Setting tmsg_panel_setting"></div>
 					</div>
 				</li>
+
 
 
 
@@ -102,19 +66,12 @@
 				<li class="site-nav-menu site-nav-mobile" id="J_SiteNavMobile"
 					data-name="mobile" data-spm="1997563273">
 					<div class="site-nav-menu-hd">
-						<a href="#" target="_top"> <span>手机逛闲钱网</span>
+					
+						<a id="phoneWeb"> <span><i class="layui-icon">&#xe678;</i> 手机逛闲钱网</span>
 						</a>
 
 					</div>
 
-				</li>
-
-
-
-
-				<li
-					class="site-nav-menu site-nav-weekend site-nav-multi-menu J_MultiMenu"
-					id="J_SiteNavWeekend" data-name="weekend" data-spm="201711111212">
 				</li>
 
 
@@ -130,71 +87,62 @@
 					class="site-nav-menu site-nav-mytaobao site-nav-multi-menu J_MultiMenu"
 					id="J_SiteNavMytaobao" data-name="mytaobao" data-spm="1997525045">
 					<div class="site-nav-menu-hd">
-						<a href="<%=basePath%>/my.jsp" target="_top"> <span>我的闲钱网</span>
-						</a> <span class="site-nav-arrow"><span class="site-nav-icon"></span></span>
+						<a href="<%=basePath%>/my.jsp" target="_top"> <span><i class="layui-icon">&#xe68e;</i>我的闲钱网</span>
+						</a>
 
-					</div>
-
-					<div class="site-nav-menu-bd site-nav-menu-list">
-						<div class="site-nav-menu-bd-panel menu-bd-panel">
-
-							<a href="#" target="_top">已买到的宝贝</a> <a href="#" target="_top">我的足迹</a>
-
-						</div>
 					</div>
 
 				</li>
 
-
+				<li class="site-nav-pipe">|</li>
 
 
 				<li
 					class="site-nav-menu site-nav-cart site-nav-menu-empty site-nav-multi-menu J_MultiMenu menu-empty J_SiteNavDisableMenu mini-cart menu"
 					id="J_MiniCart" data-name="cart" data-spm="1997525049">
 					<div class="site-nav-menu-hd">
-						<a href="#" target="_top" id="mc-menu-hd"> <span
-							class="site-nav-icon site-nav-icon-highlight"></span> <span>购物车</span>
+						<a href="<%=basePath%>/my.jsp" target="_top"> <span><i class="layui-icon">&#xe62e</i>我卖出的宝贝</span>
 							<strong class="h" id="J_MiniCartNum"></strong>
-						</a> <span class="site-nav-arrow"><span class="site-nav-icon"></span></span>
-
-					</div>
-					<div class="site-nav-menu-bd">
-						<div class="site-nav-menu-bd-panel menu-bd-panel"></div>
+						</a>
 					</div>
 				</li>
 
-
+				
 
 
 				<li
 					class="site-nav-menu site-nav-favor site-nav-multi-menu J_MultiMenu"
-					id="J_SiteNavFavor" data-name="favor" data-spm="1997525053">
+					id="J_SiteNavFavor" data-name="fa33vor" data-spm="1997525053">
 					<div class="site-nav-menu-hd">
-						<a href="#" target="_top"> <span class="site-nav-icon"></span>
-							<span>收藏夹</span>
-						</a> <span class="site-nav-arrow"><span class="site-nav-icon"></span></span>
+						<a href="<%=basePath%>/my.jsp" target="_top">
+							<span><i class="layui-icon">&#xe6b1;</i>我买到的宝贝</span>
+						</a>
 
 					</div>
 
-					<div class="site-nav-menu-bd site-nav-menu-list">
-						<div class="site-nav-menu-bd-panel menu-bd-panel">
+				</li>
 
-							<a href="#" target="_top">收藏的宝贝</a> <a href="#" target="_top">收藏的店铺</a>
-
-						</div>
+				<li class="site-nav-pipe">|</li>
+				
+				<li
+					class="site-nav-menu site-nav-favor site-nav-multi-menu J_MultiMenu"
+					id="J_SiteNavFavor" data-name="fa22vor" data-spm="1997525053">
+					<div class="site-nav-menu-hd">
+						<a href="<%=basePath%>/my.jsp" target="_top">
+							<span><i class="layui-icon">&#xe658;</i>我喜欢的</span>
+						</a>
 					</div>
 
 				</li>
 
 
-
-
-				<li class="site-nav-menu site-nav-catalog" id="J_SiteNavCatalog"
-					data-name="catalog" data-spm="1997563209">
+				<li
+					class="site-nav-menu site-nav-favor site-nav-multi-menu J_MultiMenu"
+					id="J_SiteNavFavor" data-name="fav11or" data-spm="1997525053">
 					<div class="site-nav-menu-hd">
-						<a href="#" target="_top"> <span>商品分类</span>
+						<a href="<%=basePath%>/my.jsp" target="_top">
+							<span><i class="layui-icon">&#xe600;</i>我关注的</span>
 						</a>
-
 					</div>
 
 				</li>
@@ -208,61 +156,27 @@
 					class="site-nav-menu site-nav-seller site-nav-multi-menu J_MultiMenu"
 					id="J_SiteNavSeller" data-name="seller" data-spm="1997525073">
 					<div class="site-nav-menu-hd">
-						<a href="#" target="_top"> <span>卖家中心</span>
-						</a> <span class="site-nav-arrow"><span class="site-nav-icon"></span></span>
+						<a href="<%=basePath%>/my.jsp" target="_top"> <span><i class="layui-icon">&#xe770;</i>卖家中心</span>
+						</a>
 
 					</div>
 
-					<div class="site-nav-menu-bd site-nav-menu-list">
-						<div class="site-nav-menu-bd-panel menu-bd-panel">
-
-							<a href="#" target="_top">免费开店</a> <a href="#" target="_top">已卖出的宝贝</a>
-							<a href="#" target="_top">出售中的宝贝</a> <a href="#" target="_top">卖家服务市场</a>
-
-							<a href="#" target="_top">卖家培训中心</a> <a href="#" target="_top">体检中心</a>
-							<a href="#" target="_top">问商友</a>
-
-						</div>
-					</div>
 
 				</li>
-
-
 
 
 				<li
-					class="site-nav-menu site-nav-service site-nav-multi-menu J_MultiMenu"
-					id="J_SiteNavService" data-name="service" data-spm="754895749">
+					class="site-nav-menu site-nav-seller site-nav-multi-menu J_MultiMenu"
+					id="J_SiteNavSeller" data-name="selqr" data-spm="1997525073">
 					<div class="site-nav-menu-hd">
-						<a href="#" target="_top"> <span>联系客服</span>
-						</a> <span class="site-nav-arrow"><span class="site-nav-icon"></span></span>
+						<a href="<%=basePath%>/my.jsp" target="_top"> <span><i class="layui-icon">&#xe630;</i>发布的需求</span>
+						</a>
 
 					</div>
 
-					<div class="site-nav-menu-bd site-nav-menu-list">
-						<div class="site-nav-menu-bd-panel menu-bd-panel">
-
-							<a href="#" target="_top">消费者客服</a> <a href="#" target="_top">卖家客服</a>
-
-						</div>
-					</div>
 
 				</li>
 
-
-
-
-				<li
-					class="site-nav-menu site-nav-sitemap site-nav-multi-menu J_MultiMenu"
-					id="J_SiteNavSitemap" data-name="sitemap" data-spm="1997525077">
-					<div class="site-nav-menu-hd">
-						<a href="#" target="_top"> <span
-							class="site-nav-icon site-nav-icon-highlight"></span> <span>网站导航</span>
-						</a> <span class="site-nav-arrow"><span class="site-nav-icon"></span></span>
-
-					</div>
-
-				</li>
 			</ul>
 
 		</div>
@@ -308,13 +222,6 @@
 						</div>
 					</div>
 				</div>
-				<%-- <div data-v-60ebec27="" data-v-3fb25ee8="" class="usercard-wrap">
-					<div data-v-60ebec27="" class="unlogin">
-						<img data-v-60ebec27="" src="${user.avatar}" class="icon">
-						<a data-v-60ebec27="" href="#" class="tip">${user.username}</a>
-						<a data-v-60ebec27="" href="#" class="btn">退出</a>
-					</div>
-				</div> --%>
 				<div data-v-60ebec27="" data-v-3fb25ee8="" class="usercard-wrap">
 					<div data-v-60ebec27="" class="logined">
 						<div data-v-60ebec27="" class="user-info">
@@ -323,7 +230,7 @@
 							</div>
 							<div data-v-60ebec27="" class="user-des">
 								<p data-v-60ebec27="" class="nick">${sessionScope.user.username}</p>
-								<p data-v-60ebec27="" class="sum">虽然没挣到钱，但在闲钱网开心就好</p>
+								<p data-v-60ebec27="" class="sum">虽然没挣到多少钱，但在闲钱网开心就好</p>
 							</div>
 						</div>
 						<div data-v-60ebec27="" class="my-list">

@@ -25,27 +25,9 @@ with(document)with(body)with(insertBefore(createElement("script"),firstChild))se
 	
 	<script>(function(){var a=document.body;window.screen.width>1024?a.className="w1190":a.className="w990"})();</script>
 	<script	src="../js/jquery.min.js"></script>
-	<script type="text/javascript" src="<%=basePath%>/commoditionInfo.js"></script>
 <input type="hidden" name="commodity" id="commodity" value="${commodity.id}">
-	<!-- S GLOBAL HTML -->
-	<div id="J_SiteNav" class="site-nav">
-		<div id="J_SiteNavBd" class="site-nav-bd">
-			<ul id="J_SiteNavBdL" class="site-nav-bd-l"></ul>
-			<ul id="J_SiteNavBdR" class="site-nav-bd-r"></ul>
-		</div>
-	</div>
-	<!-- E GLOBAL HTML -->
+	<script type="text/javascript" src="<%=basePath%>/commoditionInfo.js"></script>
 
-	<script>
-TB.Global.init();
-ABC.config({
-    pageName: 'detail',
-    pub: '1.7.10',
-    path: '//g.alicdn.com/mtb/app-idle-pc/',
-    charset: 'utf-8'
-});
-SecondHand.current = 'detail';
-</script>
 
 	<div class="idle-header-wrap">
 		<div class="idle-header" id="J_IdleHeader">
@@ -154,7 +136,7 @@ SecondHand.current = 'detail';
 										</div>
 									</li>
 									<li class="trade-terms" id="J_TradeWrap"><span class="para">交易方式：</span>
-									<a><span data-term="0" class="J_Term term">在线交易</em></em></span>
+									<a><span data-term="0" class="J_Term term">在线交易</span>
 									<i></i>
 									</a>
 									</li>
@@ -417,7 +399,6 @@ SecondHand.current = 'detail';
                 <div node-type="avatar" class="head-img-w">
                     <a href="javascript:void(0);">
                         <img node-type="user-head" src="https://changyan.sohu.com/upload/asset/scs/images/pic/pic42_null.gif" width="42" height="42" alt="">
-                        <div node-type="head-img-ie-mask" class="head-img-ie-mask"></div>
                     </a>
                     <div node-type="notice-node" style="display: none" class="cy-avatar-notice-node"></div>
                                     </div>
@@ -490,7 +471,6 @@ SecondHand.current = 'detail';
 		    <div class="cont-head-gw">
 		        <div class="head-img-gw">
 		                        <a node-type="photo" href="javascript:;" title="昵称">
-		                <div class="img-corner"></div>
 		                <img src="http://sucimg.itc.cn/avatarimg/10065897456987_1534862560258_c55" width="42" height="42" alt="">
 		            </a>
 		        </div>

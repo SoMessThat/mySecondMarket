@@ -92,6 +92,7 @@ public class CommodityService extends BaseService<CommodityPO>{
 			log.error("通过主键 查询对象，主键 id 不能为空",e);
 			throw e;
 		}
+		commodityDAO.look(id);
 		return commodityDAO.getTCommodityById(id);
 	}
 	
