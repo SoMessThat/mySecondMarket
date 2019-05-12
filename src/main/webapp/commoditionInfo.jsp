@@ -82,7 +82,7 @@ with(document)with(body)with(insertBefore(createElement("script"),firstChild))se
 							</div>
 							<div class="wangwang">
 								<a href="//2.taobao.com/credit/credit.htm?userIdCode=IvH8yMkPePmN4PF9zOmlIPH*eXmleMm*HvHgSvFguvmxT"
-									class="hCard fn" target="_blank">${user.username}</a>
+									class="hCard fn" target="_blank">${seller.username}</a>
 							</div>
 							<div class="user-icons">
 								<span title="已通过实名认证" class="user-verify"></span> <span
@@ -143,30 +143,27 @@ with(document)with(body)with(insertBefore(createElement("script"),firstChild))se
 									<li id="J_Freight" class="freight"><a id="J_Region" class="region"> 至 <em id="J_RegionName">${user.address}</em><i></i>
 									</a> <span id="J_Carriage" class="fee">运费：<span id="J_Fee">免运费</span></span></li>
 								</ul>
-								<div class="buy-now" data-spm="2007.1000338.4">
-									<a id="J_BuyNow"
-										data-url="//buy.2.taobao.com/buy/buy.htm?from=itemDetail&amp;x_id=&amp;id=584816873266&amp;item_id=584816873266"
-										class="btn">立刻购买</a>
+								<div class="buy-now" data-spm="2007.1000338.4" onclick="pay()">
+									<a id="J_BuyNow" data-url="" class="btn">立刻购买</a>
 								</div>
 								<form id="J_FrmBid" action="//buy.2.taobao.com/buy/buy_now.jhtml" method="post">
-									<input type="hidden" id="J_ItemNumId" name="item_num_id"
-										value="584816873266" /> <input type="hidden"
-										id="J_TradeTermInput" name="idle_trade_style" /> <input
-										type="hidden" name="item_id_num" value="584816873266" /> <input
-										type="hidden" name="item_id" value="584816873266" /> <input
-										type="hidden" name="auction_id" value="584816873266" /> <input
-										type="hidden" name="auction_type" value="b" /> <input
-										type="hidden" name="title" value="${commodity.name}" /> <input
-										type="hidden" name="seller_id"
-										value="IvH8yMkPePmN4PF9zOmlIPH*eXmleMm*HvHgSvFguvmxT" /> <input
-										type="hidden" name="allow_quantity" value="1" /> <input
-										type="hidden" name="seller_nickname" value="" /> <input
-										type="hidden" name="from" value="idleDetail" /> <input
-										type="hidden" name="current_price" value="219.00" /> <input
-										type="hidden" name="buy_now" value="" /> <input type="hidden"
-										name="photo_url" value="" /> <input type="hidden"
-										name="quantity" value="1" /> <input type='hidden'
-										name='_tb_token_' value='3933e334e1ab3'>
+									<input type="hidden" id="J_ItemNumId" name="item_num_id" value="584816873266" /> 
+									<input type="hidden" id="J_TradeTermInput" name="idle_trade_style" /> 
+									<input type="hidden" name="item_id_num" value="584816873266" /> 
+									<input type="hidden" name="item_id" value="584816873266" /> 
+									<input type="hidden" name="auction_id" value="584816873266" /> 
+									<input type="hidden" name="auction_type" value="b" /> 
+									<input type="hidden" name="title" value="${commodity.name}" /> 
+									<input type="hidden" name="seller_id"
+									value="IvH8yMkPePmN4PF9zOmlIPH*eXmleMm*HvHgSvFguvmxT" /> 
+									<input type="hidden" name="allow_quantity" value="1" /> 
+									<input type="hidden" name="seller_nickname" value="" /> 
+									<input type="hidden" name="from" value="idleDetail" /> 
+									<input type="hidden" name="current_price" value="219.00" /> 
+									<input type="hidden" name="buy_now" value="" /> 
+									<input type="hidden" name="photo_url" value="" /> 
+									<input type="hidden" name="quantity" value="1" /> 
+									<input type='hidden' name='_tb_token_' value='3933e334e1ab3'>
 								</form>
 
 								<div id="J_BargainContent" class="hidden">

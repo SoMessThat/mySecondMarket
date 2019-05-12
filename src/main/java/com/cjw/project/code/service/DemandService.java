@@ -3,8 +3,10 @@ package com.cjw.project.code.service;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cjw.project.code.dao.DemandDAO;
 import com.cjw.project.code.po.DemandPO;
 import com.cjw.project.tool.bean.Paged;
 import com.cjw.project.tool.bean.Query;
@@ -16,6 +18,9 @@ import com.cjw.project.tool.web.MysqlDBException;
 public class DemandService extends BaseService<DemandPO>{
 	
 	Logger log = Logger.getLogger(this.getClass());
+	
+	@Autowired
+	DemandDAO demandDAO;
 	
 	/**
 	 * 新增对象
@@ -84,26 +89,11 @@ public class DemandService extends BaseService<DemandPO>{
 	@SuppressWarnings("unchecked")
 	public Paged<DemandPO> queryPageTDemand(Integer pageNo,Integer pageSize,
 			DemandPO obj) throws MysqlDBException{
-		if(ObjectUtil.isEmpty(obj)){
-			MysqlDBException e = new MysqlDBException("查询条件对象为空 - 异常");
-			log.error("查询条件对象为空 - 异常",e);
-			throw e;
-		}
         Query<DemandPO> q = Query.build(DemandPO.class);
 		q.setPaged(pageNo, pageSize);
 		
-        if(!ObjectUtil.isEmpty(obj.getId()))q.addEq("id", obj.getId()); 
-        if(!ObjectUtil.isEmpty(obj.getSellerId()))q.addEq("sellerId", obj.getSellerId()); 
-        if(!ObjectUtil.isEmpty(obj.getPrice()))q.addEq("price", obj.getPrice()); 
-        if(!ObjectUtil.isEmpty(obj.getName()))q.addEq("name", obj.getName()); 
-        if(!ObjectUtil.isEmpty(obj.getInfo()))q.addEq("info", obj.getInfo()); 
-        if(!ObjectUtil.isEmpty(obj.getBuyerId()))q.addEq("buyerId", obj.getBuyerId()); 
-        if(!ObjectUtil.isEmpty(obj.getCreartTime()))q.addEq("creartTime", obj.getCreartTime()); 
-        if(!ObjectUtil.isEmpty(obj.getMessageId()))q.addEq("messageId", obj.getMessageId()); 
-        if(!ObjectUtil.isEmpty(obj.getState()))q.addEq("state", obj.getState()); 
-        
-		//q.addOrder("createtime", DBOrder.DESC);
-		Paged<DemandPO> page = this.findPagedByQuery(q);
+		List<DemandPO> list = demandDAO.queryPageTDemand(obj);
+		Paged<DemandPO> page = new Paged<DemandPO>(list ,list.size() ,pageNo ,pageSize,true);
 		return page;
 	}
 	

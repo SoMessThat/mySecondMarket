@@ -356,10 +356,6 @@
 		</div>
 		<div class="item-list">
 			<div class="item-list-wrap" id="demo"></div>
-			<script type="text/javascript">
-	 	    </script>
-		</div>
-
 
 		<!--  分页条  -->
 		<!-- 		<div class="pagination">
@@ -447,6 +443,8 @@
 			</div>
 		</div>
 	</div>
+	</div>
+	
 	<!-- ushu abtest -->
 	<script type="text/javascript" src="//assets.alicdn.com/s/fdc/xwj.js"></script>
 	<script type="text/javascript">

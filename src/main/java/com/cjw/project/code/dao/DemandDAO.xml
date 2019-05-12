@@ -2,8 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.cjw.project.code.dao.DemandDAO">
-
-
-
-
+	<resultMap autoMapping="true" id="DemandMap" type="com.cjw.project.code.po.DemandPO">
+		<association column="{id=seller_id}" property="seller" select="com.cjw.project.code.dao.CommodityDAO.selectUser"></association>
+		<collection column="{commodityId=id}" property="messages" select="com.cjw.project.code.dao.CommodityDAO.queryMessage">
+		</collection>
+	</resultMap>
+	
+	<select id="queryPageTDemand" resultMap="DemandMap">
+		SELECT * FROM T_Demand WHERE buyer_id IS NULL ORDER BY creart_time DESC
+	</select>
+	
 </mapper>  

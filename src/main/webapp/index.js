@@ -113,7 +113,11 @@ function change(e) {
 		$(e).find('.name').addClass("active");
 		$(e).append('<div data-v-03fbd53c="" class="line"></div>');
 		var text = $(e).attr("str");
-		loadInfo(text);
+		if (text == "type=收购") {
+			loadBuy()
+		}else {
+			loadInfo(text);
+		}
 	});
 }
 function loadInfo(text) {
@@ -146,6 +150,39 @@ function loadInfo(text) {
 						lis.push('<img data-v-4c853d07="" src="http://gw.alicdn.com/mt/TB1HCq9GN1YBuNjy1zcXXbNcXXa-168-24.png" class="user-tag">');
 						lis.push('</div>');
 						lis.push('</div></a>');
+					}); 
+					next(lis.join(' '), page < res.count/10);    
+				},"json");
+			}
+		});
+	});
+}
+function loadBuy() {
+	layui.use('flow', function(){
+		var $ = layui.jquery;
+		var flow = layui.flow;
+		$('#demo').html("");
+		flow.load({
+			elem: '#demo',
+			done: function(page, next){
+				var lis = [];
+				$.get(BASE_PATH+'/TDemand/queryPageTDemand.do?limit=10&page='+page,function(res){
+					layui.each(res.data, function(index, item){
+						lis.push('<div class="owl-item" style="width: 23%;"><div class="post-slide">');
+						lis.push('<div class="post-img">');
+						lis.push('<a href="#"><img style="height: 200px" src="'+BASE_PATH+'/images/WebCode.png" alt=""></a>');
+						lis.push('</div>');
+						lis.push('<div class="post-content">');
+						lis.push('<h3 class="post-title"><a href="#">'+item.name+'</a></h3>');
+						lis.push('<p class="post-description">'+item.info+'</p>');
+						lis.push('<ul class="post-bar">');
+						lis.push('<li><i class="fa fa-calendar"></i>'+item.price+'元</li>');
+						lis.push('<li><i class="layui-icon">&#xe770;</i><a href="#">'+item.seller.username+'</a>');
+						lis.push('<i class="layui-icon">&#xe60e;</i><a href="#">'+item.creartTime+'</a>');
+						lis.push('<i class="layui-icon">&#xe653;</i><a href="#">'+item.state+'</a></li>');
+						lis.push('</ul>');
+						lis.push('<a href="#" class="read-more">read more</a>');
+						lis.push('</div></div></div>');
 					}); 
 					next(lis.join(' '), page < res.count/10);    
 				},"json");

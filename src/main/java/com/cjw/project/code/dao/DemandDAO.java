@@ -1,5 +1,7 @@
 package com.cjw.project.code.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.cjw.project.code.po.DemandPO;
@@ -13,6 +15,8 @@ import com.cjw.project.code.po.DemandPO;
  */
 @Component
 public interface DemandDAO extends BaseDAO<DemandPO> {
+
+	List<DemandPO> queryPageTDemand(DemandPO obj);
 	
 
 }

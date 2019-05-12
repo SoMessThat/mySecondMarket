@@ -150,4 +150,20 @@ layui.use(['jquery'], function(){
 					}
 				}
 			});
+	window.pay = function(){
+		$.ajax({
+			url:BASE_PATH+'/TCommodity/pay.do',
+			type:'post',
+			dataType:'json',
+			data:{
+				rechargeMon:"221",
+			},
+			error:function (res) {
+				layer.alert(res.errors);
+			},
+			success:function (res) {
+				layer.alert(res);
+			}
+		});
+	}
 });
