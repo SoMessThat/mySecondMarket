@@ -3,6 +3,7 @@
 	
 package com.cjw.project.code.ctrl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -166,8 +167,7 @@ public class MessageCtrl {
 		if(!ObjectUtil.isEmpty(commodityId)) po.setCommodityId(String.valueOf(commodityId));
         String content = request.getParameter("tMessage_content");
 		if(!ObjectUtil.isEmpty(content)) po.setContent(String.valueOf(content));
-        String time = request.getParameter("tMessage_time");
-		if(!ObjectUtil.isEmpty(time)) po.setTime(Long.valueOf(time));
+        po.setTime(new Date().getTime()/1000);
         String passersbyName = request.getParameter("tMessage_passersbyName");
 		if(!ObjectUtil.isEmpty(passersbyName)) po.setPassersbyName(String.valueOf(passersbyName));
 		

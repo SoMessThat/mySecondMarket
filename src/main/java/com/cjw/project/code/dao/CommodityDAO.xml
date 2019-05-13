@@ -122,6 +122,7 @@
 		<result property="content" column="content" />
 		<result property="time" column="time" />
 		<result property="passersbyName" column="passersby_name" />
+		<association column="{id=passersby_id}" property="passersby" select="selectUser"></association>
 		<collection column="{id=id}" ofType="com.cjw.project.code.vo.MessageVO" property="answer" select="selectMessage">
 		</collection>
 	</resultMap>
@@ -136,6 +137,23 @@
 	</select>
 	
 	<resultMap autoMapping="true" id="CommodityMap" type="com.cjw.project.code.vo.CommiditionVO">
+		<id property="id" column="id"/>
+		<result property="name" column="name" />
+		<result property="category" column="category" />
+		<result property="info" column="info" />
+		<result property="pop" column="pop" />
+		<result property="pictureId" column="picture_id" />
+		<result property="price" column="price" />
+		<result property="secprice" column="secprice" />
+		<result property="conditions" column="conditions" />
+		<result property="messageId" column="message_id" />
+		<result property="num" column="num" />
+		<result property="sellerId" column="seller_id" />
+		<result property="buyerId" column="buyer_id" />
+		<result property="creartTime" column="creart_time" />
+		<result property="closingTime" column="closing_time" />
+		<result property="state" column="state" />
+		<result property="pictureId" column="picture_id" />
 		<association column="{id=seller_id}" property="seller" select="selectUser"></association>
 		<association column="{id=buyer_id}" property="buyer" select="selectUser"></association>
 		<collection column="{commodityId=id}" property="messages" select="queryMessage">

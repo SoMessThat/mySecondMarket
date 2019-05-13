@@ -6,7 +6,6 @@
 			+ request.getContextPath();
 	String path2 = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort();
-	Long nettime=null;
 %>
 
 
@@ -19,34 +18,6 @@
 	layui.use(['jquery'], function(){
 		var $ = jQuery = layui.$;
 	});
-	
-	//获取当前网络时间
-	function webTime(){
-		var xhr = null;
-		if(window.XMLHttpRequest){
-			xhr = new window.XMLHttpRequest();
-		}else{ // ie
-			xhr = new ActiveObject("Microsoft")
-		}
-		// 通过get的方式请求当前文件
-		xhr.open("get","/SecondMarket/base.jsp");
-		xhr.send(null);
-		// 监听请求状态变化
-		return xhr.onreadystatechange = function(){
-			var time = null,
-			curDate = null;
-			if(xhr.readyState===2){
-				nettime=null;
-				// 获取响应头里的时间戳
-				time = xhr.getResponseHeader("Date");
-				console.log(xhr.getAllResponseHeaders());
-				curDate = new Date(time);
-				nettime=(curDate.getFullYear()+"-"+(curDate.getMonth()+1)+"-"+curDate.getDate()+" "+curDate.getHours()+":"+curDate.getMinutes()+":"+curDate.getSeconds());	
-				return nettime;
-			}
-			
-		}
-	}
 	
 	//时间戳->时间
 	function timestampToTime(timestamp) {
@@ -93,30 +64,6 @@
 	      return Y+M
 	  }
 	
-	//---下拉框数据适配
-	//---参数
-	//------type:字典类型
-	//------name:控件名字
-	//------form:form
-	//------$:$
-	//---列如
-	//------adapt("roomFloor","#roomfloor",form,$);
-// 	var adapt = function(type,name,form,$){
-// 		$.ajax({
-// 			url: BASE_PATH+'/dict/querySelect.php',
-// 			type: "GET",
-// 			data:{
-// 				dictType:type
-// 			},
-// 			dataType: "json",
-// 			success: function(data){
-// 				for(var i=0;i<data.data.length;i++){
-// 					$(name).append("<option value=\""+data.data[i].dictCode+"\">"+data.data[i].dictValue+"</option>"); 
-// 				}
-// 				form.render();
-// 			}
-// 		});
-// 	}
 	
 	//---验证手机号的格式是否正确
 	//---参数
@@ -165,6 +112,5 @@
 
 <script>
 var BASE_PATH = '<%=basePath%>';
-nettime=webTime();
 </script>
 

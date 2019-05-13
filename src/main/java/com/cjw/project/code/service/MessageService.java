@@ -28,6 +28,11 @@ public class MessageService extends BaseService<MessagePO>{
 			log.error("新增对象为空",e);
 			throw e;
 		}
+		if(!ObjectUtil.isEmpty(obj.getAnswerId())){
+			MessagePO answer = this.getTMessageById(obj.getAnswerId());
+			obj.setOwnerId(answer.getPassersbyId());
+			obj.setOwnerName(answer.getPassersbyName());
+		}
 		this.insert(obj);
 	}
 	

@@ -86,14 +86,14 @@ public class CommodityService extends BaseService<CommodityPO>{
 	 * @param id
 	 * @throws MysqlDBException
 	 */
-	public CommodityPO getTCommodityById(String id) throws MysqlDBException{
+	public CommiditionVO getTCommodityById(String id) throws MysqlDBException{
 		if(ObjectUtil.isEmpty(id)){
 			MysqlDBException e = new MysqlDBException("通过主键 查询对象，主键 id 不能为空");
 			log.error("通过主键 查询对象，主键 id 不能为空",e);
 			throw e;
 		}
 		commodityDAO.look(id);
-		return commodityDAO.getTCommodityById(id);
+		return commodityDAO.queryCommodity(id);
 	}
 	
 	/**

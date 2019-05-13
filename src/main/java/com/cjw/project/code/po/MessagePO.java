@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import com.cjw.project.tool.annotation.Column;
 import com.cjw.project.tool.annotation.PrimaryKey;
 import com.cjw.project.tool.annotation.Table;
+import com.cjw.project.tool.annotation.UnColumn;
 import com.cjw.project.tool.util.ObjectUtil;
 
 
@@ -64,6 +65,7 @@ public class MessagePO implements java.io.Serializable {
     @Column("PASSERSBY_NAME")    
 	private String passersbyName;
     
+    @UnColumn
     private MessagePO message;
 
     public String getId() {

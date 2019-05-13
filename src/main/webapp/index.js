@@ -208,6 +208,6 @@ layui.use('layer', function(){
 		layer.close(subtips);
 	});
 	function openMsg() {
-		subtips = layer.msg('<img src="'+BASE_PATH+'/images/WebCode.png" />', {offset: 'auto'});;
+		subtips = layer.msg('<img src="'+BASE_PATH+'/images/WebCode.png" />', {offset: 'auto'});
 	} 
 });

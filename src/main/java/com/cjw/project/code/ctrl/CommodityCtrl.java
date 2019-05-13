@@ -25,7 +25,6 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.cjw.project.code.po.CommodityPO;
 import com.cjw.project.code.po.UserPO;
 import com.cjw.project.code.service.CommodityService;
-import com.cjw.project.code.service.UserService;
 import com.cjw.project.code.vo.CommiditionVO;
 import com.cjw.project.code.vo.CountCommiditionVO;
 import com.cjw.project.code.vo.MessageVO;
@@ -45,8 +44,6 @@ public class CommodityCtrl {
 
 	@Autowired
 	private CommodityService tCommodityService;
-	@Autowired
-	private UserService userService;
 	@RequestMapping(value ="/queryPageTCommodity")
 	@ResponseBody
 	public Response<List<CommodityPO>> queryPageTCommodity(Integer page,Integer limit,HttpServletRequest request){
@@ -143,8 +140,8 @@ public class CommodityCtrl {
 	
 	@RequestMapping(value="/findTCommodityById")
 	@ResponseBody
-	public Response<CommodityPO> findTCommodityById(String id){
-		Response<CommodityPO> response =ResponseFactory.getDefaultSuccessResponse();
+	public Response<CommiditionVO> findTCommodityById(String id){
+		Response<CommiditionVO> response =ResponseFactory.getDefaultSuccessResponse();
 		if (ObjectUtil.isEmpty(id)) {
 			response.setError("id不能为空");
 			return response;
@@ -340,9 +337,9 @@ public class CommodityCtrl {
 			return mv;
 		}
 		try {
-			CommodityPO commodity = tCommodityService.getTCommodityById(id);
+			CommiditionVO commodity = tCommodityService.getTCommodityById(id);
 			mv.addObject("commodity", commodity);
-			mv.addObject("seller", userService.getTUserById(commodity.getSellerId()));
+			mv.addObject("seller", commodity.getSeller());
 		} catch (MysqlDBException e) {
 			e.printStackTrace();
 		}
