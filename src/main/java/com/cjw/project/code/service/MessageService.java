@@ -3,9 +3,12 @@ package com.cjw.project.code.service;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cjw.project.code.dao.MessageDAO;
 import com.cjw.project.code.po.MessagePO;
+import com.cjw.project.code.vo.MessageCountVO;
 import com.cjw.project.tool.bean.Paged;
 import com.cjw.project.tool.bean.Query;
 import com.cjw.project.tool.util.ObjectUtil;
@@ -16,6 +19,8 @@ import com.cjw.project.tool.web.MysqlDBException;
 public class MessageService extends BaseService<MessagePO>{
 	
 	Logger log = Logger.getLogger(this.getClass());
+	@Autowired
+	MessageDAO messageDAO;
 	
 	/**
 	 * 新增对象
@@ -191,6 +196,10 @@ public class MessageService extends BaseService<MessagePO>{
         if(!ObjectUtil.isEmpty(obj.getPassersbyName()))q.addEq("passersbyName", obj.getPassersbyName()); 
 		String[] columnProperty = {"id","ownerId","ownerName","passersbyId","answerId","commodityId","content","time","passersbyName"};
 		return this.findExpByQuery(q, columnProperty);
+	}
+
+	public MessageCountVO countTMessage(String commodityId) {
+		return messageDAO.countTMessage(commodityId);
 	}
 	
 	

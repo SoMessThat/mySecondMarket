@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cjw.project.code.po.MessagePO;
 import com.cjw.project.code.service.MessageService;
+import com.cjw.project.code.vo.MessageCountVO;
 import com.cjw.project.tool.bean.Paged;
 import com.cjw.project.tool.util.ObjectUtil;
 import com.cjw.project.tool.util.UUIDUtil;
@@ -177,6 +178,23 @@ public class MessageCtrl {
 			response.setError("网络连接失败，请检查网络");
 			return response;
 		}
+		response.setResult(Response.RESULT_SUCCESS);
+		return response;
+	}
+	
+	@RequestMapping(value="/countTMessage")
+	@ResponseBody
+	public Response<MessageCountVO> countTMessage(HttpServletRequest request){
+		Response<MessageCountVO> response =ResponseFactory.getDefaultSuccessResponse();
+		
+        String commodityId = request.getParameter("commodityId");
+		if(ObjectUtil.isEmpty(commodityId)) 
+		{
+			response.setError("网络连接失败，请检查网络");
+			return response;
+		}
+		MessageCountVO map = tMessageService.countTMessage(commodityId);
+		response.setData(map);
 		response.setResult(Response.RESULT_SUCCESS);
 		return response;
 	}

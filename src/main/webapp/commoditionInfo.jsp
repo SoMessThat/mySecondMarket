@@ -395,7 +395,7 @@ with(document)with(body)with(insertBefore(createElement("script"),firstChild))se
         </ul>
         <div class="cmt-list-border"></div>
         <div class="cmt-list-number">
-            <span class="comment-number"><span class="cy-number">7</span>人参与,<span class="cy-number">3</span>条评论</span>
+            <span class="comment-number"><span id="count1" class="cy-number">0</span>人参与,<span id="count2" class="cy-number">0</span>条评论</span>
         </div>
     </div>
             <!-- 最新评论 -->

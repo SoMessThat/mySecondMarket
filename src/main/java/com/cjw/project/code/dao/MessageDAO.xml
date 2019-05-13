@@ -25,4 +25,21 @@
 		content = #{content} ]]></if> <if test="time != null and time != '' "><![CDATA[and 
 		time = #{time} ]]></if> <if test="passersbyName != null and passersbyName 
 		!= '' "><![CDATA[and passersby_name = #{passersbyName} ]]></if> -->
+	<select id="countTMessage" resultType="com.cjw.project.code.vo.MessageCountVO">
+		SELECT
+			COUNT(*) peopleNum,
+			SUM(count) messageNum
+		FROM
+			(
+				SELECT
+					count(passersby_id) count,
+					passersby_id
+				FROM
+					t_message
+				WHERE
+					commodity_id = #{commodityId}
+				GROUP BY
+					passersby_id
+			) table1
+	</select>
 </mapper>  

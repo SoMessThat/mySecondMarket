@@ -16,6 +16,17 @@ layui.use(['jquery','layer'], function(){
 		 		$("#mydiv").append(str);
 			}
 		});
+		$.ajax({
+			url:BASE_PATH+'/TMessage/countTMessage.do?commodityId='+$('#commodity').val(),
+			type:'get',
+			dataType:'json',
+			error:function (res) {
+			},
+			success : function(data){
+				$("#count1").html(data.data.peopleNum);
+				$("#count2").html(data.data.messageNum);
+			}
+		});
  //展示与隐藏回复框
 	window.openGW = function(id){
 		if($(id).text()=="回复"){
