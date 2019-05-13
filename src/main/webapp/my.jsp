@@ -24,7 +24,7 @@
     	    <a href="javascript:;" data-url="<%=request.getContextPath()%>/sales/managesalesReport.php" data-id='0' data-text="我的信息">我的信息</a>
         </li>
         <li class="layui-nav-item">
-          <a href="javascript:;" data-url="<%=request.getContextPath()%>/tOrder.jsp" data-id='1' data-text="我上架的商品">我上架的商品</a>
+          <a href="javascript:;" data-url="<%=request.getContextPath()%>/tCommodity.jsp" data-id='1' data-text="我上架的商品">我上架的商品</a>
         </li>
         <li class="layui-nav-item">
     	    <a href="javascript:;" data-url="<%=request.getContextPath()%>/room/roomListView.php" data-id='2' data-text="我发布的需求">我发布的需求</a>

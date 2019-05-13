@@ -40,7 +40,7 @@
   </colgroup>
   <tbody>
     <tr>
-		<td>name</td>
+		<td>名称</td>
 		<td>
 			<input id="name" name="name" class="layui-input" style="width:150px">
 		</td>
@@ -48,85 +48,64 @@
     <tr>
 		<td>category</td>
 		<td>
-			<input id="category" name="category" class="layui-input" style="width:150px">
+			<select id="category" name="category" lay-filter="category">
+		        <option value="" selected="selected">选择类别</option>
+		        <option value="配件">配件</option>
+		        <option value="手机">手机</option>
+		        <option value="书籍">书籍</option>
+		        <option value="玩具">玩具</option>
+		        <option value="服饰">服饰</option>
+		        <option value="家居">家居</option>
+		        <option value="票卷">票卷</option>
+		        <option value="其他">其他</option>
+			</select>
 		</td>
     </tr>
     <tr>
-		<td>info</td>
+		<td>详情</td>
 		<td>
 			<input id="info" name="info" class="layui-input" style="width:150px">
 		</td>
     </tr>
     <tr>
-		<td>pop</td>
-		<td>
-			<input id="pop" name="pop" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>pictureId</td>
-		<td>
-			<input id="pictureId" name="pictureId" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>price</td>
+		<td>原价</td>
 		<td>
 			<input id="price" name="price" class="layui-input" style="width:150px">
 		</td>
     </tr>
     <tr>
-		<td>secprice</td>
+		<td>现价</td>
 		<td>
 			<input id="secprice" name="secprice" class="layui-input" style="width:150px">
 		</td>
     </tr>
     <tr>
-		<td>conditions</td>
+		<td>新旧程度</td>
 		<td>
-			<input id="conditions" name="conditions" class="layui-input" style="width:150px">
+			<select id="conditions" name="conditions" lay-filter="conditions">
+		        <option value="" selected="selected">选择新旧程度</option>
+		        <option value="十层新">十层新(还没使用的)</option>
+		        <option value="九层新">九层新(拆开却没用的)</option>
+		        <option value="八层新">八层新(吃了点灰层)</option>
+		        <option value="七层新">七层新(用了好几次)</option>
+		        <option value="六层新">六层新(用了一阵子)</option>
+		        <option value="五层新">五层新(失去青春的光泽)</option>
+		        <option value="四层新">四层新(饱受岁月洗礼)</option>
+		        <option value="三层新">三层新(破旧品)</option>
+		        <option value="二层新">二层新(用到快烂了)</option>
+		        <option value="一层新">一层新(用到要烂了)</option>
+			</select>
 		</td>
     </tr>
     <tr>
-		<td>messageId</td>
+		<td>状态</td>
 		<td>
-			<input id="messageId" name="messageId" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>num</td>
-		<td>
-			<input id="num" name="num" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>sellerId</td>
-		<td>
-			<input id="sellerId" name="sellerId" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>buyerId</td>
-		<td>
-			<input id="buyerId" name="buyerId" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>creartTime</td>
-		<td>
-			<input id="creartTime" name="creartTime" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>closingTime</td>
-		<td>
-			<input id="closingTime" name="closingTime" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>state</td>
-		<td>
-			<input id="state" name="state" class="layui-input" style="width:150px">
+			<select id="state" name="state" lay-filter="state">
+		        <option value="" selected="selected">选择状态</option>
+		        <option value="已出售">已出售</option>
+		        <option value="出售中">出售中</option>
+		        <option value="已下架">已下架</option>
+			</select>
 		</td>
     </tr>
   </tbody>

@@ -1,5 +1,8 @@
 package com.cjw.project.code.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Component;
 
 import com.cjw.project.code.po.SolicitudePO;
@@ -13,6 +16,8 @@ import com.cjw.project.code.po.SolicitudePO;
  */
 @Component
 public interface SolicitudeDAO extends BaseDAO<SolicitudePO> {
+
+	List<SolicitudePO> queryPageTSolicitude(Map<String, String> map);
 	
 
 }

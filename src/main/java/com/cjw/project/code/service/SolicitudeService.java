@@ -1,10 +1,13 @@
 package com.cjw.project.code.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cjw.project.code.dao.SolicitudeDAO;
 import com.cjw.project.code.po.SolicitudePO;
 import com.cjw.project.tool.bean.Paged;
 import com.cjw.project.tool.bean.Query;
@@ -16,7 +19,8 @@ import com.cjw.project.tool.web.MysqlDBException;
 public class SolicitudeService extends BaseService<SolicitudePO>{
 	
 	Logger log = Logger.getLogger(this.getClass());
-	
+	@Autowired
+	SolicitudeDAO solicitudeDAO;
 	/**
 	 * 新增对象
 	 * @param obj
@@ -77,29 +81,14 @@ public class SolicitudeService extends BaseService<SolicitudePO>{
 	 * 条件查询返回分页列表
 	 * @param pageNo
 	 * @param pageSize
-	 * @param obj
+	 * @param map
 	 * @return
 	 * @throws MysqlDBException
 	 */
-	@SuppressWarnings("unchecked")
 	public Paged<SolicitudePO> queryPageTSolicitude(Integer pageNo,Integer pageSize,
-			SolicitudePO obj) throws MysqlDBException{
-		if(ObjectUtil.isEmpty(obj)){
-			MysqlDBException e = new MysqlDBException("查询条件对象为空 - 异常");
-			log.error("查询条件对象为空 - 异常",e);
-			throw e;
-		}
-        Query<SolicitudePO> q = Query.build(SolicitudePO.class);
-		q.setPaged(pageNo, pageSize);
-		
-        if(!ObjectUtil.isEmpty(obj.getId()))q.addEq("id", obj.getId()); 
-        if(!ObjectUtil.isEmpty(obj.getUserId()))q.addEq("userId", obj.getUserId()); 
-        if(!ObjectUtil.isEmpty(obj.getCommodityId()))q.addEq("commodityId", obj.getCommodityId()); 
-        if(!ObjectUtil.isEmpty(obj.getCategory()))q.addEq("category", obj.getCategory()); 
-        if(!ObjectUtil.isEmpty(obj.getType()))q.addEq("type", obj.getType()); 
-        
-		//q.addOrder("createtime", DBOrder.DESC);
-		Paged<SolicitudePO> page = this.findPagedByQuery(q);
+			Map<String, String> map) throws MysqlDBException{
+		List<SolicitudePO> list = solicitudeDAO.queryPageTSolicitude(map);
+		Paged<SolicitudePO> page = new Paged<SolicitudePO>(list ,list.size() ,pageNo ,pageSize,true);
 		return page;
 	}
 	
@@ -118,19 +107,6 @@ public class SolicitudeService extends BaseService<SolicitudePO>{
 		}
         Query<SolicitudePO> q = Query.build(SolicitudePO.class);
 		
-		//< %foreach(ColumnSchema t1 in SrcTable.Columns){%>
-        //< %if(IsDataColumn(t1)){ %>
-        //if(!ObjectUtil.isEmpty(obj.< %=getPropertiesXXXname(t1.Name,"get")%>Begin()) && !ObjectUtil.isEmpty(obj.< %=getPropertiesXXXname(t1.Name,"get")%>End())) {
-		//	q.addBetween("< %=getPropertiesName(t1.Name)%>", obj.< %=getPropertiesXXXname(t1.Name,"get")%>Begin(), obj.< %=getPropertiesXXXname(t1.Name,"get")%>End());
-		//}else{
-		//	if(!ObjectUtil.isEmpty(obj.< %=getPropertiesXXXname(t1.Name,"get")%>Begin())) q.addGt("< %=getPropertiesName(t1.Name)%>", obj.< %=getPropertiesXXXname(t1.Name,"get")%>Begin());
-		//	if(!ObjectUtil.isEmpty(obj.< %=getPropertiesXXXname(t1.Name,"get")%>End()))   q.addLt("< %=getPropertiesName(t1.Name)%>", obj.< %=getPropertiesXXXname(t1.Name,"get")%>End());
-		//}
-        //
-        //< %}else{%>
-        //if(!ObjectUtil.isEmpty(obj.< %=getPropertiesXXXname(t1.Name,"get")%>()))q.addEq("< %=getPropertiesName(t1.Name)%>", obj.< %=getPropertiesXXXname(t1.Name,"get")%>()); 
-        //< %}%>
-		//< %}%>
         if(!ObjectUtil.isEmpty(obj.getId()))q.addEq("id", obj.getId()); 
         if(!ObjectUtil.isEmpty(obj.getUserId()))q.addEq("userId", obj.getUserId()); 
         if(!ObjectUtil.isEmpty(obj.getCommodityId()))q.addEq("commodityId", obj.getCommodityId()); 

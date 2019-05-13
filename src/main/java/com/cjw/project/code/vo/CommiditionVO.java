@@ -29,6 +29,7 @@ public class CommiditionVO implements java.io.Serializable {
 	private Long closingTime;
 	private String state;
 	private String pictureId;
+	private String comId;
 	public String getId() {
 		return id;
 	}
@@ -151,6 +152,12 @@ public class CommiditionVO implements java.io.Serializable {
 	}
 	public void setPicture(List<CommodityPictureRefPO> picture) {
 		this.picture = picture;
+	}
+	public String getComId() {
+		return comId;
+	}
+	public void setComId(String comId) {
+		this.comId = comId;
 	}
 	
 }

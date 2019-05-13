@@ -10,8 +10,7 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
    	  table.render({
    		elem: '#tCommoditylist',
 	    url: BASE_PATH+'/TCommodity/queryPageTCommodity.do',
-	 //   toolbar: '#barDemo',
-		limit:10,	
+		limit:5,	
 		limits:[5,10,15,20],
 		toolbar: true,
 	    page:true, //开启分页
@@ -24,22 +23,16 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	    	  ,dataName: 'data' //数据列表的字段名称，默认：data
 	    	},
 	    cols: [[ //表头
-       	  {field:'name', title: 'name', width:200, fixed: 'left' }  ,
-       	  {field:'category', title: 'category', width:200, fixed: 'left' }  ,
-       	  {field:'info', title: 'info', width:200, fixed: 'left' }  ,
-       	  {field:'pop', title: 'pop', width:200, fixed: 'left' }  ,
-       	  {field:'pictureId', title: 'pictureId', width:200, fixed: 'left' }  ,
-       	  {field:'price', title: 'price', width:200, fixed: 'left' }  ,
-       	  {field:'secprice', title: 'secprice', width:200, fixed: 'left' }  ,
-       	  {field:'conditions', title: 'conditions', width:200, fixed: 'left' }  ,
-       	  {field:'messageId', title: 'messageId', width:200, fixed: 'left' }  ,
-       	  {field:'num', title: 'num', width:200, fixed: 'left' }  ,
-       	  {field:'sellerId', title: 'sellerId', width:200, fixed: 'left' }  ,
-       	  {field:'buyerId', title: 'buyerId', width:200, fixed: 'left' }  ,
-       	  {field:'creartTime', title: 'creartTime', width:200, fixed: 'left' }  ,
-       	  {field:'closingTime', title: 'closingTime', width:200, fixed: 'left' }  ,
-       	  {field:'state', title: 'state', width:200, fixed: 'left' }  ,
-	      {fixed: 'right', title: '操作',width: 150, align:'center', toolbar: '#barDemo'}
+       	  {field:'name', title: 'name', fixed: 'left' }  ,
+       	  {field:'category', title: 'category', fixed: 'left' }  ,
+       	  {field:'info', title: 'info', fixed: 'left' }  ,
+       	  {field:'pop', title: 'pop', fixed: 'left' }  ,
+       	  {field:"pictureId", title: '图片',style:'height:100px', fixed: 'left',
+      	 	templet: function(res){return '<div><img src="'+res.pictureId+'"</div>' }},
+       	  {field:'secprice', title: 'secprice', fixed: 'left' }  ,
+       	  {field:'conditions', title: 'conditions', fixed: 'left' }  ,
+       	  {field:'state', title: 'state', fixed: 'left' }  ,
+       	  {fixed: 'right', title: '操作', align:'center', toolbar: '#barDemo'}
 	    ]]
       });
    
@@ -71,7 +64,7 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	   		  layer.open({
 	    	      type: 2,
 	    	      skin: 'layui-layer-rim',
-	    	      title: '编辑房间信息',
+	    	      title: '编辑商品信息',
 	    	      btn: ['保存'],
 	    	      btnAlign: 'c',
 	    	      shadeClose: true,
@@ -84,9 +77,6 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
     	    	      var iframeWin = window[layero.find('iframe')[0]['name']];
     	    	      var dialogform = iframeWin.layui.form;
 	    	    	  var id = obj.data.id;
-					//设置不可编辑
-	    	    	  //body.find("input#roomcode").attr("disabled",true);
-  	                  //body.find("select#roomfloor").attr("disabled",true);
 	    	    	  $.ajax({
 			                url:BASE_PATH+'/TCommodity/findTCommodityById.do',
 			                type:'get',
@@ -101,21 +91,13 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 			                success : function(data){
 								body.find("input#id").val(data.data.id);
 								body.find("input#name").val(data.data.name);
-								body.find("input#category").val(data.data.category);
+								body.find("select#category").val(data.data.category);
 								body.find("input#info").val(data.data.info);
-								body.find("input#pop").val(data.data.pop);
-								body.find("input#pictureId").val(data.data.pictureId);
 								body.find("input#price").val(data.data.price);
 								body.find("input#secprice").val(data.data.secprice);
-								body.find("input#conditions").val(data.data.conditions);
-								body.find("input#messageId").val(data.data.messageId);
-								body.find("input#num").val(data.data.num);
-								body.find("input#sellerId").val(data.data.sellerId);
-								body.find("input#buyerId").val(data.data.buyerId),
-								body.find("input#creartTime").val(data.data.creartTime),
-								body.find("input#closingTime").val(data.data.closingTime),
-								body.find("input#state").val(data.data.state)
-							//dialogform.render('select');
+								body.find("select#conditions").val(data.data.conditions);
+								body.find("select#state").val(data.data.state)
+								dialogform.render('select');
 			    	                
 			    	        }
 			            });
@@ -123,11 +105,6 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	    	      yes: function (layero, index) {
 	    	    	  var body = layui.layer.getChildFrame('body', layero); //得到iframe页的body内容
 	    	    	
-	    			  //判断是否为空
-	    			/*if(roomCode==""||roomFloor==""||roomType==""||roomState==""||roomPrix==""){
-	    				layer.alert('请输入完整信息!');
-	    			}
-	    			else {*/ 	
 	    	    	  $.ajax({
 	    	    		  url:BASE_PATH+'/TCommodity/updateTCommodityById.do',
 	    	    		  type:'get',
@@ -136,17 +113,9 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 							  name:body.find("input#name").val(),
 							  category:body.find("input#category").val(),
 							  info:body.find("input#info").val(),
-							  pop:body.find("input#pop").val(),
-							  pictureId:body.find("input#pictureId").val(),
 							  price:body.find("input#price").val(),
 							  secprice:body.find("input#secprice").val(),
 							  conditions:body.find("input#conditions").val(),
-							  messageId:body.find("input#messageId").val(),
-							  num:body.find("input#num").val(),
-							  sellerId:body.find("input#sellerId").val(),
-							  buyerId:body.find("input#buyerId").val(),
-							  creartTime:body.find("input#creartTime").val(),
-							  closingTime:body.find("input#closingTime").val(),
 							  state:body.find("input#state").val()
 	    	    			},
 	    	    		  error:function (res) {
@@ -159,7 +128,6 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	    	    			  });
 	    	    		  }
 	    	    	  });
-	    			//}
 
 	              }
 	   		  });
@@ -177,78 +145,33 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 	laydate = layui.laydate,
 	$ = layui.$;
       
-	 $("#id").bind('input propertychange', function () {
-		table.reload('tCommoditylist', {
-	        page: {
-	          curr: 1 //重新从第 1 页开始
-	        },
-	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
-		    }
-	    });
-	});
 	 $("#name").bind('input propertychange', function () {
 		table.reload('tCommoditylist', {
 	        page: {
 	          curr: 1 //重新从第 1 页开始
 	        },
 	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
+	        	tCommodity_name: $("#name").val(),
+	        	tCommodity_category: $("#category").val(),
+				tCommodity_info: $("#info").val(),
+				tCommodity_secprice: $("#secprice").val(),
+				tCommodity_conditions: $("#conditions").val(),
+				tCommodity_state: $("#state").val()
 		    }
 	    });
 	});
-	 $("#category").bind('input propertychange', function () {
+	 form.on('select(category)', function(data){
 		table.reload('tCommoditylist', {
 	        page: {
 	          curr: 1 //重新从第 1 页开始
 	        },
 	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
+	        	tCommodity_name: $("#name").val(),
+	        	tCommodity_category: $("#category").val(),
+				tCommodity_info: $("#info").val(),
+				tCommodity_secprice: $("#secprice").val(),
+				tCommodity_conditions: $("#conditions").val(),
+				tCommodity_state: $("#state").val()
 		    }
 	    });
 	});
@@ -258,97 +181,12 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 	          curr: 1 //重新从第 1 页开始
 	        },
 	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
-		    }
-	    });
-	});
-	 $("#pop").bind('input propertychange', function () {
-		table.reload('tCommoditylist', {
-	        page: {
-	          curr: 1 //重新从第 1 页开始
-	        },
-	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
-		    }
-	    });
-	});
-	 $("#pictureId").bind('input propertychange', function () {
-		table.reload('pictureIdlist', {
-	        page: {
-	          curr: 1 //重新从第 1 页开始
-	        },
-	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
-		    }
-	    });
-	});
-	 $("#price").bind('input propertychange', function () {
-		table.reload('tCommoditylist', {
-	        page: {
-	          curr: 1 //重新从第 1 页开始
-	        },
-	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
+	        	tCommodity_name: $("#name").val(),
+	        	tCommodity_category: $("#category").val(),
+				tCommodity_info: $("#info").val(),
+				tCommodity_secprice: $("#secprice").val(),
+				tCommodity_conditions: $("#conditions").val(),
+				tCommodity_state: $("#state").val()
 		    }
 	    });
 	});
@@ -358,241 +196,45 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 	          curr: 1 //重新从第 1 页开始
 	        },
 	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
+	        	tCommodity_name: $("#name").val(),
+	        	tCommodity_category: $("#category").val(),
+				tCommodity_info: $("#info").val(),
+				tCommodity_secprice: $("#secprice").val(),
+				tCommodity_conditions: $("#conditions").val(),
+				tCommodity_state: $("#state").val()
 		    }
 	    });
 	});
-	 $("#conditions").bind('input propertychange', function () {
+	 form.on('select(conditions)', function(data){
 		table.reload('tCommoditylist', {
 	        page: {
 	          curr: 1 //重新从第 1 页开始
 	        },
 	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
+	        	tCommodity_name: $("#name").val(),
+	        	tCommodity_category: $("#category").val(),
+				tCommodity_info: $("#info").val(),
+				tCommodity_secprice: $("#secprice").val(),
+				tCommodity_conditions: $("#conditions").val(),
+				tCommodity_state: $("#state").val()
 		    }
 	    });
 	});
-	 $("#messageId").bind('input propertychange', function () {
+		form.on('select(state)', function(data){
 		table.reload('tCommoditylist', {
 	        page: {
 	          curr: 1 //重新从第 1 页开始
 	        },
 	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
+	        	tCommodity_name: $("#name").val(),
+	        	tCommodity_category: $("#category").val(),
+				tCommodity_info: $("#info").val(),
+				tCommodity_secprice: $("#secprice").val(),
+				tCommodity_conditions: $("#conditions").val(),
+				tCommodity_state: $("#state").val()
 		    }
 	    });
 	});
-	 $("#num").bind('input propertychange', function () {
-		table.reload('tCommoditylist', {
-	        page: {
-	          curr: 1 //重新从第 1 页开始
-	        },
-	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
-		    }
-	    });
-	});
-	 $("#sellerId").bind('input propertychange', function () {
-		table.reload('tCommoditylist', {
-	        page: {
-	          curr: 1 //重新从第 1 页开始
-	        },
-	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
-		    }
-	    });
-	});
-	 $("#buyerId").bind('input propertychange', function () {
-		table.reload('tCommoditylist', {
-	        page: {
-	          curr: 1 //重新从第 1 页开始
-	        },
-	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
-		    }
-	    });
-	});
-	 $("#creartTime").bind('input propertychange', function () {
-		table.reload('tCommoditylist', {
-	        page: {
-	          curr: 1 //重新从第 1 页开始
-	        },
-	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
-		    }
-	    });
-	});
-	 $("#closingTime").bind('input propertychange', function () {
-		table.reload('tCommoditylist', {
-	        page: {
-	          curr: 1 //重新从第 1 页开始
-	        },
-	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
-		    }
-	    });
-	});
-	 $("#state").bind('input propertychange', function () {
-		table.reload('tCommoditylist', {
-	        page: {
-	          curr: 1 //重新从第 1 页开始
-	        },
-	        where: {
-				id: $("#id").val(),
-				name: $("#name").val(),
-				category: $("#category").val(),
-				info: $("#info").val(),
-				pop: $("#pop").val(),
-				pictureId: $("#pictureId").val(),
-				price: $("#price").val(),
-				secprice: $("#secprice").val(),
-				conditions: $("#conditions").val(),
-				messageId: $("#messageId").val(),
-				num: $("#num").val(),
-				sellerId: $("#sellerId").val(),
-				buyerId: $("#buyerId").val(),
-				creartTime: $("#creartTime").val(),
-				closingTime: $("#closingTime").val(),
-				state: $("#state").val(),
-		    }
-	    });
-	});
-     /*下拉框
-      form.on('select(roomfloor)', function(data){
-   		table.reload('roomlist', {
-		        page: {
-		          curr: 1 //重新从第 1 页开始
-		        },
-		        where: {
-		        	roomcode:$('#roomcode').val(),
-  	            	roomfloor:$('#roomfloor').val(),
-  	            	roomtype:$('#roomtype').val(),
-  	            	roomstate:$('#roomstate').val(),
-	            	roomprix:$('#roomprix').val()
-		        }
-	      });
-  	    });
-	  */
       
     //清空
      $("#resetbtn").on('click',function(){
@@ -601,22 +243,12 @@ layui.use(['form','table','layedit', 'laydate'], function(){
   		          curr: 1 //重新从第 1 页开始
   		    },
     		where: {
-				id: '',
-				name: '',
-				category: '',
-				info: '',
-				pop: '',
-				pictureId: '',
-				price: '',
-				secprice: '',
-				conditions: '',
-				messageId: '',
-				num: '',
-				sellerId: '',
-				buyerId: '',
-				creartTime: '',
-				closingTime: '',
-				state: '',
+    			tCommodity_name: '',
+				tCommodity_category: '',
+				tCommodity_info: '',
+				tCommodity_secprice: '',
+				tCommodity_conditions: '',
+				tCommodity_state: '',
   		    }
     	});
 	});
@@ -627,59 +259,59 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 		layer.open({
 			type: 2,
 			skin: 'layui-layer-rim',
-			title: '新增TCommodity信息',
+			title: '发布闲置商品',
 			btn: ['保存'],
 			btnAlign: 'c',
 			shadeClose: true,
-			shade: true,
+			shade: [0.8, '#393D49'],
 			maxmin: false,
-			area: ['70%', '80%'],
-			content: BASE_PATH+'/editTCommodity.jsp',
+			offset: 'auto',
+			area: ['70%', '60%'],
+			content: BASE_PATH+'/addcommodity.jsp',
+			success : function(layero, index){
+				layer.iframeAuto(index);
+			},	
 			yes: function (layero, index) {
-				var body = layui.layer.getChildFrame('body', layero); //得到iframe页的body内容
-				
+				var body = layui.layer.getChildFrame('body', layero); 
+				//获取弹出框的值
+				var images=body.find("input#images").val();
+				var name=body.find("input#name").val();
+				var prix=body.find("input#prix").val();
+				var conditions=body.find("select#conditions").val();
+				var category=body.find("select#category").val();
+				var secprix=body.find("input#secprix").val();
+				var info=body.find("textarea#info").val();
 				//判断是否为空
-				/*if(roomCode==""||roomFloor==""||roomType==""||roomState==""||roomPrix==""){
-				layer.alert('请输入完整信息!');
+				if(images==""||name==""||prix==""){
+					layer.alert('请输入完整信息!');
 				}
-			else if(roomcodeExist==""){*/
-				$.ajax({
-					url:BASE_PATH+'/TCommodity/addTCommodity.do',
-					type:'get',
-					data: {
-						id:body.find("input#id").val(),
-						name:body.find("input#name").val(),
-						category:body.find("input#category").val(),
-						info:body.find("input#info").val(),
-						pop:body.find("input#pop").val(),
-						pictureId:body.find("input#pictureId").val(),
-						price:body.find("input#price").val(),
-						secprice:body.find("input#secprice").val(),
-						conditions:body.find("input#conditions").val(),
-						messageId:body.find("input#messageId").val(),
-						num:body.find("input#num").val(),
-						sellerId:body.find("input#sellerId").val(),
-						buyerId:body.find("input#buyerId").val(),
-						creartTime:body.find("input#creartTime").val(),
-						closingTime:body.find("input#closingTime").val(),
-						state:body.find("input#state").val(),
-					},
-					dataType:'json',
-					error:function (res) {
-						layer.alert('网络错误!');
-					},
-					success : function(layero, index){
-						layer.alert('添加成功!',function(){
-						layer.closeAll();
-						table.reload('#tCommoditylist');
-						});
-					}
-				});
-			//}
-			/*else{
-			layer.alert('房间已存在!');
-			}
-			*/
+				else{
+					$.ajax({
+						url:BASE_PATH+'/TCommodity/addTCommodity.do',
+						type:'get',
+						data: {
+							sellerId:$("#userId").val(),
+							address:images,
+							name:name,
+							price:prix,
+							info:info,
+							secprice:secprix,
+							conditions:conditions,
+							category:category,
+							creartTime:(new Date().getTime())
+						},
+						dataType:'json',
+						error:function (res) {
+							layer.alert(res.data.erro);
+						},
+						success : function(layero, index){
+							layer.alert('添加成功!',function(){
+								layer.closeAll();
+							});
+						},
+					});
+				}
+
 			}
 		});
 	});

@@ -31,7 +31,7 @@ layui.use(['layer', 'table','form','laydate'], function(){
 		limit:5,	
 		limits:[5,10,15,20],
 		page:true, //开启分页
-		height:'full-50',
+		height:'full-150',
 		response: {
 			statusName: 'status',
 			statusCode: 200,

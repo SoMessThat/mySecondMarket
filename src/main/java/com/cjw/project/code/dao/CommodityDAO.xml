@@ -20,6 +20,7 @@
 		<result property="closingTime" column="closing_time" />
 		<result property="state" column="state" />
 		<result property="pictureId" column="picture_id" />
+		<result property="comId" column="comId" />
 	</resultMap>
 	
 	<!-- <if test="id != null and id != '' "><![CDATA[and id = #{id} ]]></if> 
@@ -51,7 +52,7 @@
 			and id = #{id}
 			</if>
 		    <if test="name != null and name != '' ">
-			and name = LIKE CONCAT('%',#{name},'%')
+			and name LIKE CONCAT('%',#{name},'%')
 			</if>
 		    <if test="category != null and category != '' ">
 			and category LIKE CONCAT('%',#{category},'%')

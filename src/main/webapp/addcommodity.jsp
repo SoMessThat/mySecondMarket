@@ -7,6 +7,7 @@
 	
 <form id="form" lay-filter="form" class="layui-form" style="margin-top: 5px">
 <input type="hidden" id="images" name="images" class="layui-input">
+<input type="hidden" id="userId" name="userId" value="${user.id}" class="layui-input">
 <table class="layui-table">
   <tbody>
     <tr>
