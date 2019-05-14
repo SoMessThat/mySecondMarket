@@ -9,7 +9,7 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 
    	  table.render({
    		elem: '#tCommoditylist',
-	    url: BASE_PATH+'/TCommodity/queryPageTCommodity.do',
+	    url: BASE_PATH+'/TCommodity/queryMyPageTCommodity.do',
 		limit:5,	
 		limits:[5,10,15,20],
 		toolbar: true,
@@ -109,14 +109,14 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	    	    		  url:BASE_PATH+'/TCommodity/updateTCommodityById.do',
 	    	    		  type:'get',
 	    	    		  data: {
-							  id:body.find("input#id").val(),
-							  name:body.find("input#name").val(),
-							  category:body.find("input#category").val(),
-							  info:body.find("input#info").val(),
-							  price:body.find("input#price").val(),
-							  secprice:body.find("input#secprice").val(),
-							  conditions:body.find("input#conditions").val(),
-							  state:body.find("input#state").val()
+							  id:body.find("#id").val(),
+							  name:body.find("#name").val(),
+							  category:body.find("#category").val(),
+							  info:body.find("#info").val(),
+							  price:body.find("#price").val(),
+							  secprice:body.find("#secprice").val(),
+							  conditions:body.find("#conditions").val(),
+							  state:body.find("#state").val()
 	    	    			},
 	    	    		  error:function (res) {
 	    	    			  layer.alert('网络错误!');

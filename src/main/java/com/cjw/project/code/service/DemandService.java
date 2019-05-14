@@ -55,7 +55,7 @@ public class DemandService extends BaseService<DemandPO>{
 	 * @param id
 	 * @throws MysqlDBException 
 	 */
-	public void deleteTDemandById(String id) throws MysqlDBException{
+	public void deleteTDemandById(int id) throws MysqlDBException{
 		if(ObjectUtil.isEmpty(id)){
 			MysqlDBException e = new MysqlDBException("通过主键删除对象，主键 id 不能为空");
 			log.error("通过主键删除对象，主键 id 不能为空",e);
@@ -75,7 +75,7 @@ public class DemandService extends BaseService<DemandPO>{
 			log.error("通过主键 查询对象，主键 id 不能为空",e);
 			throw e;
 		}
-		return this.get(id);
+		return demandDAO.getTDemandById(id);
 	}
 	
 	/**

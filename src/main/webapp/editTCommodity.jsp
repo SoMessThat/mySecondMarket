@@ -27,27 +27,17 @@
 		}
 		</style>
 	
-	<script type="text/javascript" src="<%=basePath%>/editTCommodity.js"></script>
-	
 <form id="tCommodityform" lay-filter="tCommodityform" class="layui-form" style="margin-top: 5px">
-<input type="hidden" id="id" name="id" class="layui-input" style="width:150px">
-<table class="layui-table">
-  <colgroup>
-    <col width="50">
-    <col width="100">
-    <col width="50">
-    <col width="100">
-  </colgroup>
-  <tbody>
-    <tr>
-		<td>名称</td>
-		<td>
-			<input id="name" name="name" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>category</td>
-		<td>
+<input type="hidden" id="id" name="id" class="layui-input">
+    <div class="layui-form-item">
+		<label class="layui-form-label">名称</label>
+		<div class="layui-input-block">
+			<input id="name" name="name" class="layui-input">
+		</div>
+    </div>
+    <div class="layui-form-item">
+		<label class="layui-form-label">类别</label>
+		<div class="layui-input-block">
 			<select id="category" name="category" lay-filter="category">
 		        <option value="" selected="selected">选择类别</option>
 		        <option value="配件">配件</option>
@@ -59,29 +49,29 @@
 		        <option value="票卷">票卷</option>
 		        <option value="其他">其他</option>
 			</select>
-		</td>
-    </tr>
-    <tr>
-		<td>详情</td>
-		<td>
-			<input id="info" name="info" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>原价</td>
-		<td>
-			<input id="price" name="price" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>现价</td>
-		<td>
-			<input id="secprice" name="secprice" class="layui-input" style="width:150px">
-		</td>
-    </tr>
-    <tr>
-		<td>新旧程度</td>
-		<td>
+		</div>
+	</div>
+    <div class="layui-form-item">
+		<label class="layui-form-label">详情</label>
+		<div class="layui-input-block">
+			<input id="info" name="info" class="layui-input">
+		</div>
+    </div>
+    <div class="layui-form-item">
+		<label class="layui-form-label">原价</label>
+		<div class="layui-input-block">
+			<input id="price" name="price" class="layui-input">
+		</div>
+    </div>
+    <div class="layui-form-item">
+		<label class="layui-form-label">现价</label>
+		<div class="layui-input-block">
+			<input id="secprice" name="secprice" class="layui-input">
+		</div>
+    </div>
+    <div class="layui-form-item">
+		<label class="layui-form-label">新旧程度</label>
+		<div class="layui-input-block">
 			<select id="conditions" name="conditions" lay-filter="conditions">
 		        <option value="" selected="selected">选择新旧程度</option>
 		        <option value="十层新">十层新(还没使用的)</option>
@@ -95,23 +85,27 @@
 		        <option value="二层新">二层新(用到快烂了)</option>
 		        <option value="一层新">一层新(用到要烂了)</option>
 			</select>
-		</td>
-    </tr>
-    <tr>
-		<td>状态</td>
-		<td>
+		</div>
+    </div>
+    <div class="layui-form-item">
+		<label class="layui-form-label">状态</label>
+		<div class="layui-input-block">
 			<select id="state" name="state" lay-filter="state">
 		        <option value="" selected="selected">选择状态</option>
 		        <option value="已出售">已出售</option>
 		        <option value="出售中">出售中</option>
 		        <option value="已下架">已下架</option>
 			</select>
-		</td>
-    </tr>
-  </tbody>
-</table>
-	</form>
-
+		</div>
+    </div>
+</form>
+	<script type="text/javascript">
+	layui.use(['form','laydate'], function(){
+        var laydate = layui.laydate,
+        	form = layui.form; 
+        form.render();
+	 }); 
+	</script>
 </body>
               
 </html>

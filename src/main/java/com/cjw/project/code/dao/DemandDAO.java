@@ -17,6 +17,8 @@ import com.cjw.project.code.po.DemandPO;
 public interface DemandDAO extends BaseDAO<DemandPO> {
 
 	List<DemandPO> queryPageTDemand(DemandPO obj);
+
+	DemandPO getTDemandById(String id);
 	
 
 }

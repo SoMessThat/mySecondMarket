@@ -48,7 +48,10 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	    	  var a = new Date(res.creatTime*1000).format("yyyy-MM-dd hh:mm:ss");
 	    	  return a;
 	      }},
-       	  {field:"state", title: '状态', fixed: 'right' }  ,
+       	  {field:"state", title: '状态', fixed: 'right',templet: function(res){
+	    	  var a = new Date(res.creatTime*1000).format("yyyy-MM-dd hh:mm:ss");
+	    	  return '<a class="layui-btn layui-btn-xs" lay-event="change">'+res.state+'</a>';
+	      }},
 	      {fixed: 'right', title: '操作', align:'center', toolbar: '#barDemo'}
 	    ]]
       });
@@ -113,10 +116,8 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 								body.find("input#titlle").val(data.data.titlle);
 								body.find("input#content").val(data.data.content);
 								body.find("input#pictureId").val(data.data.pictureId);
-								var time=new Date(data.data.creatTime*1000).format("yyyy-MM-dd");
-								body.find("input#creatTime").val(time);
 								body.find("#state").val(data.data.state);
-								dialogform.render('select');
+								dialogform.render(); 
 			    	                
 			    	        }
 			            });
@@ -129,7 +130,6 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 				      var titlle=body.find("input#titlle").val();
 				      var content=body.find("input#content").val();
 				      var pictureId=body.find("input#pictureId").val();
-				      var creatTime=body.find("input#creatTime").val();
 				      var state=body.find("select#state").val();
 	    			  //判断是否为空
 	    			/*if(roomCode==""||roomFloor==""||roomType==""||roomState==""||roomPrix==""){
@@ -144,7 +144,6 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	    	    			  tAnnouncement_titlle:body.find("input#titlle").val(),
 	    	    			  tAnnouncement_content:body.find("input#content").val(),
 	    	    			  tAnnouncement_pictureId:body.find("input#pictureId").val(),
-	    	    			  tAnnouncement_creatTime:body.find("input#creatTime").val(),
 	    	    			  tAnnouncement_state:body.find("select#state").val()
 	    	    			},
 	    	    		  dataType:'json',
@@ -314,7 +313,6 @@ layui.use(['form','table','layedit', 'laydate'], function(){
 						tAnnouncement_titlle:body.find("input#titlle").val(),
 						tAnnouncement_content:body.find("input#content").val(),
 						tAnnouncement_pictureId:body.find("input#pictureId").val(),
-						tAnnouncement_creatTime:body.find("input#creatTime").val(),
 						tAnnouncement_state:body.find("select#state").val()
 					},
 					dataType:'json',

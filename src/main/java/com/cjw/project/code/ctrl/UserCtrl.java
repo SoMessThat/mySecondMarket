@@ -3,14 +3,20 @@
 	
 package com.cjw.project.code.ctrl;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cjw.project.code.po.UserPO;
 import com.cjw.project.code.service.UserService;
@@ -20,6 +26,7 @@ import com.cjw.project.tool.util.UUIDUtil;
 import com.cjw.project.tool.util.ajax.Response;
 import com.cjw.project.tool.util.ajax.ResponseFactory;
 import com.cjw.project.tool.web.MysqlDBException;
+import com.cjw.project.tool.web.WebContext;
 
 
 @Controller
@@ -112,7 +119,27 @@ public class UserCtrl {
 	
 	@RequestMapping(value="/findTUserById")
 	@ResponseBody
-	public Response<UserPO> findTUserById(String id){
+	public Response<UserPO> findTUserById(){
+		Response<UserPO> response =ResponseFactory.getDefaultSuccessResponse();
+		UserPO userPO = (UserPO) WebContext.getSessionAttribute("userInfo");
+		String id = userPO.getId();
+		if (ObjectUtil.isEmpty(id)) {
+			response.setError("id不能为空");
+			return response;
+		}
+		try {
+			response.setData(tUserService.getTUserById(id));
+		} catch (MysqlDBException e) {
+			response.setError("网络连接失败，请检查网络");
+			return response;
+		}
+		response.setResult(Response.RESULT_SUCCESS);
+		return response;
+	}
+	
+	@RequestMapping(value="/findTUser")
+	@ResponseBody
+	public Response<UserPO> findTUser(String id){
 		Response<UserPO> response =ResponseFactory.getDefaultSuccessResponse();
 		if (ObjectUtil.isEmpty(id)) {
 			response.setError("id不能为空");
@@ -244,6 +271,49 @@ public class UserCtrl {
 			return response;
 		}
 		response.setResult(Response.RESULT_SUCCESS);
+		return response;
+	}
+	
+	/**
+	 * 上传头像
+	 * @param file
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/upload")
+	@ResponseBody
+	public Response<UserPO> uplpad(@RequestParam MultipartFile file, HttpServletRequest request) {
+		Response<UserPO> response =ResponseFactory.getDefaultSuccessResponse();
+		UserPO po = new UserPO();
+		String desFilePath = "";
+		String oriName = "";
+		Map<String, String> dataMap = new HashMap<>();
+		try {
+			// 1.获取原文件名
+			oriName = file.getOriginalFilename();
+			// 2.获取原文件图片后缀，以最后的.作为截取(.jpg)
+			String extName = oriName.substring(oriName.lastIndexOf("."));
+			// 3.生成自定义的新文件名，这里以UUID.jpg|png|xxx作为格式（可选操作，也可以不自定义新文件名）
+			String uuid = UUIDUtil.getSortUUID();
+			String newName = uuid + extName;
+			// 4.获取要保存的路径文件夹
+			String realPath = "E:/images";
+//			String realPath = "/secondImages";
+			// 5.保存图片
+			desFilePath = realPath + "/" + newName;
+			File desFile = new File(desFilePath);
+			file.transferTo(desFile);
+			System.out.println(desFilePath);
+			po.setAvatar("/" + newName);
+			// 6.返回保存结果信息
+			dataMap = new HashMap<>();
+			dataMap.put("src", "resources/imgs/" + newName);
+		} catch (IllegalStateException e) {
+			System.out.println(desFilePath + "图片保存失败");
+		} catch (IOException e) {
+			System.out.println(desFilePath + "图片保存失败--IO异常");
+		}
+		response.setData(po);
 		return response;
 	}
 }

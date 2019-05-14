@@ -33,12 +33,6 @@
 		</div>
 	</div>
 	<div class="layui-form-item">
-		<label class="layui-form-label">创建时间</label>
-		<div class="layui-input-block">
-			<input id="creatTime" name="creatTime" class="layui-input">
-		</div>
-	</div>
-	<div class="layui-form-item">
 		<label class="layui-form-label">状态</label>
 		<div class="layui-input-block">
 			<select id="state" name="state" lay-filter="state">
@@ -54,10 +48,6 @@
         var laydate = layui.laydate,
         	form = layui.form; 
         form.render();
-		laydate.render({
-		  elem: '#creatTime',
-		  trigger: 'click'
-	  });
 	 }); 
 	</script>
 </body>

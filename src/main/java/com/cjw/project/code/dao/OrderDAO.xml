@@ -38,11 +38,10 @@
 			<if test="sellerId != null and sellerId != '' ">
 			and aa.seller_id = #{sellerId}
 			</if>
-			<if test="buyerId != null and buyerId != '' ">
-			and aa.buyer_id = #{buyerId}
-			</if>
+			and aa.buyer_id = #{userId}
 			<if test="creartTime != null and creartTime != '' ">
-			and FROM_UNIXTIME(aa.creart_time,'%Y-%m-%d') = #{creartTime}</if>
+			and FROM_UNIXTIME(aa.creart_time,'%Y-%m-%d') = #{creartTime}
+			</if>
 			<if test="payTime != null and payTime != '' ">
 			and FROM_UNIXTIME(aa.pay_time,'%Y-%m-%d') = #{payTime}
 			</if>

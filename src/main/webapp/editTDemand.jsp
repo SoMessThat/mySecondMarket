@@ -16,31 +16,29 @@
 	<script type="text/javascript" src="<%=basePath%>/editTDemand.js"></script>
 	
 <form id="tDemandform" lay-filter="tDemandform" class="layui-form" style="margin-top: 5px">
-<input type="hidden" id="id" name="id" class="layui-input" style="width:150px">
+<input type="hidden" id="id" name="id" class="layui-input">
 <table class="layui-table">
   <colgroup>
-    <col width="50">
-    <col width="100">
-    <col width="50">
-    <col width="100">
+    <col width="20%">
+    <col width="70%">
   </colgroup>
   <tbody>
     <tr>
 		<td>价格</td>
 		<td>
-			<input id="price" name="price" class="layui-input" style="width:150px">
+			<input id="price" name="price" class="layui-input">
 		</td>
     </tr>
     <tr>
 		<td>名称</td>
 		<td>
-			<input id="name" name="name" class="layui-input" style="width:150px">
+			<input id="name" name="name" class="layui-input">
 		</td>
     </tr>
     <tr>
 		<td>描述</td>
 		<td>
-			<input id="info" name="info" class="layui-input" style="width:150px">
+			<input id="info" name="info" class="layui-input">
 		</td>
     </tr>
   </tbody>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cjw.project.code.po.OrderPO;
+import com.cjw.project.code.po.UserPO;
 import com.cjw.project.code.service.OrderService;
 import com.cjw.project.code.vo.OrderVO;
 import com.cjw.project.tool.bean.Paged;
@@ -23,6 +24,7 @@ import com.cjw.project.tool.util.UUIDUtil;
 import com.cjw.project.tool.util.ajax.Response;
 import com.cjw.project.tool.util.ajax.ResponseFactory;
 import com.cjw.project.tool.web.MysqlDBException;
+import com.cjw.project.tool.web.WebContext;
 
 
 @Controller
@@ -51,8 +53,8 @@ public class OrderCtrl {
 		if(!ObjectUtil.isEmpty(num)) map.put("num",num);
 		String sellerId = request.getParameter("tOrder_sellerId");
 		if(!ObjectUtil.isEmpty(sellerId)) map.put("sellerId",sellerId);
-		String buyerId = request.getParameter("tOrder_buyerId");
-		if(!ObjectUtil.isEmpty(buyerId)) map.put("buyerId",buyerId);
+		UserPO userPO = (UserPO) WebContext.getSessionAttribute("userInfo");
+		map.put("userId",userPO.getId());
 		String creartTime = request.getParameter("tOrder_creartTime");
 		if(!ObjectUtil.isEmpty(creartTime)) map.put("creartTime",creartTime);
 		String payTime = request.getParameter("tOrder_payTime");
@@ -79,7 +81,7 @@ public class OrderCtrl {
 			response.setError("网络连接失败，请检查网络");
 		}
 		response.setData(tOrders.getListData());
-		response.setCount(tOrderService.findAll().size());
+		response.setCount(tOrders.getListData().size());
 		response.setResult(Response.RESULT_SUCCESS);
 		return response;
 		

@@ -3,13 +3,52 @@
 
 <mapper namespace="com.cjw.project.code.dao.DemandDAO">
 	<resultMap autoMapping="true" id="DemandMap" type="com.cjw.project.code.po.DemandPO">
+		<id property="id" column="id"/>
 		<association column="{id=seller_id}" property="seller" select="com.cjw.project.code.dao.CommodityDAO.selectUser"></association>
 		<collection column="{commodityId=id}" property="messages" select="com.cjw.project.code.dao.CommodityDAO.queryMessage">
 		</collection>
 	</resultMap>
 	
 	<select id="queryPageTDemand" resultMap="DemandMap">
-		SELECT * FROM T_Demand WHERE buyer_id IS NULL ORDER BY creart_time DESC
+		SELECT * FROM T_Demand 
+		<where>
+			buyer_id IS NULL
+			<if test="sellerId != null and sellerId != '' ">
+			AND seller_id =#{sellerId}
+			</if>
+			<if test="id != null and id != '' ">
+			and id = #{id}
+			</if>
+		    <if test="sellerId != null and sellerId != '' ">
+			and seller_id = #{sellerId}
+			</if>
+		    <if test="price != null and price != '' ">
+			and price LIKE CONCAT('%',#{price},'%')
+			</if>
+		    <if test="name != null and name != '' ">
+			and name LIKE CONCAT('%',#{name},'%')
+			</if>
+		    <if test="info != null and info != '' ">
+			and info LIKE CONCAT('%',#{info},'%')
+			</if>
+		    <if test="buyerId != null and buyerId != '' ">
+			and buyer_id = #{buyerId}
+			</if>
+		    <if test="creartTime != null and creartTime != '' ">
+			and creart_time LIKE CONCAT('%',#{creartTime},'%')
+			</if>
+		    <if test="messageId != null and messageId != '' ">
+			and message_id = #{messageId}
+			</if>
+		    <if test="state != null and state != '' ">
+			and state = #{state}
+			</if>
+		</where>
+		ORDER BY creart_time DESC
+		
 	</select>
-	
+	<select id="getTDemandById" resultMap="DemandMap">
+		SELECT * FROM T_Demand 
+		where id =#{id}
+	</select>
 </mapper>  

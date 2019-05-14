@@ -9,7 +9,6 @@
 %>
 
 
-
 <script src="<%=basePath%>/js/layui/layui.js" type="text/javascript"
 	charset="utf-8"></script>
 <link rel="stylesheet" type="text/css"

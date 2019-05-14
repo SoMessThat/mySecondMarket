@@ -44,7 +44,7 @@ function addcommodity(){
 							secprice:secprix,
 							conditions:conditions,
 							category:category,
-							creartTime:(new Date(nettime).getTime())/1000
+							creartTime:(new Date())
 						},
 						dataType:'json',
 						error:function (res) {

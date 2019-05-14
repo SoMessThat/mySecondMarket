@@ -3,6 +3,7 @@
 	
 package com.cjw.project.code.ctrl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,8 +45,6 @@ public class AnnouncementCtrl {
 		if(!ObjectUtil.isEmpty(content)) condition.setContent(String.valueOf(content));
         String pictureId = request.getParameter("tAnnouncement_pictureId");
 		if(!ObjectUtil.isEmpty(pictureId)) condition.setPictureId(String.valueOf(pictureId));
-        String creatTime = request.getParameter("tAnnouncement_creatTime");
-		if(!ObjectUtil.isEmpty(creatTime)) condition.setCreatTime(Long.valueOf(creatTime));
         String state = request.getParameter("tAnnouncement_state");
 		if(!ObjectUtil.isEmpty(state)) condition.setState(String.valueOf(state));
 	
@@ -148,8 +147,7 @@ public class AnnouncementCtrl {
 		if(!ObjectUtil.isEmpty(content)) po.setContent(String.valueOf(content));
         String pictureId = request.getParameter("tAnnouncement_pictureId");
 		if(!ObjectUtil.isEmpty(pictureId)) po.setPictureId(String.valueOf(pictureId));
-        String creatTime = request.getParameter("tAnnouncement_creatTime");
-		if(!ObjectUtil.isEmpty(creatTime)) po.setCreatTime(Long.valueOf(creatTime));
+		po.setCreatTime(new Date().getTime()/1000);
         String state = request.getParameter("tAnnouncement_state");
 		if(!ObjectUtil.isEmpty(state)) po.setState(String.valueOf(state));
 		

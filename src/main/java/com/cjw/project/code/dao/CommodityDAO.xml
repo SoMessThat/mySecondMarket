@@ -88,7 +88,7 @@
 			and buyer_id = #{buyerId}
 			</if>
 		    <if test="creartTime != null and creartTime != '' ">
-			and creart_time = #{creartTime}
+			and FROM_UNIXTIME(creart_time,'%Y-%m-%d') = #{creartTime}
 			</if>
 		    <if test="closingTime != null and closingTime != '' ">
 			and closing_time = #{closingTime}
@@ -107,10 +107,10 @@
 	
 	<select id="countCommodity"  resultType="com.cjw.project.code.vo.CountCommiditionVO">
 		SELECT
-			( SELECT COUNT(id) FROM t_commodity WHERE seller_id=1 AND buyer_id IS NULL ) "saleing",
-			( SELECT COUNT(id) FROM t_commodity WHERE seller_id=1 AND buyer_id  &lt;&gt; NULL ) "saled",
-			( SELECT COUNT(id) FROM t_solicitude WHERE user_id =1 AND type = "关注" ) "attention",
-			( SELECT COUNT(id) FROM t_solicitude WHERE user_id =1 AND type = "收藏" ) "collect";
+			( SELECT COUNT(id) FROM t_commodity WHERE seller_id=#{sellerId} AND buyer_id IS NULL ) "saleing",
+			( SELECT COUNT(id) FROM t_commodity WHERE seller_id=#{sellerId} AND buyer_id  is not NULL ) "saled",
+			( SELECT COUNT(id) FROM t_solicitude WHERE user_id =#{sellerId} AND type = "关注" ) "attention",
+			( SELECT COUNT(id) FROM t_solicitude WHERE user_id =#{sellerId} AND type = "收藏" ) "collect";
 	</select>
 
 	<resultMap autoMapping="true" id="DayMeetingResultMap" type="com.cjw.project.code.vo.MessageVO">

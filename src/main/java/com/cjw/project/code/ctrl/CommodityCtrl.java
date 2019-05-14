@@ -75,8 +75,6 @@ public class CommodityCtrl {
 		if(!ObjectUtil.isEmpty(messageId)) map.put("messageId",messageId);
 		String num = request.getParameter("tCommodity_num");
 		if(!ObjectUtil.isEmpty(num)) map.put("num",num);
-		String sellerId = request.getParameter("tCommodity_sellerId");
-		if(!ObjectUtil.isEmpty(sellerId)) map.put("sellerId",sellerId);
 		String buyerId = request.getParameter("tCommodity_buyerId");
 		if(!ObjectUtil.isEmpty(buyerId)) map.put("buyerId",buyerId);
 		String creartTime = request.getParameter("tCommodity_creartTime");
@@ -89,6 +87,7 @@ public class CommodityCtrl {
 		if(!ObjectUtil.isEmpty(type)){
 			if ("关注".equals(type)) {
 				UserPO user = (UserPO) WebContext.getSessionAttribute("userInfo");
+				map.put("sellerId",user.getId());
 				tCommoditys = tCommodityService.queryAttendCommodity(page,limit,user.getId());
 			}else if ("搜索".equals(type)) {
 				String key = request.getParameter("key");
@@ -110,6 +109,60 @@ public class CommodityCtrl {
 				e.printStackTrace();
 				response.setError("网络连接失败，请检查网络");
 			}
+		}
+		response.setData(tCommoditys.getListData());
+		response.setCount(tCommoditys.getTotalHit());
+		response.setResult(Response.RESULT_SUCCESS);
+		return response;
+		
+	}
+	
+	@RequestMapping(value ="/queryMyPageTCommodity")
+	@ResponseBody
+	public Response<List<CommodityPO>> queryMyPageTCommodity(Integer page,Integer limit,HttpServletRequest request){
+		Response<List<CommodityPO>> response = ResponseFactory.getDefaultSuccessResponse();
+		Paged<CommodityPO> tCommoditys = new Paged<CommodityPO>();
+		
+		Map<String, String> map = new HashMap<String, String>();
+		String id = request.getParameter("tCommodity_id");
+		if(!ObjectUtil.isEmpty(id)) map.put("id",id);
+		String name = request.getParameter("tCommodity_name");
+		if(!ObjectUtil.isEmpty(name)) map.put("name",name);
+		String category = request.getParameter("tCommodity_category");
+		if(!ObjectUtil.isEmpty(category)) map.put("category",category);
+		String category2 = request.getParameter("category");
+		if(!ObjectUtil.isEmpty(category2)) map.put("category",category2);
+		String info = request.getParameter("tCommodity_info");
+		if(!ObjectUtil.isEmpty(info)) map.put("info",info);
+		String pop = request.getParameter("tCommodity_pop");
+		if(!ObjectUtil.isEmpty(pop)) map.put("pop",pop);
+		String pictureId = request.getParameter("tCommodity_pictureId");
+		if(!ObjectUtil.isEmpty(pictureId)) map.put("pictureId",pictureId);
+		String price = request.getParameter("tCommodity_price");
+		if(!ObjectUtil.isEmpty(price)) map.put("price",price);
+		String secprice = request.getParameter("tCommodity_secprice");
+		if(!ObjectUtil.isEmpty(secprice)) map.put("secprice",secprice);
+		String conditions = request.getParameter("tCommodity_conditions");
+		if(!ObjectUtil.isEmpty(conditions)) map.put("conditions",conditions);
+		String messageId = request.getParameter("tCommodity_messageId");
+		if(!ObjectUtil.isEmpty(messageId)) map.put("messageId",messageId);
+		String num = request.getParameter("tCommodity_num");
+		if(!ObjectUtil.isEmpty(num)) map.put("num",num);
+		String buyerId = request.getParameter("tCommodity_buyerId");
+		if(!ObjectUtil.isEmpty(buyerId)) map.put("buyerId",buyerId);
+		String creartTime = request.getParameter("tCommodity_creartTime");
+		if(!ObjectUtil.isEmpty(creartTime)) map.put("creartTime",creartTime);
+		String closingTime = request.getParameter("tCommodity_closingTime");
+		if(!ObjectUtil.isEmpty(closingTime)) map.put("closingTime",closingTime);
+		String state = request.getParameter("tCommodity_state");
+		if(!ObjectUtil.isEmpty(state)) map.put("state",state);
+		try {
+			UserPO user = (UserPO) WebContext.getSessionAttribute("userInfo");
+			map.put("sellerId",user.getId());
+			tCommoditys = tCommodityService.queryPageTCommodity(page,limit,map);
+		} catch (MysqlDBException e) {
+			e.printStackTrace();
+			response.setError("网络连接失败，请检查网络");
 		}
 		response.setData(tCommoditys.getListData());
 		response.setCount(tCommoditys.getTotalHit());
@@ -307,14 +360,11 @@ public class CommodityCtrl {
 	 */
 	@RequestMapping(value="/countCommodity")
 	@ResponseBody
-	public Response<CountCommiditionVO> countCommodity(String sellerId){
+	public Response<CountCommiditionVO> countCommodity(){
 		Response<CountCommiditionVO> response =ResponseFactory.getDefaultSuccessResponse();
-		if (ObjectUtil.isEmpty(sellerId)) {
-			response.setError("id不能为空");
-			return response;
-		}
 		try {
-			response.setData(tCommodityService.countCommodity(sellerId));
+			UserPO user = (UserPO) WebContext.getSessionAttribute("userInfo");
+			response.setData(tCommodityService.countCommodity(user.getId()));
 		} catch (MysqlDBException e) {
 			response.setError("网络连接失败，请检查网络");
 			return response;

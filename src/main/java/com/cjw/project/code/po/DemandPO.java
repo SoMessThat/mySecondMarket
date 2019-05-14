@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import com.cjw.project.code.vo.MessageVO;
 import com.cjw.project.code.vo.UserVO;
 import com.cjw.project.tool.annotation.Column;
-import com.cjw.project.tool.annotation.PrimaryKey;
+import com.cjw.project.tool.annotation.Id;
 import com.cjw.project.tool.annotation.Table;
 import com.cjw.project.tool.annotation.UnColumn;
 import com.cjw.project.tool.util.ObjectUtil;
@@ -34,7 +34,7 @@ public class DemandPO implements java.io.Serializable {
     
 	
 	/**  -- id */
-    @PrimaryKey("ID")
+    @Id("ID")
 	private Integer id;
 	
 	/**  -- seller_id */

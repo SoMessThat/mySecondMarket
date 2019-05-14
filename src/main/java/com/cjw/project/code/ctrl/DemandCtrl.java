@@ -42,8 +42,45 @@ public class DemandCtrl {
 		DemandPO condition=new DemandPO();
         String id = request.getParameter("tDemand_id");
 		if(!ObjectUtil.isEmpty(id)) condition.setId(Integer.valueOf(id));
-        String sellerId = request.getParameter("tDemand_sellerId");
-		if(!ObjectUtil.isEmpty(sellerId)) condition.setSellerId(String.valueOf(sellerId));
+        String price = request.getParameter("tDemand_price");
+		if(!ObjectUtil.isEmpty(price)) condition.setPrice(Integer.valueOf(price));
+        String name = request.getParameter("tDemand_name");
+		if(!ObjectUtil.isEmpty(name)) condition.setName(String.valueOf(name));
+        String info = request.getParameter("tDemand_info");
+		if(!ObjectUtil.isEmpty(info)) condition.setInfo(String.valueOf(info));
+        String buyerId = request.getParameter("tDemand_buyerId");
+		if(!ObjectUtil.isEmpty(buyerId)) condition.setBuyerId(String.valueOf(buyerId));
+        String creartTime = request.getParameter("tDemand_creartTime");
+		if(!ObjectUtil.isEmpty(creartTime)) condition.setCreartTime(String.valueOf(creartTime));
+        String messageId = request.getParameter("tDemand_messageId");
+		if(!ObjectUtil.isEmpty(messageId)) condition.setMessageId(String.valueOf(messageId));
+        String state = request.getParameter("tDemand_state");
+		if(!ObjectUtil.isEmpty(state)) condition.setState(String.valueOf(state));
+	
+		try {
+			tDemands = tDemandService.queryPageTDemand(page,limit,condition);
+		} catch (MysqlDBException e) {
+			e.printStackTrace();
+			response.setError("网络连接失败，请检查网络");
+		}
+		response.setData(tDemands.getListData());
+		response.setCount(tDemandService.findAll().size());
+		response.setResult(Response.RESULT_SUCCESS);
+		return response;
+		
+	}
+	
+	@RequestMapping(value ="/queryMyPageTDemand")
+	@ResponseBody
+	public Response<List<DemandPO>> queryMyPageTDemand(Integer page,Integer limit,HttpServletRequest request){
+		Response<List<DemandPO>> response = ResponseFactory.getDefaultSuccessResponse();
+		Paged<DemandPO> tDemands = null;
+		
+		DemandPO condition=new DemandPO();
+        String id = request.getParameter("tDemand_id");
+		if(!ObjectUtil.isEmpty(id)) condition.setId(Integer.valueOf(id));
+		UserPO userPO = (UserPO) WebContext.getSessionAttribute("userInfo");
+		condition.setSellerId(userPO.getId());
         String price = request.getParameter("tDemand_price");
 		if(!ObjectUtil.isEmpty(price)) condition.setPrice(Integer.valueOf(price));
         String name = request.getParameter("tDemand_name");
@@ -83,7 +120,7 @@ public class DemandCtrl {
 		}
 		
 		try {
-			tDemandService.deleteTDemandById(id);
+			tDemandService.deleteTDemandById(Integer.parseInt(id));
 		} catch (MysqlDBException e) {
 			response.setError("网络连接失败，请检查网络");
 			return response;
@@ -163,7 +200,7 @@ public class DemandCtrl {
 		if(!ObjectUtil.isEmpty(name)) po.setName(String.valueOf(name));
         String info = request.getParameter("tDemand_info");
 		if(!ObjectUtil.isEmpty(info)) po.setInfo(String.valueOf(info));
-        po.setState(String.valueOf("发布成功"));
+        po.setState(String.valueOf("等待中"));
         DateFormat bf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         po.setCreartTime(bf.format(new Date()));
 		
