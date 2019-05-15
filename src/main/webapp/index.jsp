@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="base.jsp"%>
+<%@include file="./base.jsp"%>
 <html>
 <head>
 <meta property="wb:webmaster" content="bd14bd59a79e2a4d" />
@@ -23,6 +23,17 @@
 
 <link rel="stylesheet" href="<%=basePath%>/css/index3.css">
 <link rel="stylesheet" href="<%=basePath%>/css/index-card.css">
+
+<style>
+.mask {
+	position: fixed;
+	left:100%;
+	height: 40%;
+	width:20%;
+/* 	background: url("images/4772e66619c0f19b5b4d21b132b4a717.jpg")  no-repeat scroll center; */
+	z-index: 1001;
+}
+</style>
 
 </head>
 
@@ -54,7 +65,7 @@
 				<li class="site-nav-menu site-nav-login" id="J_SiteNavLogin" data-name="login" data-spm="754894437"><div
 						class="site-nav-menu-hd">
 						<div class="site-nav-sign">
-							<a class="h">${sessionScope.user.username}</a> <a>退出</a>
+							<a class="h">${sessionScope.user.username}</a> <a href="../">退出</a>
 						</div>
 					</div>
 				</li>
@@ -101,7 +112,7 @@
 					class="site-nav-menu site-nav-cart site-nav-menu-empty site-nav-multi-menu J_MultiMenu menu-empty J_SiteNavDisableMenu mini-cart menu"
 					id="J_MiniCart" data-name="cart" data-spm="1997525049">
 					<div class="site-nav-menu-hd">
-						<a href="<%=basePath%>/my.jsp" target="_top"> <span><i class="layui-icon">&#xe62e</i>我卖出的宝贝</span>
+						<a href="<%=basePath%>/my.jsp" target="_top"> <span><i class="layui-icon">&#xe62e;</i>我卖出的宝贝</span>
 							<strong class="h" id="J_MiniCartNum"></strong>
 						</a>
 					</div>
@@ -357,28 +368,6 @@
 		<div class="item-list">
 			<div class="item-list-wrap" id="demo"></div>
 
-		<!--  分页条  -->
-		<!-- 		<div class="pagination">
-			<div class="el-pagination is-background">
-				<button type="button" disabled="disabled" class="btn-prev">
-					<i class="el-icon el-icon-arrow-left"></i>
-				</button>
-				<ul class="el-pager">
-					<li class="number active">1</li>
-					
-					<li class="number">2</li>
-					<li class="number">3</li>
-					<li class="number">4</li>
-					<li class="number">5</li>
-					<li class="number">6</li>
-					<li class="el-icon more btn-quicknext el-icon-more"></li>
-					<li class="number">100</li>
-				</ul>
-				<button type="button" class="btn-next">
-					<i class="el-icon el-icon-arrow-right"></i>
-				</button>
-			</div>
-		</div> -->
 		<div data-v-e288e42c="">
 			<div data-v-e288e42c="" class="bottom-wrap">
 				<div data-v-e288e42c="" class="bottom-main">
@@ -418,13 +407,6 @@
 				</div>
 			</div>
 		</div>
-		<div data-v-9a34bc10="" class="pop-wrap">
-			<!---->
-			<img data-v-9a34bc10="" src="<%=basePath%>/images/shabi.jpg"
-				class="pop-icon">
-			<div data-v-9a34bc10="" class="line"></div>
-			<!---->
-		</div>
 		<div data-v-839d5c44="" class="el-dialog__wrapper"
 			style="display: none;">
 			<div role="dialog" aria-modal="true"
@@ -442,6 +424,36 @@
 				<!---->
 			</div>
 		</div>
+	<div class="idle-footer" id="J_IdleFooter" style="background-color: #fff;">
+		<div class="footer" data-spm="1997523009">
+
+			<div class="footer-hd">
+				<p>
+					<a href="#">广告位招租</a> <b>|</b> <a href="#">广告位一</a> <b>|</b> <a
+						href="#">广告位二</a> <b>|</b> <a href="#">广告位三</a> <b>|</b> <a
+						href="#">广告位四</a> <b>|</b> <a href="#">广告位五</a> <b>|</b> <a
+						href="#">广告位六</a> <b>|</b> <a href="#">广告位七</a> <b>|</b> <a
+						href="#">广告位八</a> <b>|</b> <a href="#">广告位九</a> <b>|</b> <a
+						href="#">广告位十</a> <b>|</b> <a href="#">广告位十一</a> <b>|</b> <a
+						href="#">广告位十二</a>
+				</p>
+			</div>
+			<div class="footer-bd">
+				<p data-spm-anchor-id="a2107.1.1997523009.i0.6df011d9E4LeUD">
+					<a href="#">关于我们</a> <a href="#">合作伙伴</a> <a href="#">营销中心</a> <a
+						href="#" title="lianzheng@taobao.com" target="_self">廉正举报</a> <a
+						href="#">联系客服</a> <a href="#">开放平台</a> <a href="#">诚征英才</a> <a
+						href="#">联系我们</a> <a href="#">网站地图</a> <a href="#">法律声明</a> <a
+						href="#">隐私权政策</a> <em>© 2018 陈杰文 版权所有</em>
+				</p>
+				<p>
+					<span>福建工程学院 - 国脉信息学院</span> <b>|</b> <span>计算机与信息科学系 - 软件工程</span>
+					<b>|</b> <span>软件1503班 - 3158907305 - 陈杰文</span>
+				</p>
+			</div>
+	
+		</div>
+	</div>
 	</div>
 	</div>
 	
@@ -456,11 +468,17 @@
 	<img
 		src="//img.alicdn.com/tps/i4/T1pkSfXexkXXXXXXXX-1-1.gif?tracer=20120918-90-771">
 	<!-- <script src='//w.cnzz.com/c.php?id=30057895' ></script> -->
-
-
-	<div id="J_SiteFooter" style="min-height: 150px"></div>
-	<iframe
-		src="//g.alicdn.com/alilog/oneplus/blk.html#coid=nZKfFDVYQlkCAdpVJYHcZ2qU&amp;noid="
-		id="_oid_ifr_" style="width: 0px; height: 0px; display: none;"></iframe>
+	<div class="mask" style="left: 0px;" onclick="hide(this)">
+		<img id="lt" src="/2.jpg" style="width: 100%;height: 100%;" />
+	</div>
+	<div class="mask" style="left: 0px;bottom: 0;" onclick="hide(this)">
+		<img id="lb" src="/2.jpg" style="width: 100%;height: 100%;" />
+	</div>
+	<div class="mask" style="left: 80%;" onclick="hide(this)">
+		<img id="rt" src="/2.jpg" style="width: 100%;height: 100%;" />
+	</div>
+	<div class="mask" style="left: 80%;bottom: 0;" onclick="hide(this)">
+		<img id="rb" src="/2.jpg" style="width: 100%;height: 100%;" />
+	</div>
 </body>
 </html>

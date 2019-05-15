@@ -2,11 +2,13 @@ package com.cjw.project.code.ctrl;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,8 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
-import com.alipay.api.domain.AlipayTradePagePayModel;
-import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.alipay.api.domain.AlipayTradeAppPayModel;
+import com.alipay.api.request.AlipayTradeAppPayRequest;
+import com.alipay.api.response.AlipayTradeAppPayResponse;
 import com.cjw.project.code.po.CommodityPO;
 import com.cjw.project.code.po.UserPO;
 import com.cjw.project.code.service.CommodityService;
@@ -445,43 +448,43 @@ public class CommodityCtrl {
 
 	
 	@RequestMapping(value="/pay", method={RequestMethod.POST})
-    public String pay(ModelMap map,String rechargeMon) throws Exception{
+    public ModelAndView pay(ModelMap map,HttpServletRequest httpRequest,
+            HttpServletResponse httpResponse,String rechargeMon) throws Exception{
         //获得初始化的AlipayClient
+		ModelAndView mv = new ModelAndView();
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.URL, AlipayConfig.APPID, AlipayConfig.RSA_PRIVATE_KEY, "json", AlipayConfig.CHARSET, AlipayConfig.ALIPAY_PUBLIC_KEY, AlipayConfig.SIGNTYPE);
-        //设置请求参数
-        AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
-        alipayRequest.setReturnUrl(AlipayConfig.return_url);
-        alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
-        //商户订单号，商户网站订单系统中唯一订单号，必填
-        String out_trade_no = UUIDUtil.getUUID();
-//        		("请读者保证订单号唯一");
-        // 订单名称，必填
-        String subject = "商品金额"+rechargeMon;
-        // 付款金额，必填
-        String total_amount=rechargeMon;
-        // 商品描述，可空
-        String body = "张三充值￥："+rechargeMon;
-        // 封装请求支付信息
-        AlipayTradePagePayModel model=new AlipayTradePagePayModel();
-        model.setOutTradeNo(out_trade_no);
-        model.setSubject(subject);
-        model.setTotalAmount(total_amount);
-        model.setBody(body);
-        model.setTimeoutExpress("");
-        // 销售产品码 必填
-        model.setProductCode("FAST_INSTANT_TRADE_PAY");
-        alipayRequest.setBizModel(model);
-        // 调用SDK生成表单
-        String form = alipayClient.pageExecute(alipayRequest).getBody();
-        map.put("result",form);
-        return "alipay";
-//		AlipayTradeWapPayResponse response = alipayClient.pageExecute(request);
-//		if(response.isSuccess()){
-//		System.out.println("调用成功");
-//		} else {
-//		System.out.println("调用失败");
-//		}
-//		return response;
+        AlipayTradeAppPayRequest alipayRequest=new AlipayTradeAppPayRequest();
+        //设置同步回调地址    
+      alipayRequest.setReturnUrl(AlipayConfig.return_url);
+      //设置异步回调地址
+      alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
+      //公共回传参数，用于传值自定义信息，必须encode，不能带单双引号之类的之定义参数，否则会报错
+      String passback_params   = "公用回传参数测试123#34！";
+      String passback_params2 =URLEncoder.encode(passback_params,"UTF-8");
+
+      //    alipayRequest.setBizContent("{\\"out_trade_no\\":\\"201809251015343222843\\"," 
+//          + "\\"total_amount\\":\\"0.01\\"," 
+//          + "\\"subject\\":\\"app支付测试\\"," 
+//          + "\\"passback_params\\":\\""+ passback_params2 +"\\"," 
+//          + "\\"product_code\\":\\"QUICK_MSECURITY_PAY\\"}");
+       AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
+       model.setOutTradeNo("20181012015343222843");
+       model.setTotalAmount("0.01");
+       model.setSubject("app支付subject测试");
+       model.setPassbackParams(passback_params2);
+       model.setProductCode("QUICK_MSECURITY_PAY");
+       alipayRequest.setBizModel(model);
+      AlipayTradeAppPayResponse response = alipayClient.sdkExecute(alipayRequest);
+      
+      if(response.isSuccess()){
+        System.out.println("调用成功");
+      } else {
+        System.out.println("调用失败");
+      }
+      String form = response.getBody();
+      mv.addObject("result",form);
+      mv.setViewName("alipay");
+      return mv;
     }
 //	/**
 //     * pc端同步通知
@@ -522,7 +525,7 @@ public class CommodityCtrl {
 //        
 //            //付款金额
 //            String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
-//            response.setContentType("text/html;charset=" + AlipayConfig.CHARSET); 
+//            response.setContentType("text/html;charset=" + .CHARSET); 
 //            System.err.println("-----------------out_trade_no:"+out_trade_no+"trade_no:"+trade_no+"total_amount:"+total_amount+"---------------------");
 //            map.put("alipayResult", "支付宝充值成功");
 //        }else {
