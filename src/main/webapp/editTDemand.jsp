@@ -13,7 +13,6 @@
 
 	<body>  
 	
-	<script type="text/javascript" src="<%=basePath%>/editTDemand.js"></script>
 	
 <form id="tDemandform" lay-filter="tDemandform" class="layui-form" style="margin-top: 5px">
 <input type="hidden" id="id" name="id" class="layui-input">

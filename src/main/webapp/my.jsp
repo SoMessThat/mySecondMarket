@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="./base.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,7 @@
 			</a>
       <ul class="layui-nav layui-nav-tree"  lay-filter="menu">
         <li class="layui-nav-item">
-    	    <a href="javascript:;" data-url="<%=request.getContextPath()%>/myInfo.jsp" data-id='0' data-text="我的信息">我的信息</a>
+    	    <a href="javascript:;" data-url="<%=request.getContextPath()%>/myInfo.jsp" data-id='0' data-text="我的信息">我的信息${ sessionScope.user.isAdmin}</a>
         </li>
         <li class="layui-nav-item">
           <a href="javascript:;" data-url="<%=request.getContextPath()%>/tCommodity.jsp" data-id='1' data-text="我上架的商品">我上架的商品</a>
@@ -38,9 +39,11 @@
 			      <dd><a href="javascript:;"  data-url="<%=request.getContextPath()%>/myAttention.jsp" data-id='5' data-text="我的关注">我的关注</a></dd>
 			    </dl>
         </li>
+        	<c:if test="${userInfo.isAdmin != NULL && userInfo.isAdmin == 1}">
         <li class="layui-nav-item">
     	    <a href="javascript:;" data-url="<%=request.getContextPath()%>/tAnnouncement.jsp" data-id='6' data-text="公告信息">公告信息</a>
         </li>
+			</c:if>
       </ul>
     </div>
 <div class="main-layout-container">

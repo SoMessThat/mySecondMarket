@@ -32,7 +32,7 @@ with(document)with(body)with(insertBefore(createElement("script"),firstChild))se
 	<div class="idle-header-wrap">
 		<div class="idle-header" id="J_IdleHeader">
 			<h1 class="idle-logo">
-				<a href="http://2.taobao.com" target="_top"><img
+				<a href="http://www.bemess.xyz/mySecondMarket/index.jsp" target="_top"><img
 					src="//img.alicdn.com/tps/i3/TB1ys1sHVXXXXcrXVXXL_ZfHFXX-208-46.png"
 					alt="闲鱼" width="208" height="46" /></a>
 			</h1>
@@ -40,7 +40,7 @@ with(document)with(body)with(insertBefore(createElement("script"),firstChild))se
 			<div class="idle-nav">
 				<div class="idle-menu">
 					<ul>
-						<li class="m-home"><a href="//2.taobao.com/">首页</a></li>
+						<li class="m-home"><a href="http://www.bemess.xyz/mySecondMarket/index.jsp">首页</a></li>
 					</ul>
 				</div>
 
@@ -49,7 +49,7 @@ with(document)with(body)with(insertBefore(createElement("script"),firstChild))se
 					<ul>
 						<li><a class="pub-overlay-btn">发布闲置</a></li>
 						<li id="J_IdleLi" class="my-idle-li"><a class="my-idle-link"
-							id="J_IdleLink" href="//trade.2.taobao.com">我的闲置</a></li>
+							id="J_IdleLink" href="http://www.bemess.xyz/mySecondMarket/my.jsp">我的闲置</a></li>
 					</ul>
 				</div>
 			</div>
@@ -200,16 +200,6 @@ with(document)with(body)with(insertBefore(createElement("script"),firstChild))se
 										<span class="tit"></span> <strong class="desc">经支付宝核实会员身份和银行账户信息,真实可靠。</strong>
 									</div>
 								</div>
-							</div>
-							<div id="J_OtherIdles" data-spm="2007.1000338.6"
-								class="idle-box other-idles"
-								data-url="//2.taobao.com/itemref/more_onsale.htm?userNick=%BF%C9%B0%AE%CC%EC%CA%B9%C8%CE&id=584816873266">
-								<h4>
-									卖家的其它闲置<span class="total"></span>
-								</h4>
-								<a href="//s.2.taobao.com/list/list.htm?usernick=可爱天使任"
-									target="_blank" class="more">更多</a>
-								<div class="entity loading"></div>
 							</div>
 						</div>
 					</div>

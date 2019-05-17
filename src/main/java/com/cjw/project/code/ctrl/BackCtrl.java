@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cjw.project.code.po.UserPO;
 import com.cjw.project.code.service.UserService;
 import com.cjw.project.tool.util.ObjectUtil;
+import com.cjw.project.tool.util.UUIDUtil;
 import com.cjw.project.tool.util.code.MD5;
 import com.cjw.project.tool.web.MysqlDBException;
 import com.cjw.project.tool.web.WebContext;
@@ -32,8 +33,8 @@ public class BackCtrl{
 	@RequestMapping(value = "/index")
 	public ModelAndView login(HttpServletRequest request ){
 		ModelAndView mv = new ModelAndView();
-		String account = request.getParameter("TPL_username");
-		String password = request.getParameter("TPL_password");
+		String account = request.getParameter("username");
+		String password = request.getParameter("p");
 //		Long loginTime = Long.parseLong(request.getParameter("loginTime"));
 		if (ObjectUtil.isEmpty(account)) {
 			mv.addObject("erro", "账号不能为空");
@@ -58,17 +59,12 @@ public class BackCtrl{
 		try {
 			UserPO TUserPO=TuserService.getTUserByParam(user);
 			if(!ObjectUtil.isEmpty(TUserPO)){
-//				TUserPO.setLastTime(loginTime);
+				TUserPO.setLastTime(System.currentTimeMillis());
 				TuserService.updateTUser(TUserPO);
-				if (TUserPO.getIsAdmin()==1) {
 					mv.addObject("user", TUserPO);
 					HttpSession session = request.getSession();
 					session.setAttribute("user", TUserPO);
 					mv.setViewName("index");
-				}
-				else {
-					mv.setViewName("usermain");
-				}
 				System.out.println(TUserPO);
 				WebContext.setSessionAttribute("userInfo", TUserPO);
 			}else{
@@ -91,6 +87,37 @@ public class BackCtrl{
 	public ModelAndView main() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("login");
+		return mv;
+	}
+	
+	/**
+	 * 验证	
+	 * @createTime: 2018年10月10日 上午9:29:48
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/register")
+	public ModelAndView register(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		String account = request.getParameter("user");
+		String passwd = request.getParameter("passwd");
+		UserPO user = new UserPO();
+		user.setPassword(MD5.MD5Encode(passwd));
+		user.setUsername(account);
+		user.setAccount(account);
+		user.setId(UUIDUtil.getUUID());
+		user.setIsAdmin(0);
+		user.setState(0);
+		user.setLastTime(System.currentTimeMillis());
+		user.setCreatTime(System.currentTimeMillis());
+		try {
+			TuserService.addTUser(user);
+		} catch (MysqlDBException e) {
+			e.printStackTrace();
+		}
+		HttpSession session = request.getSession();
+		session.setAttribute("userInfo", user);
+		mv.setViewName("index");
 		return mv;
 	}
 	

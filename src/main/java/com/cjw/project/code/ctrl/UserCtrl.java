@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -208,6 +209,10 @@ public class UserCtrl {
 
 		try {
 			tUserService.updateTUser(condition);
+			UserPO user = tUserService.getTUserById(condition.getId());
+			HttpSession session = request.getSession();
+			session.setAttribute("userInfo", user);
+			WebContext.setSessionAttribute("userInfo", user);
 		} catch (MysqlDBException e) {
 			response.setError("网络连接失败，请检查网络");
 			return response;

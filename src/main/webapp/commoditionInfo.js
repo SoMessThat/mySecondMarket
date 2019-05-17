@@ -1,8 +1,9 @@
 layui.use(['jquery','layer'], function(){
 	var $ = jQuery = layui.$,
 	 	layer = layui.layer;
-//初始化评论列表
-		 $.ajax({
+	//初始化评论列表
+	function intiMessage(){
+		$.ajax({
 			url:BASE_PATH+'/TCommodity/queryMessage.do?commodityId='+$('#commodity').val(),
 			type:'get',
 			dataType:'json',
@@ -13,7 +14,7 @@ layui.use(['jquery','layer'], function(){
 				for(var i=0;i<data.data.length;i++){
 					message(data.data[i]);
 				}
-		 		$("#mydiv").append(str);
+				$("#mydiv").append(str);
 			}
 		});
 		$.ajax({
@@ -27,6 +28,8 @@ layui.use(['jquery','layer'], function(){
 				$("#count2").html(data.data.messageNum);
 			}
 		});
+	}
+	intiMessage();
  //展示与隐藏回复框
 	window.openGW = function(id){
 		if($(id).text()=="回复"){
@@ -139,6 +142,8 @@ layui.use(['jquery','layer'], function(){
 			},
 			success:function (res) {
 				$("#context"+e.id).val('');
+				$("#mydiv").html('');
+				intiMessage();
 			}
 		});
 	}
@@ -158,6 +163,8 @@ layui.use(['jquery','layer'], function(){
 			},
 			success:function (res) {
 				$("#context").val('');
+				$("#mydiv").html('');
+				intiMessage();
 			}
 		});
 	});

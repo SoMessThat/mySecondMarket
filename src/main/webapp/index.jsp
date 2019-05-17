@@ -23,13 +23,19 @@
 
 <link rel="stylesheet" href="<%=basePath%>/css/index3.css">
 <link rel="stylesheet" href="<%=basePath%>/css/index-card.css">
+<style type="text/css">
 
+.banner-wrap{width:100%;height:354px;background-color:#ffd84d;margin-bottom:30px
+}
+.main-wrap{height:100%;width:1040px;margin:0 auto;position:relative;background-image:url('<%=basePath%>/images/head.png')
+}
+</style>
 <style>
 .mask {
 	position: fixed;
 	left:100%;
-	height: 40%;
-	width:20%;
+	height: 80%;
+	width:25%;
 /* 	background: url("images/4772e66619c0f19b5b4d21b132b4a717.jpg")  no-repeat scroll center; */
 	z-index: 1001;
 }
@@ -195,7 +201,7 @@
 
 	<div class="main">
 		<div data-v-3fb25ee8="" class="banner-wrap">
-			<div data-v-3fb25ee8="" class="main-wrap">
+			<div class="main-wrap" style="background-image: <%=basePath%>/images/head.png">
 				<div data-v-5aeb7472="" data-v-3fb25ee8="" class="navbar-wrap">
 					<img src="<%=basePath%>/images/SecondMarketLogo.png"
 						class="logo">
@@ -233,7 +239,7 @@
 						</div>
 					</div>
 				</div>
-				<div data-v-60ebec27="" data-v-3fb25ee8="" class="usercard-wrap">
+				<div data-v-60ebec27="" data-v-3fb25ee8="" class="usercard-wrap"><a href="<%=basePath%>/my.jsp">
 					<div data-v-60ebec27="" class="logined">
 						<div data-v-60ebec27="" class="user-info">
 							<div data-v-60ebec27="" class="head">
@@ -275,6 +281,7 @@
 							</div>
 						</div>
 					</div>
+					</a>
 				</div>
 				<script type="text/javascript">
 			 	  layui.use('jquery', function(){
@@ -372,8 +379,7 @@
 			<div data-v-e288e42c="" class="bottom-wrap">
 				<div data-v-e288e42c="" class="bottom-main">
 					<img data-v-e288e42c="" src="<%=basePath%>/images/logo2.png"
-						class="bottom-logo"> <img data-v-e288e42c=""
-						src="<%=basePath%>/images/logo3.png" class="bottom-desc">
+						class="bottom-logo"> 
 					<div data-v-e288e42c="" class="bottom-download">
 						<div data-v-e288e42c="" class="download-w"
 							style="margin-right: 5px;">
@@ -469,16 +475,10 @@
 		src="//img.alicdn.com/tps/i4/T1pkSfXexkXXXXXXXX-1-1.gif?tracer=20120918-90-771">
 	<!-- <script src='//w.cnzz.com/c.php?id=30057895' ></script> -->
 	<div class="mask" style="left: 0px;" onclick="hide(this)">
-		<img id="lt" src="/2.jpg" style="width: 100%;height: 100%;" />
+		<img id="lt" style="width: 100%;height: 100%;" />
 	</div>
-	<div class="mask" style="left: 0px;bottom: 0;" onclick="hide(this)">
-		<img id="lb" src="/2.jpg" style="width: 100%;height: 100%;" />
-	</div>
-	<div class="mask" style="left: 80%;" onclick="hide(this)">
-		<img id="rt" src="/2.jpg" style="width: 100%;height: 100%;" />
-	</div>
-	<div class="mask" style="left: 80%;bottom: 0;" onclick="hide(this)">
-		<img id="rb" src="/2.jpg" style="width: 100%;height: 100%;" />
+	<div class="mask" style="left: 75%;" onclick="hide(this)">
+		<img id="rt" style="width: 100%;height: 100%;" />
 	</div>
 </body>
 </html>

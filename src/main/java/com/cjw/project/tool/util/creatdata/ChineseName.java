@@ -146,5 +146,14 @@ public class ChineseName {
 		
 		return name.toString();
     }
-    
+    private static String[] code=("0,1,2,3,4,5,6,7,8,9").split(",");
+    public static String get6Code() {
+    	String code1=code[getNum(0,code.length-1)]+code[getNum(0,code.length-1)]+
+	    			code[getNum(0,code.length-1)]+code[getNum(0,code.length-1)]+
+	    			code[getNum(0,code.length-1)]+code[getNum(0,code.length-1)];
+    	return code1;
+    }
+    public static void main(String[] args) {
+    	System.out.println(get6Code());
+	}
 }
