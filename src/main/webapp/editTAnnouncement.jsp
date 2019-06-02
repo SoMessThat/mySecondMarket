@@ -29,7 +29,12 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">图片</label>
 		<div class="layui-input-block">
-			<input id="pictureId" name="pictureId" class="layui-input">
+			<div style="float: left; width: 150px;height: 150px" align="center">
+				<div class="layui-inline">
+	  				<img id="img" src="/1.jpg" class="layui-circle" style="width: 130px;height: 130px">
+				</div>
+			</div>
+			<input style="display: none;" id="pictureId" name="pictureId" class="layui-input">
 		</div>
 	</div>
 	<div class="layui-form-item">
@@ -46,8 +51,22 @@
 	<script type="text/javascript">
 	layui.use(['form','laydate'], function(){
         var laydate = layui.laydate,
+        $ = layui.$;
         	form = layui.form; 
         form.render();
+        layui.use(['upload','layer'],function() {
+			var upload = layui.upload;
+			var layer=layui.layer;
+	 
+			upload.render({
+			    elem: '#img'
+			    ,url: BASE_PATH+'/TUser/upload.do'
+			    ,multiple: false
+			    ,done: function(res){
+			    	$('#img').attr("src",res.data.avatar);
+			    }
+			  });
+		});
 	 }); 
 	</script>
 </body>

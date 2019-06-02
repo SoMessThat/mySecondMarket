@@ -21,7 +21,7 @@
 			</a>
       <ul class="layui-nav layui-nav-tree"  lay-filter="menu">
         <li class="layui-nav-item">
-    	    <a href="javascript:;" data-url="<%=request.getContextPath()%>/myInfo.jsp" data-id='0' data-text="我的信息">我的信息${ sessionScope.user.isAdmin}</a>
+    	    <a href="javascript:;" data-url="<%=request.getContextPath()%>/myInfo.jsp" data-id='0' data-text="我的信息">我的信息</a>
         </li>
         <li class="layui-nav-item">
           <a href="javascript:;" data-url="<%=request.getContextPath()%>/tCommodity.jsp" data-id='1' data-text="我上架的商品">我上架的商品</a>

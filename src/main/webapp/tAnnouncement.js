@@ -6,6 +6,7 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	  	  laypage=layui.laypage,
 	  	  form = layui.form,
 	  	  $ = layui.$;
+	 
 	  laydate.render({
 		  elem: '#creatTime',
 		  done: function(value, date, endDate){
@@ -116,6 +117,7 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 								body.find("input#titlle").val(data.data.titlle);
 								body.find("input#content").val(data.data.content);
 								body.find("input#pictureId").val(data.data.pictureId);
+								body.find("#img").attr('src',data.data.pictureId);
 								body.find("#state").val(data.data.state);
 								dialogform.render(); 
 			    	                
@@ -143,7 +145,7 @@ layui.use(['layer', 'table','element','form','laydate'], function(){
 	    	    			  tAnnouncement_id:body.find("input#id").val(),
 	    	    			  tAnnouncement_titlle:body.find("input#titlle").val(),
 	    	    			  tAnnouncement_content:body.find("input#content").val(),
-	    	    			  tAnnouncement_pictureId:body.find("input#pictureId").val(),
+	    	    			  tAnnouncement_pictureId:body.find("#img").attr("src"),
 	    	    			  tAnnouncement_state:body.find("select#state").val()
 	    	    			},
 	    	    		  dataType:'json',
