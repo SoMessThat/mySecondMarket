@@ -63,11 +63,11 @@
       </td>
     </tr>
      <tr>
-      <td>价格</td>
+      <td>原价</td>
       <td>
    	  <input type="text" id="prix" name="prix" placeholder="" class="layui-input" >
       </td>
-      <td>原价</td>
+      <td>价格</td>
       <td>
    	  <input type="text" id="secprix" name="secprix" placeholder="" class="layui-input" >
       </td>

@@ -302,8 +302,8 @@ public class UserCtrl {
 			String uuid = UUIDUtil.getSortUUID();
 			String newName = uuid + extName;
 			// 4.获取要保存的路径文件夹
-			String realPath = "E:/images";
-//			String realPath = "/secondImages";
+//			String realPath = "E:/images";
+			String realPath = "/secondImages";
 			// 5.保存图片
 			desFilePath = realPath + "/" + newName;
 			File desFile = new File(desFilePath);
