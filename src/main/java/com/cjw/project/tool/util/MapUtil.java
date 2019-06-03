@@ -12,10 +12,6 @@ public class MapUtil {
 	public static String GetLocationMsg(double latitude,double longitude){
 
 		String message = "";
-//		String ak="T2nwphiIpi2QRUbdmLTQf8z1e3SP2Wgc";
-//		String url = String.format(
-//						"http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=%s,%s&output=json&pois=1&latest_admin=1&ak=%s",
-//						latitude,longitude,ak);
 		String key="ee5ca956120c2a332e9ed8ca25d01ab5";
 		String url = String.format(
 				"https://restapi.amap.com/v3/geocode/regeo?output=json&location=%s,%s&key=%s",
